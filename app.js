@@ -30,8 +30,10 @@ pool.connect();
 
 /*Routes*/
 app.get('/foodAPI', (req, res) => {
+    var item = req.query.item;
+    console.log(item);
     request(
-        {url: 'https://shelf-life-api.herokuapp.com/search?q=onion'},
+        {url: 'https://shelf-life-api.herokuapp.com/search?q=' + item},
         (error, response, body) => {
             if (error || response.statusCode !== 200) {
                 return res.status(500).json({ type: 'error', message: error.message});
