@@ -6,11 +6,19 @@ function HomePage() {
       <p>Ping Project</p>
       <a
         className="App-link"
-        href="https://reactjs.org"
+        href="/inventory"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Start here
+        Inventory
+      </a>
+      <a
+        className="App-link"
+        href="/tips"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        tips
       </a>
       this is a email form
     </div>
