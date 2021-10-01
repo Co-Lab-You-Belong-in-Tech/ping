@@ -48,7 +48,13 @@ app.get('/', function(req, res) {
 });
 
 app.get('/getUser', function(req, res) {
-    res.send("Get User");
+    var context = {};
+    pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], function (err, rows, fields, rowCount) {
+        console.log(rows);
+        let string = JSON.stringify(rows);
+        res.send(string);
+    });
+    //res.send("Get User");
 });
 
 app.get('/getItems', function(req, res) {
