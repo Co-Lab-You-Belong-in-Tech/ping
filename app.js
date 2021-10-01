@@ -29,7 +29,7 @@ const pool = new Client({
 pool.connect();
 
 /*Routes*/
-app.get('/foodAPI', (req, res) => {
+app.get('/searchItem', (req, res) => {
     var item = req.query.item;
     console.log(item);
     request(
