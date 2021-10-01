@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const IMAGE_URL = "https://spoonacular.com/cdn/ingredients_250x250/";
-const SEARCH_URL = "https://shelf-life-api.herokuapp.com/search";
+const SEARCH_URL =
+  "https://cors-anywhere.herokuapp.com/https://shelf-life-api.herokuapp.com/search";
 
 /*  the search_url always show cors error i dont know what to do
  */
@@ -29,7 +30,7 @@ function Tips() {
 
       <img src={`${IMAGE_URL}/${name}`} alt={name} />
       <h2>Did you know?</h2>
-      <h3>{details}</h3>
+      <h3>{details} tips supposed to be here but cors error</h3>
       <button>MARK US USED</button>
     </div>
   );
