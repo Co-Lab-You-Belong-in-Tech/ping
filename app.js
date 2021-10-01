@@ -29,7 +29,7 @@ const pool = new Client({
 pool.connect();
 
 /*Routes*/
-app.get('/foodAPI', (req, res) => {
+app.get('/searchItem', (req, res) => {
     var item = req.query.item;
     console.log(item);
     request(
@@ -43,30 +43,41 @@ app.get('/foodAPI', (req, res) => {
     )
 });
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     res.send("Test");
 });
 
-app.get('/getUser', function(req, res) {
+app.get('/getUser', (req, res) => {
     var context = {};
     pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], function (err, rows, fields, rowCount) {
         console.log(rows);
         let string = JSON.stringify(rows);
         res.send(string);
     });
-    //res.send("Get User");
 });
 
-app.get('/getItems', function(req, res) {
-    res.send("Get Items");
+app.get('/getList', (req, res) => {
+    pool.query('SELECT * FROM items', function (err, rows, fields, rowCount) {
+        console.log(rows);
+        let string = JSON.stringify(rows);
+        res.send(string);
+    });
 });
 
-app.post('/addItem', function(req, res){
-    res.send("Add Items");
+app.get('/getInventory', (req, res) => {
+    pool.query('SELECT inv.*, itm.item_name FROM inventory inv LEFT JOIN items itm ON inv.item_id = itm.item_id WHERE user_id=$1', [req.query.user_id], function (err, rows, fields, rowCount) {
+        console.log(rows);
+        let string = JSON.stringify(rows);
+        res.send(string);
+    });
 });
 
-app.post('/editItem', function(req, res, next) {
-    res.send("Edit Item");
+app.post('/addItem', (req, res, next) => {
+    //res.send("Add Items");
+});
+
+app.post('/editItem', (req, res, next) => {
+    //res.send("Edit Item");
 });
 
 /*Utils*/
