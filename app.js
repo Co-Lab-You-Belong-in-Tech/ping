@@ -1,12 +1,18 @@
 /*Setup*/
 var express = require('express');
 var app = express();
+var request = require('request');
 
 var handlebars = require('express-handlebars').create({
     defaultLayout: 'other'
 });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 
 /*Database*/
 const {
@@ -23,6 +29,18 @@ const pool = new Client({
 pool.connect();
 
 /*Routes*/
+app.get('/foodAPI', (req, res) => {
+    request(
+        {url: 'https://shelf-life-api.herokuapp.com/search?q=onion'},
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({ type: 'error', message: error.message});
+            }
+            res.json(JSON.parse(body));
+        }
+    )
+});
+
 app.get('/', function(req, res) {
     res.send("Test");
 });
