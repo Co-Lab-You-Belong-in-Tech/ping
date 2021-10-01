@@ -43,6 +43,20 @@ app.get('/searchItem', (req, res) => {
     )
 });
 
+app.get('/getDetails', (req, res) => {
+    var query_id = req.query.query_id;
+    console.log(query_id);
+    request(
+        {url: 'https://shelf-life-api.herokuapp.com/guides/' + query_id},
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({ type: 'error', message: error.message});
+            }
+            res.json(JSON.parse(body));
+        }
+    )
+});
+
 app.get('/', function(req, res) {
     res.send("Test");
 });
