@@ -105,7 +105,8 @@ app.post('/editItem', (req, res, next) => {
 
 /*Utils*/
 const addDate = (input_date, expiry_time) => {
-    var expiry_date = input_date + expiry_time;
+    const copy = new Date(Number(input_date));
+    var expiry_date = copy.setDate(date.getDate() + expiry_time);
     console.log(expiry_date);
     return expiry_date
 }
