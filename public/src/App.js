@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "./pages/home";
 import Tips from "./pages/tips";
 import Inventory from "./pages/inventory";
+import SearchPage from "./pages/search";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route path="/inventory" exact>
             <Inventory />
+          </Route>
+          <Route path="/search" exact>
+            <SearchPage />
           </Route>
         </Switch>
       </BrowserRouter>
