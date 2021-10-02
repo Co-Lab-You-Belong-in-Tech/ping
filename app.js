@@ -29,11 +29,25 @@ const pool = new Client({
 pool.connect();
 
 /*Routes*/
-app.get('/foodAPI', (req, res) => {
+app.get('/searchItem', (req, res) => {
     var item = req.query.item;
     console.log(item);
     request(
         {url: 'https://shelf-life-api.herokuapp.com/search?q=' + item},
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({ type: 'error', message: error.message});
+            }
+            res.json(JSON.parse(body));
+        }
+    )
+});
+
+app.get('/getDetails', (req, res) => {
+    var query_id = req.query.query_id;
+    console.log(query_id);
+    request(
+        {url: 'https://shelf-life-api.herokuapp.com/guides/' + query_id},
         (error, response, body) => {
             if (error || response.statusCode !== 200) {
                 return res.status(500).json({ type: 'error', message: error.message});
