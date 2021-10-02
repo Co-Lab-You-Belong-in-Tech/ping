@@ -89,13 +89,14 @@ app.get('/getInventory', (req, res) => {
 app.post('/addItem', (req, res, next) => {
     var expiry_time = Math.round(req.query.expiry_time / (60*60*24));
     var expiry_date = addDate(req.query.input_date, expiry_time);
-    pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
+    /*(pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
         [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date],
         function (err, result) {
             let string = JSON.stringify(result);
             res.send(string);
         }
-    );
+    );*/
+    res.send("Success");
 });
 
 app.post('/editItem', (req, res, next) => {
