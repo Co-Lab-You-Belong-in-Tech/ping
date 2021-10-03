@@ -5,12 +5,14 @@ function SearchPage() {
   const [veggie, setVeggie] = useState([]);
   const [text, setText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [veggieID, setVeggieID] = useState([""]);
+
   useEffect(() => {
     async function getVeggie() {
       const { data } = await axios.get(
         "https://food-ping.herokuapp.com/searchItem", // i need a route to provide same data as https://shelf-life-api.herokuapp.com/search
         {
-          params: { item: "apple" },
+          params: { item: "fresh" },
         }
       );
       console.log(data);
@@ -32,10 +34,15 @@ function SearchPage() {
     setText(text);
   };
 
-  const onSuggestHandler = (text) => {
+  const onSuggestHandler = (text, id) => {
     setText(text);
+    setVeggieID(id);
     setSuggestions([]);
   };
+  console.log(veggieID);
+
+  /** we get the veggigID and search  */
+
   return (
     <div>
       this is search page
@@ -48,7 +55,7 @@ function SearchPage() {
         suggestions.map((suggestion) => (
           <div
             key={suggestion.id}
-            onClick={() => onSuggestHandler(suggestion.name)}
+            onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
           >
             {suggestion.id}--{suggestion.name}
           </div>
