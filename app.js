@@ -79,7 +79,8 @@ app.get('/getList', (req, res) => {
 });
 
 app.get('/getInventory', (req, res) => {
-    pool.query('SELECT inv.*, itm.item_name FROM inventory inv LEFT JOIN items itm ON inv.item_id = itm.item_id WHERE user_id=$1', [req.query.user_id], function (err, rows, fields, rowCount) {
+    pool.query('SELECT inv.*, itm.item_name FROM inventory inv LEFT JOIN items itm ON inv.item_id = itm.item_id WHERE user_id=$1', 
+        [req.query.user_id], function (err, rows, fields, rowCount) {
         console.log(rows);
         let string = JSON.stringify(rows);
         res.send(string);
@@ -90,13 +91,13 @@ app.post('/addItem', (req, res, next) => {
     var expiry_time = Math.round(req.query.expiry_time / (60*60*24));
     var expiry_date = addDate(req.query.input_date, expiry_time);
     console.log(expiry_date);
-    /*(pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
+    pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
         [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date],
         function (err, result) {
             let string = JSON.stringify(result);
             res.send(string);
         }
-    );*/
+    );
     res.send("Success");
 });
 
@@ -112,8 +113,6 @@ const addDate = (input_date, expiry_time) => {
     console.log("Expiry Date: ", expiry_date);
     return expiry_date;
 }
-
-addDate("2021-09-20", 3);
 
 /*Error Handling*/
 
