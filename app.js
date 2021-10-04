@@ -63,11 +63,25 @@ app.get('/', function(req, res) {
 
 app.get('/getUser', async (req, res) => {
     try {
-        await pool.query('SELECT * FROM users WHERE user_id=$1', 
-            [req.query.user_id], function (err, rows, fields, rowCount) {
-            console.log(rows);
-            console.log(rows.rows);
-            let string = JSON.stringify(rows);
+        await pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], 
+            function (err, result, fields, rowCount) {
+                console.log(result);
+                console.log(result.rows);
+                let string = JSON.stringify(result.rows);
+                res.send(string);
+            }
+        );
+    } catch (err) {
+        console.error(err);
+        res.send("Error: " + err);
+    }
+});
+
+app.get('/getList', async (req, res) => {
+    try {
+        await pool.query('SELECT * FROM items', function (err, result, fields, rowCount) {
+            console.log(result);
+            let string = JSON.stringify(result.rows);
             res.send(string);
         });
     } catch (err) {
@@ -76,26 +90,23 @@ app.get('/getUser', async (req, res) => {
     }
 });
 
-app.get('/getList', (req, res) => {
-    pool.query('SELECT * FROM items', function (err, rows, fields, rowCount) {
-        console.log(rows);
-        let string = JSON.stringify(rows);
-        res.send(string);
-    });
-});
-
-app.get('/getInventory', (req, res) => {
-    pool.query('SELECT inv.*, itm.item_name FROM inventory inv LEFT JOIN items itm ON inv.item_id = itm.item_id WHERE user_id=$1', 
-        [req.query.user_id], function (err, rows, fields, rowCount) {
-        console.log(rows);
-        let string = JSON.stringify(rows);
-        res.send(string);
-    });
+app.get('/getInventory', async (req, res) => {
+    try {
+        await pool.query('SELECT inv.*, itm.item_name FROM inventory inv LEFT JOIN items itm ON inv.item_id = itm.item_id WHERE user_id=$1', 
+            [req.query.user_id], function (err, result, fields, rowCount) {
+            console.log(result);
+            let string = JSON.stringify(result.rows);
+            res.send(string);
+        });
+    } catch (err) {
+        console.error(err);
+        res.send("Error: " + err);
+    }
 });
 
 app.post('/addItem', (req, res, next) => {
-    var expiry_time = Math.round(req.query.expiry_time / (60*60*24));
-    var expiry_date = addDate(req.query.input_date, expiry_time);
+    var expiry_time = Math.round(req.query.expiry_time / (60*60*24)); //converts expiry_time in seconds to days (rounded)
+    var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
     console.log(expiry_date);
     pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
         [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date],
