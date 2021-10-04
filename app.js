@@ -61,13 +61,19 @@ app.get('/', function(req, res) {
     res.send("Test");
 });
 
-app.get('/getUser', (req, res) => {
-    var context = {};
-    pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], function (err, rows, fields, rowCount) {
-        console.log(rows);
-        let string = JSON.stringify(rows);
-        res.send(string);
-    });
+app.get('/getUser', async (req, res) => {
+    try {
+        await pool.query('SELECT * FROM users WHERE user_id=$1', 
+            [req.query.user_id], function (err, rows, fields, rowCount) {
+            console.log(rows);
+            console.log(rows.rows);
+            let string = JSON.stringify(rows);
+            res.send(string);
+        });
+    } catch (err) {
+        console.error(err);
+        res.send("Error: " + err);
+    }
 });
 
 app.get('/getList', (req, res) => {
