@@ -85,7 +85,7 @@ app.get('/getUser', async (req, res) => {
 
 app.get('/getList', async (req, res) => {
     try {
-        await pool.query('SELECT * FROM items', function (err, result, fields, rowCount) {
+        await pool.query('SELECT DISTINCT (item_name) FROM inventory', function (err, result, fields, rowCount) {
             console.log(result);
             let string = JSON.stringify(result.rows);
             res.send(string);
@@ -98,7 +98,7 @@ app.get('/getList', async (req, res) => {
 
 app.get('/getInventory', async (req, res) => {
     try {
-        await pool.query('SELECT inv.*, itm.item_name FROM inventory inv LEFT JOIN items itm ON inv.item_id = itm.item_id WHERE user_id=$1', 
+        await pool.query('SELECT * FROM inventory WHERE user_id=$1', 
             [req.query.user_id], function (err, result, fields, rowCount) {
             console.log(result);
             let string = JSON.stringify(result.rows);
@@ -129,10 +129,10 @@ app.post('/addItem', async (req, res, next) => {
         //console.log("Input Date: " + req.query.input_date);
         var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
         //console.log(expiry_date);
-        //var expiry_date_modified = expiry_date.toString().split('T')[0];
-        //console.log(expiry_date_modified);
-        await pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date, query_id) VALUES ($1, $2, $3, $4, $5, $6)',
-            [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date, expiry_date, req.query.query_id],
+        var amount_used = 0; //default amount used to 0
+        var tag = "not expired"; //default tag to not expired
+        await pool.query('INSERT INTO inventory (item_name, user_id, original_amount, amount_used, input_date, expiry_date, tag, query_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+            [req.query.item_name, req.query.user_id, req.query.original_amount, amount_used, req.query.input_date, expiry_date, tag, req.query.query_id],
             function (err, result) {
                 let string = JSON.stringify(result);
                 res.send(string);
@@ -170,11 +170,9 @@ const addDate = (input_date, expiry_time) => {
     const current_date = new Date(input_date);
     //console.log("Input Date: " + current_date);
     const new_date = current_date.setDate(current_date.getDate() + expiry_time);
-    //console.log("New Date: " + new_date);
     const expiry_date = new Date(new_date);
-    //console.log("Expiry Date: ", expiry_date);
     const expiry_date_formatted = expiry_date.toISOString().split('T')[0];
-    console.log("Expiry Date Formatted: " + expiry_date_formatted)
+    console.log("Expiry Date Formatted: " + expiry_date_formatted);
     return expiry_date_formatted;
 }
 
