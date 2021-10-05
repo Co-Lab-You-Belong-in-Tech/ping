@@ -118,7 +118,7 @@ app.post('/addUser', async (req, res, next) => {
 
 app.post('/addItem', async (req, res, next) => {
     try {
-        var expiry_time = Math.round(req.query.expiry_time / (60*60*24)); //converts expiry_time in seconds to days (rounded)
+        var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
         var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
         console.log(expiry_date);
         pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
@@ -139,9 +139,16 @@ app.post('/editItem', (req, res, next) => {
 });
 
 /*Utils*/
+const convertDate = (expiry_time) => {
+    var shelf_life = Math.round(expiry_time / (60*60*24));
+    return shelf_life;
+}
+
 const addDate = (input_date, expiry_time) => {
-    const current_date = new Date(input_date)
+    const current_date = new Date(input_date);
+    console.log("Input Date: " + current_date);
     const new_date = current_date.setDate(current_date.getDate() + expiry_time);
+    console.log("New Date: " + new_date);
     const expiry_date = new Date(new_date);
     console.log("Expiry Date: ", expiry_date);
     return expiry_date;
