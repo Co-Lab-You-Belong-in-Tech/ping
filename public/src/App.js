@@ -11,12 +11,12 @@ import UserContext from "./UserContext"; //"create UserContext to store userID t
 function App() {
   const [user, setUser] = useState(1);
 
-  //const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <UserContext.Provider value={{ user, setUser() }}>
+      <UserContext.Provider value={value}>
+        <BrowserRouter>
           <Switch>
             <Route path="/" exact>
               <HomePage />
@@ -31,8 +31,8 @@ function App() {
               <SearchPage />
             </Route>
           </Switch>
-        </UserContext.Provider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </UserContext.Provider>
     </div>
   );
 }
