@@ -2,6 +2,7 @@
 var express = require('express');
 var app = express();
 var request = require('request');
+var schedule = require('node-schedule');
 
 var handlebars = require('express-handlebars').create({
     defaultLayout: 'other'
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH, OPTIONS');
     next();
 });
 
@@ -185,7 +187,9 @@ const checkAmount = (original_amount, amount_used) => {
 }
 
 //Create a function that checks and updates tag for expired items (once a day)
-
+var expiryCheck = schedule.scheduleJob('0 0 * * *', function() {
+    console.log("Testing scheduler.");
+});
 
 /*Error Handling*/
 
