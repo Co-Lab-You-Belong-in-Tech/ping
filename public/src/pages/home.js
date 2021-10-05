@@ -20,6 +20,14 @@ function HomePage() {
       >
         tips
       </a>
+      <a
+        className="App-link"
+        href="/search"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        search
+      </a>
       this is a email form
     </div>
   );

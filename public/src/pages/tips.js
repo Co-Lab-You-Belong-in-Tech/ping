@@ -3,25 +3,27 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const IMAGE_URL = "https://spoonacular.com/cdn/ingredients_250x250/";
-const SEARCH_URL = "https://food-ping.herokuapp.com/searchItem";
+//const SEARCH_URL = "https://food-ping.herokuapp.com/searchItem";
+const guide_URL = "https://food-ping.herokuapp.com/getDetails";
 
 /*  the search_url always show cors error i dont know what to do
  */
 
 function Tips() {
   const { name } = useParams();
+  const { id } = useParams();
   const [details, setDetails] = useState(null);
 
   useEffect(() => {
-    async function getID(name) {
-      const { data } = await axios.get(SEARCH_URL, {
-        params: { item: name },
+    async function getID(id) {
+      const { data } = await axios.get(guide_URL, {
+        params: { query_id: id },
       });
       console.log(data);
-      setDetails(data[0].id);
+      setDetails(data.tips);
     }
-    getID(name);
-  }, [name]);
+    getID(id);
+  }, []);
 
   return (
     <div>
@@ -29,7 +31,7 @@ function Tips() {
 
       <img src={`${IMAGE_URL}/${name}`} alt={name} />
       <h2>Did you know?</h2>
-      <h3>{details} </h3>
+      <p>{details}</p>
       <button>MARK US USED</button>
     </div>
   );

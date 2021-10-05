@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SingleItem from "../components/SingleItem";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -60,6 +61,8 @@ function SearchPage() {
             {suggestion.id}--{suggestion.name}
           </div>
         ))}
+      {text && veggieID && <SingleItem name={text} id={veggieID} />}
+      <button>Update Inventory</button>
     </div>
   );
 }
