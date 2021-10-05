@@ -41,6 +41,8 @@ app.get('/', function(req, res) {
     res.send("Test");
 });
 
+//Description: proxy for Still Tasty (Shelf-Life) API
+//Parameters: item (string)
 app.get('/searchItem', (req, res) => {
     var item = req.query.item;
     console.log(item);
@@ -55,6 +57,8 @@ app.get('/searchItem', (req, res) => {
     )
 });
 
+//Description: proxy for Still Tasty (Shelf-Life) API 
+//Parameters: query_id (int)
 app.get('/getDetails', (req, res) => {
     var query_id = req.query.query_id;
     console.log(query_id);
@@ -69,6 +73,8 @@ app.get('/getDetails', (req, res) => {
     )
 });
 
+//Description: get a user (determine if the user_id is present in the users table)
+//Parameters: user_id (int)
 app.get('/getUser', async (req, res) => {
     try {
         await pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], 
@@ -85,9 +91,11 @@ app.get('/getUser', async (req, res) => {
     }
 });
 
+//Description: get all the distinct items across all inventory
+//Parameters: None
 app.get('/getList', async (req, res) => {
     try {
-        await pool.query('SELECT DISTINCT (item_name) FROM inventory', function (err, result, fields, rowCount) {
+        await pool.query('SELECT DISTINCT (item_name) FROM inventory', function (err, result, fields, rowCount) { 
             console.log(result);
             let string = JSON.stringify(result.rows);
             res.send(string);
@@ -98,6 +106,8 @@ app.get('/getList', async (req, res) => {
     }
 });
 
+//Description: get a user's inventory
+//Parameters: user_id (int)
 app.get('/getInventory', async (req, res) => {
     try {
         await pool.query('SELECT * FROM inventory WHERE user_id=$1', 
@@ -112,9 +122,11 @@ app.get('/getInventory', async (req, res) => {
     }
 });
 
+//Description: create a new user
+//Parameters: None
 app.post('/addUser', async (req, res, next) => {
     try {
-        await pool.query('INSERT INTO users VALUES (default)', function (err, result) { //no parameters required, auto-increments user_id
+        await pool.query('INSERT INTO users VALUES (default)', function (err, result) { //auto-increments user_id
             let string = JSON.stringify(result);
             res.send(string);
         });
@@ -124,6 +136,8 @@ app.post('/addUser', async (req, res, next) => {
     }
 });
 
+//Description: add an item to a user's inventory
+//Parameters: item_name (varchar), user_id (int), original_amount (int), input_date (date), expiry_date (date), query_id (int)
 app.post('/addItem', async (req, res, next) => {
     try {
         console.log(req.query);
@@ -146,6 +160,8 @@ app.post('/addItem', async (req, res, next) => {
     }
 });
 
+//Description: edit the item to update the amount_used
+//Parameters: amount_used (int), user_id (int), item_id (int)
 app.put('/editItem', async (req, res, next) => {
     try {
         await pool.query('UPDATE inventory SET amount_used = $1 WHERE user_id = $2 AND item_id = $3', //apply user validation where amount_used <= original_amount
@@ -163,12 +179,14 @@ app.put('/editItem', async (req, res, next) => {
 });
 
 /*Utils*/
+//Description: convert the time in seconds to days
 const convertDate = (expiry_time) => {
     var shelf_life = Math.round(expiry_time / (60*60*24));
     //console.log("Shelf Life: " + shelf_life);
     return shelf_life;
 }
 
+//Description: adds the shelf life to the input date to calculate the expiry date
 const addDate = (input_date, expiry_time) => {
     const current_date = new Date(input_date);
     //console.log("Input Date: " + current_date);
@@ -179,14 +197,14 @@ const addDate = (input_date, expiry_time) => {
     return expiry_date_formatted;
 }
 
-//Apply tag check/update util function after updating amount_used
+//Description: check if all quantity is used, if so, update tag to finished
 const checkAmount = (original_amount, amount_used) => {
     if (original_amount === amount_used) {
         return 'finished';
     }
 }
 
-//Create a function that checks and updates tag for expired items (once a day)
+//Description: schedule a check to update the tag to expired if the expiry date is passed
 var expiryCheck = schedule.scheduleJob('0 0 * * *', function() {
     console.log("Testing scheduler.");
 });
