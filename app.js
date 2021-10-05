@@ -173,8 +173,7 @@ const addDate = (input_date, expiry_time) => {
     //console.log("New Date: " + new_date);
     const expiry_date = new Date(new_date);
     //console.log("Expiry Date: ", expiry_date);
-    const [month, day, year] = [expiry_date.getMonth(), expiry_date.getDate(), expiry_date.getFullYear()];
-    const expiry_date_formatted = year + "-" + month + "-" + day;
+    const expiry_date_formatted = expiry_date.toISOString().split('T')[0];
     console.log("Expiry Date Formatted: " + expiry_date_formatted)
     return expiry_date_formatted;
 }
