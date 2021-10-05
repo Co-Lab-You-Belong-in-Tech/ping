@@ -126,13 +126,13 @@ app.post('/addItem', async (req, res, next) => {
     try {
         console.log(req.query);
         var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
-        console.log("Input Date: " + req.query.input_date);
+        //console.log("Input Date: " + req.query.input_date);
         var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
-        console.log(expiry_date);
-        var expiry_date_modified = expiry_date.toString().split('T')[0];
-        console.log(expiry_date_modified);
+        //console.log(expiry_date);
+        //var expiry_date_modified = expiry_date.toString().split('T')[0];
+        //console.log(expiry_date_modified);
         await pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date, query_id) VALUES ($1, $2, $3, $4, $5, $6)',
-            [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date, expiry_date_modified, req.query.query_id],
+            [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date, expiry_date, req.query.query_id],
             function (err, result) {
                 let string = JSON.stringify(result);
                 res.send(string);
@@ -162,18 +162,21 @@ app.put('/editItem', async (req, res, next) => {
 /*Utils*/
 const convertDate = (expiry_time) => {
     var shelf_life = Math.round(expiry_time / (60*60*24));
-    console.log("Shelf Life: " + shelf_life);
+    //console.log("Shelf Life: " + shelf_life);
     return shelf_life;
 }
 
 const addDate = (input_date, expiry_time) => {
     const current_date = new Date(input_date);
-    console.log("Input Date: " + current_date);
+    //console.log("Input Date: " + current_date);
     const new_date = current_date.setDate(current_date.getDate() + expiry_time);
-    console.log("New Date: " + new_date);
+    //console.log("New Date: " + new_date);
     const expiry_date = new Date(new_date);
-    console.log("Expiry Date: ", expiry_date);
-    return expiry_date;
+    //console.log("Expiry Date: ", expiry_date);
+    const [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()];
+    const expiry_date_formatted = year + "-" + month + "-" + day;
+    console.log("Expiry Date Formatted: " + expiry_date_formatted)
+    return expiry_date_formatted;
 }
 
 /*Error Handling*/
