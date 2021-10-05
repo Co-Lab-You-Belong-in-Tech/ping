@@ -9,6 +9,12 @@ var handlebars = require('express-handlebars').create({
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({
+    extended: false
+  }));
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     next();
@@ -118,6 +124,7 @@ app.post('/addUser', async (req, res, next) => {
 
 app.post('/addItem', async (req, res, next) => {
     try {
+        console.log(req.query);
         var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
         console.log("Input Date: " + req.query.input_date);
         var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
