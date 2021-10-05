@@ -106,7 +106,7 @@ app.get('/getInventory', async (req, res) => {
 
 app.post('/addUser', async (req, res, next) => {
     try {
-        pool.query('INSERT INTO users VALUES (default)', function (err, result) {
+        await pool.query('INSERT INTO users VALUES (default)', function (err, result) {
             let string = JSON.stringify(result);
             res.send(string);
         });
@@ -119,9 +119,10 @@ app.post('/addUser', async (req, res, next) => {
 app.post('/addItem', async (req, res, next) => {
     try {
         var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
+        console.log("Input Date: " + req.query.input_date);
         var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
         console.log(expiry_date);
-        pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
+        await pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
             [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date],
             function (err, result) {
                 let string = JSON.stringify(result);
@@ -134,13 +135,25 @@ app.post('/addItem', async (req, res, next) => {
     }
 });
 
-app.post('/editItem', (req, res, next) => {
-    //res.send("Edit Item");
+app.put('/editItem', (req, res, next) => {
+    try {
+        await pool.query('UPDATE inventory SET amount_used = $1 WHERE user_id = $2 AND item_id = $3', 
+            [req.query.amount_used, req.query.user_id, req.query.item_id],
+            function (err, result) {
+                let string = JSON.stringify(result);
+                res.send(string);
+            }
+        );
+    } catch (err) {
+        console.error(err);
+        res.send("Error: " + err);
+    }
 });
 
 /*Utils*/
 const convertDate = (expiry_time) => {
     var shelf_life = Math.round(expiry_time / (60*60*24));
+    console.log("Shelf Life: " + shelf_life);
     return shelf_life;
 }
 
