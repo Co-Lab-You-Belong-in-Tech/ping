@@ -35,6 +35,10 @@ const pool = new Client({
 pool.connect();
 
 /*Routes*/
+app.get('/', function(req, res) {
+    res.send("Test");
+});
+
 app.get('/searchItem', (req, res) => {
     var item = req.query.item;
     console.log(item);
@@ -61,10 +65,6 @@ app.get('/getDetails', (req, res) => {
             res.json(JSON.parse(body));
         }
     )
-});
-
-app.get('/', function(req, res) {
-    res.send("Test");
 });
 
 app.get('/getUser', async (req, res) => {
@@ -130,7 +130,7 @@ app.post('/addItem', async (req, res, next) => {
         var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
         console.log(expiry_date);
         await pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date, query_id) VALUES ($1, $2, $3, $4, $5, $6)',
-            [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date, expiry_date.split('T')[0], req.query.query_id],
+            [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date, expiry_date.toString().split('T')[0], req.query.query_id],
             function (err, result) {
                 let string = JSON.stringify(result);
                 res.send(string);
