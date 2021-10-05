@@ -104,18 +104,34 @@ app.get('/getInventory', async (req, res) => {
     }
 });
 
-app.post('/addItem', (req, res, next) => {
-    var expiry_time = Math.round(req.query.expiry_time / (60*60*24)); //converts expiry_time in seconds to days (rounded)
-    var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
-    console.log(expiry_date);
-    pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
-        [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date],
-        function (err, result) {
+app.post('/addUser', async (req, res, next) => {
+    try {
+        pool.query('INSERT INTO users VALUES (default)', function (err, result) {
             let string = JSON.stringify(result);
             res.send(string);
-        }
-    );
-    res.send("Success");
+        });
+    } catch (err) {
+        console.error(err);
+        res.send("Error: " + err);
+    }
+});
+
+app.post('/addItem', async (req, res, next) => {
+    try {
+        var expiry_time = Math.round(req.query.expiry_time / (60*60*24)); //converts expiry_time in seconds to days (rounded)
+        var expiry_date = addDate(req.query.input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
+        console.log(expiry_date);
+        pool.query('INSERT INTO inventory (item_id, user_id, original_amount, input_date, expiry_date) VALUES ($1, $2, $3, $4, $5)',
+            [req.query.item_id, req.query.user_id, req.query.original_amount, req.query.input_date],
+            function (err, result) {
+                let string = JSON.stringify(result);
+                res.send(string);
+            }
+        );
+    } catch (err) {
+        console.error(err);
+        res.send("Error: " + err);
+    }
 });
 
 app.post('/editItem', (req, res, next) => {
