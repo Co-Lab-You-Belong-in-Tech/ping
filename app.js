@@ -112,7 +112,7 @@ app.get('/getInventory', async (req, res) => {
 
 app.post('/addUser', async (req, res, next) => {
     try {
-        await pool.query('INSERT INTO users VALUES (default)', function (err, result) {
+        await pool.query('INSERT INTO users VALUES (default)', function (err, result) { //no parameters required, auto-increments user_id
             let string = JSON.stringify(result);
             res.send(string);
         });
@@ -146,13 +146,14 @@ app.post('/addItem', async (req, res, next) => {
 
 app.put('/editItem', async (req, res, next) => {
     try {
-        await pool.query('UPDATE inventory SET amount_used = $1 WHERE user_id = $2 AND item_id = $3', 
+        await pool.query('UPDATE inventory SET amount_used = $1 WHERE user_id = $2 AND item_id = $3', //apply user validation where amount_used <= original_amount
             [req.query.amount_used, req.query.user_id, req.query.item_id],
             function (err, result) {
                 let string = JSON.stringify(result);
                 res.send(string);
             }
         );
+        //const tag = checkAmount()
     } catch (err) {
         console.error(err);
         res.send("Error: " + err);
@@ -175,6 +176,16 @@ const addDate = (input_date, expiry_time) => {
     console.log("Expiry Date Formatted: " + expiry_date_formatted);
     return expiry_date_formatted;
 }
+
+//Apply tag check/update util function after updating amount_used
+const checkAmount = (original_amount, amount_used) => {
+    if (original_amount === amount_used) {
+        return 'finished';
+    }
+}
+
+//Create a function that checks and updates tag for expired items (once a day)
+
 
 /*Error Handling*/
 
