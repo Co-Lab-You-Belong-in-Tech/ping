@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function HomePage() {
+  let history = useHistory();
+  const [email, setEmail] = useState(" ");
   return (
     <div>
-      <p>Ping Project</p>
+      <h1>Ping Project</h1>
       <a
         className="App-link"
         href="/inventory"
@@ -29,6 +32,25 @@ function HomePage() {
         search
       </a>
       this is a email form
+      <div>
+        <form>
+          <input
+            type="text"
+            value={email}
+            placeholder="enter a Email"
+            onChange={({ target }) => setEmail(target.value)}
+          />
+
+          <button
+            type="submit"
+            onClick={() => {
+              history.push("/inventory");
+            }}
+          >
+            Get Start!
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

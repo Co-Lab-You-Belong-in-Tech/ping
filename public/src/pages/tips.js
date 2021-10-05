@@ -23,7 +23,7 @@ function Tips() {
       setDetails(data.tips);
     }
     getID(id);
-  }, []);
+  }, [id]);
 
   return (
     <div>
