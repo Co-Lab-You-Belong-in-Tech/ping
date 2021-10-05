@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import UserContext from "../UserContext";
+import { login } from "./testLogin";
 
 function HomePage() {
   let history = useHistory();
   const [email, setEmail] = useState(" ");
+  const { user, setUser } = useContext(UserContext);
   return (
     <div>
-      <h1>Ping Project</h1>
+      <h1>Ping!</h1>
       <a
         className="App-link"
         href="/inventory"
@@ -31,13 +34,13 @@ function HomePage() {
       >
         search
       </a>
-      this is a email form
+
       <div>
         <form>
           <input
             type="text"
             value={email}
-            placeholder="enter a Email"
+            placeholder="Enter Your Email"
             onChange={({ target }) => setEmail(target.value)}
           />
 
@@ -50,6 +53,27 @@ function HomePage() {
             Get Start!
           </button>
         </form>
+        {user}
+
+        {user ? (
+          <button
+            onClick={() => {
+              // call logout
+              setUser(null);
+            }}
+          >
+            logout
+          </button>
+        ) : (
+          <button
+            onClick={async () => {
+              const user = await login();
+              setUser(user.id);
+            }}
+          >
+            login
+          </button>
+        )}
       </div>
     </div>
   );
