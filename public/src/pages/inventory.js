@@ -11,7 +11,7 @@ function Inventory() {
       <button
         onClick={() => {
           // call logout
-          setUser("24");
+          setUser("24"); //this is just a test right now
         }}
       >
         <Link to="/">Home</Link>
