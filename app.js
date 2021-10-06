@@ -168,10 +168,11 @@ app.put('/editItem', async (req, res, next) => {
             [req.query.amount_used, req.query.user_id, req.query.item_id],
             function (err, result) {
                 let string = JSON.stringify(result);
+                console.log(result);
                 res.send(string);
             }
         );
-        //const tag = checkAmount()
+        await checkAmount();
     } catch (err) {
         console.error(err);
         res.send("Error: " + err);
@@ -198,16 +199,38 @@ const addDate = (input_date, expiry_time) => {
 }
 
 //Description: check if all quantity is used, if so, update tag to finished
-const checkAmount = (original_amount, amount_used) => {
+const checkAmount = (original_amount, amount_used, user_id, item_id) => {
     if (original_amount === amount_used) {
-        return 'finished';
+        var tag = 'finished';
+        updateTag(tag, user_id, item_id);
     }
+}
+
+//Description: update tag to finished
+const updateTag = (tag, user_id, item_id) => {
+    pool.query('UPDATE inventory SET tag = $1 WHERE user_id = $2 AND item_id = $3', [tag, user_id, item_id],
+        function (err, result) {
+            let string = JSON.stringify(result);
+            console.log(result);
+            res.send(string);
+        }
+    );
+}
+
+//Description: get array of item_ids
+const getItemIDs = async () => {
+    await pool.query('SELECT DISTINCT item_id FROM inventory ORDER BY item_id ASC', function (err, result) {
+        var id_arr = [];
+        console.log(result);
+    });
 }
 
 //Description: schedule a check to update the tag to expired if the expiry date is passed
 var expiryCheck = schedule.scheduleJob('0 0 * * *', function() {
-    console.log("Testing scheduler.");
+    console.log("Test scheduler.");
 });
+
+getItemIDs();
 
 /*Error Handling*/
 
