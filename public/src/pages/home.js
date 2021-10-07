@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
 import { login } from "./testLogin";
+import NavBar from "../components/NavBar";
 
 function HomePage() {
   const initialState = { email: "" };
@@ -41,9 +42,17 @@ function HomePage() {
   return (
     <div>
       <h1>KARROT</h1>
-      <Link to="/inventory">Inventory</Link>
 
       <div>
+        <span
+          style={{
+            fontWeight: "bold",
+            color: "red",
+          }}
+        >
+          {emailError}
+        </span>
+
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
@@ -54,14 +63,7 @@ function HomePage() {
             value={formData.email}
             onChange={handleChange}
           />
-          <span
-            style={{
-              fontWeight: "bold",
-              color: "red",
-            }}
-          >
-            {emailError}
-          </span>
+
           <button>
             <Link to="/search">Start!</Link>
           </button>
@@ -88,6 +90,7 @@ function HomePage() {
           </button>
         )}
       </div>
+      <NavBar />
     </div>
   );
 }

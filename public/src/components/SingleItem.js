@@ -9,7 +9,6 @@ const SingleItem = ({ name, id }) => {
       {name}-{id}
       <img src={`${IMAGE_URL}/${firstLetter}`} alt={firstLetter} />
       <small>
-        {" "}
         <a
           className="App-link"
           href={`tips/${firstLetter}/${id}`}
