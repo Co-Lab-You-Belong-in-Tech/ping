@@ -8,6 +8,7 @@ import Inventory from "./pages/inventory";
 import SearchPage from "./pages/search";
 import UserContext from "./UserContext"; //"create UserContext to store userID throughout the app "
 import ErrorPage from "./pages/errorPage";
+import List from "./pages/list";
 
 function App() {
   const [user, setUser] = useState(1);
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path="/search" exact>
               <SearchPage />
+            </Route>
+            <Route path="/list" exact>
+              <List />
             </Route>
             <Route path="*">
               <ErrorPage />

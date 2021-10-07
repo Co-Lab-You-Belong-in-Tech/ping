@@ -46,7 +46,6 @@ function SearchPage() {
 
   return (
     <div>
-      this is search page
       <input
         type="text"
         onChange={(e) => onChangeHandler(e.target.value)}
@@ -62,7 +61,7 @@ function SearchPage() {
           </div>
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
-      <button>Update Inventory</button>
+      {text && veggieID && <button>Add</button>}
     </div>
   );
 }

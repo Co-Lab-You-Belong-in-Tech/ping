@@ -65,7 +65,7 @@ function HomePage() {
           />
 
           <button>
-            <Link to="/search">Start!</Link>
+            <Link to="/list">Start!</Link>
           </button>
         </form>
         {user}
