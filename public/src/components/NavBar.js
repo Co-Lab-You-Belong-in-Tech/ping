@@ -10,7 +10,9 @@ function NavBar() {
       <li>
         <Link to="/inventory">My Fridge</Link>
       </li>
-      <li>Recipes</li>
+      <li>
+        <Link to="/recipes">Recipes</Link>
+      </li>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { login } from "./testLogin";
 import NavBar from "../components/NavBar";
 
 function HomePage() {
+  const { user, setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const handleChange = (e) => {
@@ -36,8 +37,6 @@ function HomePage() {
       setEmailError("Enter valid Email!");
     }
   };
-
-  const { user, setUser } = useContext(UserContext); // use useContext to grab user id
 
   return (
     <div>
