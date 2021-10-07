@@ -23,7 +23,7 @@ function Inventory() {
     <div>
       <h1>This is {user} fridge</h1>
       <div></div>
-      {userData[0].item_name} - {userData[0].tag}
+
       <NavBar />
     </div>
   );

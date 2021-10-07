@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <div>
       <li>
-        <Link to="/search">My List</Link>
+        <Link to="/list">My List</Link>
       </li>
       <li>
         <Link to="/inventory">My Fridge</Link>
