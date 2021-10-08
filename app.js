@@ -319,7 +319,15 @@ const expiryCheckScheduler = schedule.scheduleJob(rule, function () { //runs fun
 });
 
 /*Error Handling*/
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(404).send("Page not found.");
+});
 
+app.use( function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send("An error has occurred.");
+})
 
 /*Port*/
 let port = process.env.PORT;
