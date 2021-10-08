@@ -303,7 +303,7 @@ var expiryCheck = async () => {
             var current_tag = row.inventory_tag;
             if (today_date >= expiry_date && current_tag === 'not expired') { //update tag to expired if expiry date has passed and item is not completely used
                 var tag = 'expired';
-                updateTag(tag, user_id, item_id);
+                updateInventoryTag(tag, user_id, item_id);
             }
         });
     });
