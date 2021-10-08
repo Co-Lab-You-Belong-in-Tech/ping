@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 const List = () => {
   return (
@@ -8,6 +9,7 @@ const List = () => {
       <button>
         <Link to="/search">ADD ITEM</Link>
       </button>
+      <NavBar />
     </div>
   );
 };

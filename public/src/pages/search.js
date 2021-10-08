@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SingleItem from "../components/SingleItem";
+import NavBar from "../components/NavBar";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -62,6 +63,7 @@ function SearchPage() {
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
       {text && veggieID && <button>Add</button>}
+      <NavBar />
     </div>
   );
 }

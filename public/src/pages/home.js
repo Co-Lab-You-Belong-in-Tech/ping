@@ -89,7 +89,6 @@ function HomePage() {
           </button>
         )}
       </div>
-      <NavBar />
     </div>
   );
 }

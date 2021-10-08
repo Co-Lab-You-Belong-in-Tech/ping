@@ -10,6 +10,7 @@ import UserContext from "./UserContext"; //"create UserContext to store userID t
 import ErrorPage from "./pages/errorPage";
 import List from "./pages/list";
 import RecipesPage from "./pages/recipes";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [user, setUser] = useState(1);
