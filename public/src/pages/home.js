@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
 import { login } from "./testLogin";
-import NavBar from "../components/NavBar";
-import { isNull } from "util";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id
@@ -22,7 +20,10 @@ function HomePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email } = formData;
-    alert(`${email}`);
+    if (email === "") {
+      alert("Email should not be none");
+    }
+    //alert(`${email}`);
     setFormData(initialState);
 
     //add some kind of login logic here
@@ -34,8 +35,6 @@ function HomePage() {
 
     if (validator.isEmail(email)) {
       setEmailError("Valid Email :)");
-    } else if (email === "") {
-      setEmailError("it should not be empty!");
     } else {
       setEmailError("Enter valid Email!");
     }
@@ -66,7 +65,7 @@ function HomePage() {
             onChange={handleChange}
           />
 
-          <button>
+          <button type="submit">
             <Link to="/list">Start!</Link>
           </button>
         </form>
