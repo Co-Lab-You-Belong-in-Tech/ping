@@ -276,8 +276,10 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
             let text = 'Loading.';
             if (!err) {
                 let text = 'Success.';
+                return text;
             } else {
                 let text = 'Error. ' + err.detail;
+                return text;
             }
             console.log(text);
             return text;
@@ -295,8 +297,10 @@ const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validat
             let text = 'Loading.';
             if (!err) {
                 let text = 'Success.';
+                return text;
             } else {
                 let text = 'Error. ' + err.detail;
+                return text;
             }
             console.log(text);
             return text;
