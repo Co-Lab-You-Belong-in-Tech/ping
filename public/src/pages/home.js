@@ -18,7 +18,7 @@ function HomePage() {
       setUser(data[0].user_id);
     } catch (errors) {
       console.error("log in failed,temporay set user 5");
-      setUser("5");
+      setUser("2");
     }
   }
 
