@@ -225,7 +225,8 @@ app.post('/addInventoryItem', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editGroceryTag', async (req, res, next) => {
     try {
-        await updateGroceryTag(req.query.tag, req.query.user_id, req.query.item_id);
+        var result = await updateGroceryTag(req.query.tag, req.query.user_id, req.query.item_id);
+        res.send(result);
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -236,7 +237,8 @@ app.put('/editGroceryTag', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editInventoryTag', async (req, res, next) => {
     try {
-        await updateInventoryTag(req.query.tag, req.query.user_id, req.query.item_id);
+        var result = await updateInventoryTag(req.query.tag, req.query.user_id, req.query.item_id);
+        res.send(result);
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -270,9 +272,9 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
             let string = JSON.stringify(result);
             console.log(result);
             if (!err) {
-                res.send('Success.');
+                return 'Success.'
             } else {
-                res.send('Error.' + err.detail);
+                return 'Error.' + err.detail;
             }
         }
     );
@@ -285,9 +287,9 @@ const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validat
             let string = JSON.stringify(result);
             console.log(result);
             if (!err) {
-                res.send('Success.');
+                return 'Success.'
             } else {
-                res.send('Error.' + err.detail);
+                return 'Error.' + err.detail;
             }
         }
     );
