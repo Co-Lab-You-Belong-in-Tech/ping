@@ -138,9 +138,10 @@ app.get('/getInventory', async (req, res) => {
 //Parameters: email (varchar(255))
 app.post('/addUser', async (req, res, next) => {
     try {
+        console.log(req.query.email);
         await pool.query('SELECT * FROM users WHERE email=$1', [req.query.email], function (errs, results) {
             console.log(results);
-            if (result.rowCount === 0) {
+            if (results.rowCount === 0) {
                 pool.query('INSERT INTO users (email) VALUES ($1)', [req.query.email], function (err, result) {
                     let result_string = JSON.stringify(result);
                     let err_string = JSON.stringify(err);
