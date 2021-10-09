@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../UserContext";
 
 function NavBar() {
+  const { user, setUser } = useContext(UserContext); // use useContext to grab user id
   return (
     <div>
       <li>
@@ -12,6 +14,17 @@ function NavBar() {
       </li>
       <li>
         <Link to="/recipes">Recipes</Link>
+      </li>
+      <li>
+        <Link
+          to="/"
+          onClick={() => {
+            // call logout
+            setUser(null);
+          }}
+        >
+          logout
+        </Link>
       </li>
     </div>
   );

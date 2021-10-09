@@ -4,6 +4,7 @@ import UserContext from "../UserContext";
 import validator from "validator";
 import { login } from "./testLogin";
 import NavBar from "../components/NavBar";
+import { isNull } from "util";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id
@@ -33,6 +34,8 @@ function HomePage() {
 
     if (validator.isEmail(email)) {
       setEmailError("Valid Email :)");
+    } else if (email === "") {
+      setEmailError("it should not be empty!");
     } else {
       setEmailError("Enter valid Email!");
     }
