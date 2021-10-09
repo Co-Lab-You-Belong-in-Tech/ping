@@ -273,12 +273,12 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
         function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
-            let text = 'Loading.';
+            var text = 'Loading.';
             if (!err) {
-                let text = 'Success.';
+                var text = 'Success.';
                 return text;
             } else {
-                let text = 'Error. ' + err.detail;
+                var text = 'Error. ' + err.detail;
                 return text;
             }
             console.log(text);
@@ -294,12 +294,12 @@ const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validat
         function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
-            let text = 'Loading.';
+            var text = 'Loading.';
             if (!err) {
-                let text = 'Success.';
+                var text = 'Success.';
                 return text;
             } else {
-                let text = 'Error. ' + err.detail;
+                var text = 'Error. ' + err.detail;
                 return text;
             }
             console.log(text);
