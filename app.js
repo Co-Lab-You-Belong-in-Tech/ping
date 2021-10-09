@@ -104,7 +104,7 @@ app.get('/getUser', async (req, res) => {
 
 //Description: get all the distinct items across all inventory
 //Parameters: user_id (int)
-app.get('/getGroceries', async (req, res) => {
+app.get('/getGroceries', async (req, res) => { //TO DO: add validation that user_id exists
     try {
         await pool.query('SELECT * FROM groceries WHERE user_id=$1 ORDER BY grocery_item_name ASC', [req.query.user_id],
             function (err, result, fields, rowCount) {
@@ -120,7 +120,7 @@ app.get('/getGroceries', async (req, res) => {
 
 //Description: get a user's inventory
 //Parameters: user_id (int)
-app.get('/getInventory', async (req, res) => {
+app.get('/getInventory', async (req, res) => { //TO DO: add validation that user_id exists
     try {
         await pool.query('SELECT * FROM inventory WHERE user_id=$1 ORDER BY expiry_date ASC', [req.query.user_id],
             function (err, result, fields, rowCount) {
@@ -169,7 +169,7 @@ app.post('/addUser', async (req, res, next) => {
 //Parameters: item_name (varchar(255)), user_id (int)
 app.post('/addGroceryItem', async (req, res, next) => {
     try {
-        console.log(req.query);
+        console.log(req.query); //TO DO: add validation for user_id entered exists
         await pool.query('INSERT INTO groceries (grocery_item_name, user_id) VALUES ($1, $2)',
             //default tag is 'not bought' (tag is enum('not bought', 'bought'))
             [req.query.item_name, req.query.user_id],
@@ -195,7 +195,7 @@ app.post('/addGroceryItem', async (req, res, next) => {
 //Parameters: item_name (varchar(255)), user_id (int), expiry_time (int), query_id (int)
 app.post('/addInventoryItem', async (req, res, next) => {
     try {
-        console.log(req.query);
+        console.log(req.query); //TO DO: add validation that user_id exists
         var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
         var input_date = new Date();
         var expiry_date = addDate(input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
@@ -264,7 +264,7 @@ const addDate = (input_date, expiry_time) => {
 
 //Description: update inventory_tag to given tag parameter
 const updateInventoryTag = async (tag, user_id, item_id) => {
-    console.log(tag, user_id, item_id);
+    console.log(tag, user_id, item_id); //TO DO: add validation that user_id and item_id exists + tag entered is valid
     await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [tag, user_id, item_id],
         function (err, result) {
             let string = JSON.stringify(result);
@@ -279,7 +279,7 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
 }
 
 //Description update grocery_tag to given tag parameter
-const updateGroceryTag = async (tag, user_id, item_id) => {
+const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validation that user_id and item_id exists + tag entered is valid
     await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id],
         function (err, result) {
             let string = JSON.stringify(result);
