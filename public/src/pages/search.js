@@ -45,6 +45,8 @@ function SearchPage() {
 
   /** we get the veggigID and search  */
 
+  /***add grocery function */
+
   return (
     <div>
       <input
@@ -52,6 +54,7 @@ function SearchPage() {
         onChange={(e) => onChangeHandler(e.target.value)}
         value={text}
       />
+      {text && veggieID && <button>Add</button>}
       {suggestions &&
         suggestions.map((suggestion) => (
           <div
@@ -62,7 +65,6 @@ function SearchPage() {
           </div>
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
-      {text && veggieID && <button>Add</button>}
       <NavBar />
     </div>
   );

@@ -24,6 +24,40 @@ class OwnAPI {
     let { data } = await axios.get(`${OWN_URL}/getInventory?user_id=${id}`);
     return data;
   }
+
+  /****post routes */
+  // create user
+  static async addUser(email) {
+    try {
+      let resp = await axios.post(`${OWN_URL}/addUser?email=${email}`);
+      return resp.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  //get details
+  static async getDetails(id) {
+    const { data } = await axios.get(`${OWN_URL}/getDetails`, {
+      params: { query_id: id },
+    });
+    return data;
+  }
+
+  //add grocery
+  static async addGrocery(item_name, user_id) {
+    try {
+      let resp = await axios.post(`${OWN_URL}/addGroceryItem`, {
+        params: {
+          item_name: item_name,
+          user_id: user_id,
+        },
+      });
+      return resp.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 export default OwnAPI;
