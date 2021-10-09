@@ -269,7 +269,7 @@ const addDate = (input_date, expiry_time) => {
 //Description: update inventory_tag to given tag parameter
 const updateInventoryTag = async (tag, user_id, item_id) => {
     console.log(tag, user_id, item_id); //TO DO: add validation that user_id and item_id exists + tag entered is valid
-    await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [tag, user_id, item_id],
+    var res = await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [tag, user_id, item_id],
         function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
@@ -279,14 +279,16 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
             } else {
                 let text = 'Error. ' + err.detail;
             }
+            console.log(text);
             return text;
         }
     );
+    return res;
 }
 
 //Description update grocery_tag to given tag parameter
 const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validation that user_id and item_id exists + tag entered is valid
-    await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id],
+    var res = await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id],
         function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
@@ -296,9 +298,11 @@ const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validat
             } else {
                 let text = 'Error. ' + err.detail;
             }
+            console.log(text);
             return text;
         }
     );
+    return res;
 }
 
 //Description: get array of item_id key-value pairs
