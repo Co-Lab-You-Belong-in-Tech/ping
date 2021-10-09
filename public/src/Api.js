@@ -8,7 +8,7 @@ const OWN_URL = "https://food-ping.herokuapp.com";
 class OwnAPI {
   // isUser? determine whether user existed in the user table
   static async isUser(email) {
-    let { data } = await axios.get(`${OWN_URL}/getUser?email=${email}`);
+    let data = await axios.get(`${OWN_URL}/getUser?email=${email}`);
     return data;
   }
 

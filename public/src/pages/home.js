@@ -1,13 +1,28 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
 import { login } from "./testLogin";
+import OwnAPI from "../Api";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
+  const history = useHistory();
+
+  // login logic
+  async function login(loginEmail) {
+    try {
+      let { data } = await OwnAPI.isUser(loginEmail);
+      console.log(data);
+      setUser(data[0].user_id);
+    } catch (errors) {
+      console.error("log in failed,temporay set user 5");
+      setUser("5");
+    }
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((data) => ({
@@ -20,11 +35,10 @@ function HomePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email } = formData;
-    if (email === "") {
-      alert("Email should not be none");
-    }
     //alert(`${email}`);
     setFormData(initialState);
+    login(email);
+    history.push("/list");
 
     //add some kind of login logic here
   };
@@ -32,7 +46,6 @@ function HomePage() {
   const [emailError, setEmailError] = useState("");
   const validateEmail = (e) => {
     var email = e.target.value;
-
     if (validator.isEmail(email)) {
       setEmailError("Valid Email :)");
     } else {
@@ -65,31 +78,11 @@ function HomePage() {
             onChange={handleChange}
           />
 
-          <button type="submit">
-            <Link to="/list">Start!</Link>
+          <button type="submit" disabled={formData.email.length < 1}>
+            Start!
           </button>
         </form>
         {user}
-
-        {user ? (
-          <button
-            onClick={() => {
-              // call logout
-              setUser(null);
-            }}
-          >
-            logout
-          </button>
-        ) : (
-          <button
-            onClick={async () => {
-              const user = await login();
-              setUser(user.id);
-            }}
-          >
-            login
-          </button>
-        )}
       </div>
     </div>
   );
