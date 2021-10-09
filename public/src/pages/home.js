@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
-import { login } from "./testLogin";
 import OwnAPI from "../Api";
 
 function HomePage() {
