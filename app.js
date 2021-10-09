@@ -181,7 +181,7 @@ app.post('/addGroceryItem', async (req, res, next) => {
                 if (!err) {
                     res.send('Success.');
                 } else {
-                    res.send('Error.' + err.detail);
+                    res.send('Error. ' + err.detail);
                 }
             }
         );
@@ -211,7 +211,7 @@ app.post('/addInventoryItem', async (req, res, next) => {
                 if (!err) {
                     res.send('Success.');
                 } else {
-                    res.send('Error.' + err.detail);
+                    res.send('Error. ' + err.detail);
                 }
             }
         );
@@ -226,8 +226,8 @@ app.post('/addInventoryItem', async (req, res, next) => {
 app.put('/editGroceryTag', async (req, res, next) => {
     try {
         var result = await updateGroceryTag(req.query.tag, req.query.user_id, req.query.item_id);
-        console.log(result);
-        res.send('Result: '+ result);
+        console.log('Result: ' + result);
+        res.send(result);
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -274,9 +274,11 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
             let string = JSON.stringify(result);
             console.log(result);
             if (!err) {
-                return 'Success.';
+                let text = 'Success.';
+                return text;
             } else {
-                return 'Error.' + err.detail;
+                let text = 'Error. ' + err.detail;
+                return text;
             }
         }
     );
@@ -289,9 +291,11 @@ const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validat
             let string = JSON.stringify(result);
             console.log(result);
             if (!err) {
-                return 'Success.';
+                let text = 'Success.';
+                return text;
             } else {
-                return 'Error.' + err.detail;
+                let text = 'Error. ' + err.detail;
+                return text;
             }
         }
     );
