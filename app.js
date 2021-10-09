@@ -269,6 +269,11 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
         function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
+            if (!err) {
+                res.send('Success.');
+            } else {
+                res.send('Error.' + err.detail);
+            }
         }
     );
 }
@@ -279,6 +284,11 @@ const updateGroceryTag = async (tag, user_id, item_id) => {
         function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
+            if (!err) {
+                res.send('Success.');
+            } else {
+                res.send('Error.' + err.detail);
+            }
         }
     );
 }
