@@ -226,6 +226,7 @@ app.post('/addInventoryItem', async (req, res, next) => {
 app.put('/editGroceryTag', async (req, res, next) => {
     try {
         var result = await updateGroceryTag(req.query.tag, req.query.user_id, req.query.item_id);
+        console.log(result);
         res.send(result);
     } catch (err) {
         console.error(err);
@@ -238,6 +239,7 @@ app.put('/editGroceryTag', async (req, res, next) => {
 app.put('/editInventoryTag', async (req, res, next) => {
     try {
         var result = await updateInventoryTag(req.query.tag, req.query.user_id, req.query.item_id);
+        console.log(result);
         res.send(result);
     } catch (err) {
         console.error(err);
@@ -272,9 +274,9 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
             let string = JSON.stringify(result);
             console.log(result);
             if (!err) {
-                return 'Success.'
+                return ('Success.');
             } else {
-                return 'Error.' + err.detail;
+                return ('Error.' + err.detail);
             }
         }
     );
@@ -287,9 +289,9 @@ const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validat
             let string = JSON.stringify(result);
             console.log(result);
             if (!err) {
-                return 'Success.'
+                return ('Success.');
             } else {
-                return 'Error.' + err.detail;
+                return ('Error.' + err.detail);
             }
         }
     );
