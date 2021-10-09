@@ -1,11 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import GroceryItems from "../components/GroceryItem";
 import NavBar from "../components/NavBar";
 import UserContext from "../UserContext";
+import OwnAPI from "../Api";
 
 const List = () => {
   const { user } = useContext(UserContext);
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    async function getData() {
+      try {
+        const data = await OwnAPI.getGroceries(user);
+        console.log(data);
+        setUserData(data);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    getData();
+  }, []);
   return (
     <div>
       <h1>My Grocery {user} List</h1>
@@ -14,7 +28,7 @@ const List = () => {
         <button>Add Item</button>
       </Link>
       <button> Delete Checked Items</button>
-      <GroceryItems />
+      <GroceryItems userData={userData} />
       <NavBar />
     </div>
   );
