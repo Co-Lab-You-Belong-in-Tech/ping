@@ -106,7 +106,7 @@ app.get('/getUser', async (req, res) => {
 //Parameters: user_id (int)
 app.get('/getGroceries', async (req, res) => {
     try {
-        await pool.query('SELECT * FROM groceries WHERE user_id=$1 ORDER BY item_name ASC', [req.query.user_id],
+        await pool.query('SELECT * FROM groceries WHERE user_id=$1 ORDER BY grocery_item_name ASC', [req.query.user_id],
             function (err, result, fields, rowCount) {
                 console.log(result);
                 let string = JSON.stringify(result.rows);
