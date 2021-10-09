@@ -4,21 +4,8 @@ import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import SingleGrocery from "./SingleGrocery";
 
-const GroceryItems = () => {
+const GroceryItems = ({ userData }) => {
   const { user } = useContext(UserContext);
-  const [userData, setUserData] = useState(null);
-  useEffect(() => {
-    async function getData() {
-      try {
-        const data = await OwnAPI.getGroceries(user);
-        console.log(data);
-        setUserData(data);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    getData();
-  }, []);
 
   if (!userData) return <div>No Grocery available!</div>;
   return (
