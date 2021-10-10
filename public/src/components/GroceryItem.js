@@ -12,6 +12,7 @@ const GroceryItems = ({ userData }) => {
     <div>
       {userData.map((a) => (
         <SingleGrocery
+          key={a.grocery_item_id}
           grocery_item_id={a.grocery_item_id}
           grocery_tag={a.grocery_tag}
           grocery_item_name={a.grocery_item_name}
