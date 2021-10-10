@@ -27,6 +27,7 @@ app.use((req, res, next) => {
 const {
     Client
 } = require('pg');
+const { text } = require('express');
 
 
 const pool = new Client({
@@ -166,25 +167,35 @@ app.post('/addUser', async (req, res, next) => {
 });
 
 //Description: add an item to a user's grocery list
-//Parameters: item_name (varchar(255)), user_id (int)
+//Parameters: item_name (varchar(255)) not null, user_id (int)
 app.post('/addGroceryItem', async (req, res, next) => {
     try {
-        console.log(req.query); //TO DO: add validation for user_id entered exists
-        await pool.query('INSERT INTO groceries (grocery_item_name, user_id) VALUES ($1, $2)',
-            //default tag is 'not bought' (tag is enum('not bought', 'bought'))
-            [req.query.item_name, req.query.user_id],
-            function (err, result) {
-                let result_string = JSON.stringify(result);
-                let err_string = JSON.stringify(err);
-                console.log(result);
-                console.log(err_string);
-                if (!err) {
-                    res.send('Success.');
-                } else {
-                    res.send('Error. ' + err.detail);
-                }
+        console.log(req.query);
+        await pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], function (errs, results) {
+            console.log(results);
+            if (results.rowCount > 0) {
+                pool.query('INSERT INTO groceries (grocery_item_name, user_id) VALUES ($1, $2)',
+                    //default tag is 'not bought' (tag is enum('not bought', 'bought'))
+                    [req.query.item_name, req.query.user_id],
+                    function (err, result) {
+                        let result_string = JSON.stringify(result);
+                        let err_string = JSON.stringify(err);
+                        console.log(result);
+                        console.log(err_string);
+                        if (!err) {
+                            res.send('Success.');
+                        } else {
+                            res.send('Error. ' + err.detail);
+                        }
+                    }
+                );
+            } else {
+                let string = "User does not exist."
+                console.log(string);
+                res.send(string);
             }
-        );
+        });
+
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -192,29 +203,37 @@ app.post('/addGroceryItem', async (req, res, next) => {
 });
 
 //Description: add an item to a user's inventory
-//Parameters: item_name (varchar(255)), user_id (int), expiry_time (int), query_id (int)
+//Parameters: item_name (varchar(255)) not null, user_id (int), expiry_time (int), query_id (int)
 app.post('/addInventoryItem', async (req, res, next) => {
     try {
-        console.log(req.query); //TO DO: add validation that user_id exists
-        var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
-        var input_date = new Date();
-        var expiry_date = addDate(input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
-        //console.log(expiry_date);
-        await pool.query('INSERT INTO inventory (inventory_item_name, user_id, input_date, expiry_date, query_id) VALUES ($1, $2, $3, $4, $5)',
-            //default tag is 'not expired' (tag is enum('not expired', 'expired', 'used'))
-            [req.query.item_name, req.query.user_id, input_date, expiry_date, req.query.query_id],
-            function (err, result) {
-                let result_string = JSON.stringify(result);
-                let err_string = JSON.stringify(err);
-                console.log(result);
-                console.log(err_string);
-                if (!err) {
-                    res.send('Success.');
-                } else {
-                    res.send('Error. ' + err.detail);
-                }
+        await pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], function (errs, results) {
+            if (results.rowCount > 0) {
+                console.log(req.query);
+                var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
+                var input_date = new Date();
+                var expiry_date = addDate(input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
+                //console.log(expiry_date);
+                pool.query('INSERT INTO inventory (inventory_item_name, user_id, input_date, expiry_date, query_id) VALUES ($1, $2, $3, $4, $5)',
+                    //default tag is 'not expired' (tag is enum('not expired', 'expired', 'used'))
+                    [req.query.item_name, req.query.user_id, input_date, expiry_date, req.query.query_id],
+                    function (err, result) {
+                        let result_string = JSON.stringify(result);
+                        let err_string = JSON.stringify(err);
+                        console.log(result);
+                        console.log(err_string);
+                        if (!err) {
+                            res.send('Success.');
+                        } else {
+                            res.send('Error. ' + err.detail);
+                        }
+                    }
+                );
+            } else {
+                let string = "User does not exist."
+                console.log(string);
+                res.send(string);
             }
-        );
+        });
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -225,9 +244,28 @@ app.post('/addInventoryItem', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editGroceryTag', async (req, res, next) => {
     try {
-        var result = await updateGroceryTag(req.query.tag, req.query.user_id, req.query.item_id);
-        console.log('Result: ' + result);
-        res.send(result);
+        await pool.query('SELECT * FROM groceries WHERE user_id=$1 AND grocery_item_id=$2', [req.query.user_id, req.query.item_id], async function (errs, results) {
+            console.log(results);
+            if (results.rowCount > 0) {
+                const enum_tags = ['bought', 'not bought'];
+                if (enum_tags.includes(req.query.tag)) {
+                    await pool.query('UPDATE grocery SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result){
+                        if (result) {
+                            res.send('Success.')
+                        } else {
+                            res.send('Error. ' + err.detail);
+                        }
+                    });
+                } else {
+                    let string = "Tag is not valid.";
+                    res.send(string);
+                }
+            } else {
+                let string = "User and/or item does not exist."
+                console.log(string);
+                res.send(string);
+            }
+        });
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -238,9 +276,28 @@ app.put('/editGroceryTag', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editInventoryTag', async (req, res, next) => {
     try {
-        var result = await updateInventoryTag(req.query.tag, req.query.user_id, req.query.item_id);
-        console.log('Result: '+ result);
-        res.send(result);
+        await pool.query('SELECT * FROM inventory WHERE user_id=$1 AND inventory_item_id=$2', [req.query.user_id, req.query.item_id], async function (errs, results) {
+            console.log(results);
+            if (results.rowCount > 0) {
+                const enum_tags = ['expired', 'not expired', 'used'];
+                if (enum_tags.includes(req.query.tag)) {
+                    await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result){
+                        if (result) {
+                            res.send('Success.')
+                        } else {
+                            res.send('Error. ' + err.detail);
+                        }
+                    });
+                } else {
+                    let string = "Tag is not valid.";
+                    res.send(string);
+                }
+            } else {
+                let string = "User and/or item does not exist."
+                console.log(string);
+                res.send(string);
+            }
+        });
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -266,11 +323,9 @@ const addDate = (input_date, expiry_time) => {
     return expiry_date_formatted;
 }
 
-//Description: update inventory_tag to given tag parameter
-const updateInventoryTag = async (tag, user_id, item_id) => {
-    console.log(tag, user_id, item_id); //TO DO: add validation that user_id and item_id exists + tag entered is valid
-    var res = await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [tag, user_id, item_id],
-        function (err, result) {
+//Description update grocery_tag to given tag parameter
+const updateGroceryTag = async (tag, user_id, item_id) => {
+    return await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id], function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
             var text = 'Loading.';
@@ -283,12 +338,11 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
             return text;
         }
     );
-    return res;
 }
 
-//Description update grocery_tag to given tag parameter
-const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validation that user_id and item_id exists + tag entered is valid
-    var res = await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id],
+//Description: update inventory_tag to given tag parameter
+const updateInventoryTag = async (tag, user_id, item_id) => {
+    return await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [tag, user_id, item_id],
         function (err, result) {
             let string = JSON.stringify(result);
             console.log(result);
@@ -302,7 +356,6 @@ const updateGroceryTag = async (tag, user_id, item_id) => { //TO DO: add validat
             return text;
         }
     );
-    return res;
 }
 
 //Description: get array of item_id key-value pairs
@@ -347,7 +400,7 @@ app.use(function (err, req, res, next) {
     res.status(404).send("Page not found.");
 });
 
-app.use( function (err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.error(err.stack);
     res.status(500).send("An error has occurred.");
 })
