@@ -27,7 +27,9 @@ app.use((req, res, next) => {
 const {
     Client
 } = require('pg');
-const { text } = require('express');
+const {
+    text
+} = require('express');
 
 
 const pool = new Client({
@@ -45,7 +47,7 @@ app.get('/', function (req, res) {
     res.send("PING ME.");
 });
 
-//Description: proxy for Still Tasty (Shelf-Life) API
+//Description: proxy for Still Tasty (Shelf-Life) search API endpoint
 //Parameters: item (string)
 app.get('/searchItem', (req, res) => {
     var item = req.query.item;
@@ -65,13 +67,54 @@ app.get('/searchItem', (req, res) => {
     )
 });
 
-//Description: proxy for Still Tasty (Shelf-Life) API 
+//Description: proxy for Still Tasty (Shelf-Life) guides API endpoint 
 //Parameters: query_id (int)
 app.get('/getDetails', (req, res) => {
     var query_id = req.query.query_id;
     console.log(query_id);
     request({
             url: 'https://shelf-life-api.herokuapp.com/guides/' + query_id
+        },
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({
+                    type: 'error',
+                    message: error.message
+                });
+            }
+            res.json(JSON.parse(body));
+        }
+    )
+});
+
+//Description: proxy for Spoonacular recipe search API endpoint
+//Parameters: ingredients (varchar(255)), number (int)
+app.get('/getRecipes', (req, res) => {
+    var ingredients = req.query.ingredients;
+    console.log(ingredients);
+    var ranking = 1;
+    var number = req.query.number;
+    request({
+            url: 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredients + "&ranking=" + ranking + "&number=" + number + "&apiKey=" + process.env.API_KEY
+        },
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({
+                    type: 'error',
+                    message: error.message
+                });
+            }
+            res.json(JSON.parse(body));
+        }
+    )
+});
+
+//Description: proxy for Spoonacular recipe information API endpoint
+//parameters: query_id (int)
+app.get('/getRecipeInfo', (req, res) => {
+    var query_id = req.query.query_id;
+    request({
+            url: 'https://api.spoonacular.com/recipes/'+ query_id + '/information' + "?apiKey=" + process.env.API_KEY
         },
         (error, response, body) => {
             if (error || response.statusCode !== 200) {
@@ -249,7 +292,7 @@ app.put('/editGroceryTag', async (req, res, next) => {
             if (results.rowCount > 0) {
                 const enum_tags = ['bought', 'not bought'];
                 if (enum_tags.includes(req.query.tag)) {
-                    await pool.query('UPDATE grocery SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result){
+                    await pool.query('UPDATE grocery SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
                         if (result) {
                             res.send('Success.')
                         } else {
@@ -281,7 +324,7 @@ app.put('/editInventoryTag', async (req, res, next) => {
             if (results.rowCount > 0) {
                 const enum_tags = ['expired', 'not expired', 'used'];
                 if (enum_tags.includes(req.query.tag)) {
-                    await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result){
+                    await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
                         if (result) {
                             res.send('Success.')
                         } else {
@@ -326,18 +369,17 @@ const addDate = (input_date, expiry_time) => {
 //Description update grocery_tag to given tag parameter
 const updateGroceryTag = async (tag, user_id, item_id) => {
     return await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id], function (err, result) {
-            let string = JSON.stringify(result);
-            console.log(result);
-            var text = 'Loading.';
-            if (!err) {
-                var text = 'Success.';
-            } else {
-                var text = 'Error. ' + err.detail;
-            }
-            console.log(text);
-            return text;
+        let string = JSON.stringify(result);
+        console.log(result);
+        var text = 'Loading.';
+        if (!err) {
+            var text = 'Success.';
+        } else {
+            var text = 'Error. ' + err.detail;
         }
-    );
+        console.log(text);
+        return text;
+    });
 }
 
 //Description: update inventory_tag to given tag parameter
