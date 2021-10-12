@@ -30,9 +30,9 @@ function NavBar() {
       <li>
         <Link to="/list">My List</Link>
       </li>
-      <li onClick={handleClick}>
+      <li>
         {expiredItem.length > 0 && (
-          <Link to="/inventory">
+          <Link to="/inventory" onClick={handleClick}>
             My Fridge
             <span
               style={{
