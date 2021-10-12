@@ -21,8 +21,12 @@ class OwnAPI {
   // to pull data from users inventory using userID
   /**** this one works****/
   static async getTheUserInventory(id) {
-    let { data } = await axios.get(`${OWN_URL}/getInventory?user_id=${id}`);
-    return data;
+    try {
+      let { data } = await axios.get(`${OWN_URL}/getInventory?user_id=${id}`);
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   /****post routes */
