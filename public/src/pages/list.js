@@ -19,7 +19,7 @@ const List = () => {
       }
     }
     getData();
-  }, []);
+  }, [user]);
   return (
     <div>
       <h1>My Grocery {user} List</h1>
