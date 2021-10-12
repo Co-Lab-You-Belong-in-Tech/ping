@@ -11,17 +11,20 @@ function NavBar() {
         <Link to="/list">My List</Link>
       </li>
       <li>
-        <Link to="/inventory">
-          My Fridge
-          <span
-            style={{
-              fontWeight: "bold",
-              color: "red",
-            }}
-          >
-            {expiredItem.length > 0 ? expiredItem.length : ""}
-          </span>
-        </Link>
+        {expiredItem.length > 0 && (
+          <Link to="/inventory">
+            My Fridge
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "red",
+              }}
+            >
+              {expiredItem.length > 0 ? expiredItem.length : ""}
+            </span>
+          </Link>
+        )}
+        {expiredItem.length == 0 && <Link to="/inventory">Fridge</Link>}
       </li>
       <li>
         <Link to="/recipes">Recipes</Link>

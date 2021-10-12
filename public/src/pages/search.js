@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import SingleItem from "../components/SingleItem";
-import NavBar from "../components/NavBar";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 

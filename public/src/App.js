@@ -9,7 +9,7 @@ import Routes from "./components/Routes";
 function App() {
   const [user, setUser] = useState(1); // set the user as 1 sitewide
 
-  const [expiredItem, setExpiredItems] = useState(["apple", "carrot"]);
+  const [expiredItem, setExpiredItems] = useState(["carrot", "apple"]);
   const value = useMemo(
     () => ({ user, setUser, expiredItem, setExpiredItems }),
     [user, setUser, expiredItem, setExpiredItems]
