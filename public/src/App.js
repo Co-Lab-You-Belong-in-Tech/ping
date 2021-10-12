@@ -1,7 +1,7 @@
 //import logo from "./logo.svg";
 import "./App.css";
 import React, { useState, useMemo } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import UserContext from "./UserContext"; //"create UserContext to store userID throughout the app "
 import NavBar from "./components/NavBar";
 import Routes from "./components/Routes";
