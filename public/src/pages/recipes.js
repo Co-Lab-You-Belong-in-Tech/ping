@@ -6,7 +6,6 @@ const RecipesPage = () => {
     <div>
       <h1>Recipes</h1>
       Based on ingredients Left
-      <NavBar />
     </div>
   );
 };

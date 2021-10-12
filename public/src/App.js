@@ -7,15 +7,19 @@ import NavBar from "./components/NavBar";
 import Routes from "./components/Routes";
 
 function App() {
-  const [user, setUser] = useState(1);
+  const [user, setUser] = useState(1); // set the user as 1 sitewide
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
-
+  const [expiredItem, setExpiredItems] = useState(["apple", "carrot"]);
+  const value = useMemo(
+    () => ({ user, setUser, expiredItem, setExpiredItems }),
+    [user, setUser, expiredItem, setExpiredItems]
+  ); // passing the value
   return (
     <div className="App">
       <UserContext.Provider value={value}>
         <BrowserRouter>
           <Routes />
+          <NavBar />
         </BrowserRouter>
       </UserContext.Provider>
     </div>

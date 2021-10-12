@@ -80,7 +80,6 @@ function SearchPage() {
           </div>
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
-      <NavBar />
     </div>
   );
 }

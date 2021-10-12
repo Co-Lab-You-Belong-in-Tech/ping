@@ -29,7 +29,6 @@ const List = () => {
       </Link>
       <button> Delete Checked Items</button>
       <GroceryItems userData={userData} />
-      <NavBar />
     </div>
   );
 };

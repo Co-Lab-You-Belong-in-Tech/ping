@@ -19,6 +19,8 @@ function Inventory() {
     getData();
   }, []);
 
+  if (!userData) return <div>Loading!</div>;
+
   return (
     <div>
       <h1>This is {user} fridge</h1>
