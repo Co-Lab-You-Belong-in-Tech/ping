@@ -17,6 +17,7 @@ function Inventory() {
     }
     getData();
   }, []);
+  // loop through the data and find the expiration item and put them into array and set the expiration item appwide
 
   // logic:  if the itemtag is not expired , display here; if user click toss or used buttom they disapper from the page but change the tag in database
   return (
