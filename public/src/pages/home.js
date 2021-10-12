@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
 import OwnAPI from "../Api";

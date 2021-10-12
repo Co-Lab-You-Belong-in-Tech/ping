@@ -5,7 +5,7 @@ import { store } from "react-notifications-component";
 //import "animate.css/animate.min.css";  // i didnt find this animate css???
 
 function NavBar() {
-  const { setUser, expiredItem, setExpiredItem } = useContext(UserContext); // use useContext to grab user id
+  const { setUser, expiredItem } = useContext(UserContext); // use useContext to grab user id
 
   /**this is the react notifications part */
 

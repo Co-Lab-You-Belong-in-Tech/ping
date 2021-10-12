@@ -59,6 +59,18 @@ class OwnAPI {
       console.log(e);
     }
   }
+
+  // edit fridge inventory method
+  static async editFridge(tag, user_id, item_id) {
+    try {
+      let resp = await axios.post(
+        `${OWN_URL}/editInventoryTag?tag=${tag}&user_id=${user_id}&item_id=${item_id}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 export default OwnAPI;

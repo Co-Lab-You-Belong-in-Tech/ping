@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext";
-import NavBar from "../components/NavBar";
 import OwnAPI from "../Api";
 
 function Inventory() {
@@ -19,9 +18,11 @@ function Inventory() {
     getData();
   }, []);
 
+  // logic:  if the itemtag is not expired , display here; if user click toss or used buttom they disapper from the page but change the tag in database
   return (
     <div>
       <h1>This is {user} fridge</h1>
+
       <div></div>
     </div>
   );
