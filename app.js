@@ -4,6 +4,7 @@ var app = express();
 var request = require('request');
 var dotenv = require('dotenv').config();
 var schedule = require('node-schedule');
+var validator = require('validator');
 
 var handlebars = require('express-handlebars').create({
     defaultLayout: 'other'
@@ -150,12 +151,19 @@ app.get('/getUser', async (req, res) => {
 //Parameters: user_id (int)
 app.get('/getGroceries', async (req, res) => { //TO DO: add validation that user_id exists
     try {
-        await pool.query('SELECT * FROM groceries WHERE user_id=$1 ORDER BY grocery_item_name ASC', [req.query.user_id],
+        console.log(req.query.user_id);
+        if (validator.isNumeric(req.query.user_id)) {
+            await pool.query('SELECT * FROM groceries WHERE user_id=$1 ORDER BY grocery_item_name ASC', [req.query.user_id],
             function (err, result, fields, rowCount) {
                 console.log(result);
                 let string = JSON.stringify(result.rows);
                 res.send(string);
             });
+        } else {
+            let string = 'Invalid user.';
+            console.log(string);
+            res.send(string);
+        }
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -166,12 +174,19 @@ app.get('/getGroceries', async (req, res) => { //TO DO: add validation that user
 //Parameters: user_id (int)
 app.get('/getInventory', async (req, res) => { //TO DO: add validation that user_id exists
     try {
-        await pool.query('SELECT * FROM inventory WHERE user_id=$1 ORDER BY expiry_date ASC', [req.query.user_id],
+        console.log(req.query.user_id);
+        if (validator.isNumeric(req.query.user_id)) {
+            await pool.query('SELECT * FROM inventory WHERE user_id=$1 ORDER BY expiry_date ASC', [req.query.user_id],
             function (err, result, fields, rowCount) {
                 console.log(result);
                 let string = JSON.stringify(result.rows);
                 res.send(string);
             });
+        } else {
+            let string = 'Invalid user.';
+            console.log(string);
+            res.send(string);
+        }
     } catch (err) {
         console.error(err);
         res.send("Error. " + err);
@@ -210,16 +225,16 @@ app.post('/addUser', async (req, res, next) => {
 });
 
 //Description: add an item to a user's grocery list
-//Parameters: item_name (varchar(255)) not null, user_id (int)
+//Parameters: item_name (varchar(255)) not null, user_id (int), query_id (int)
 app.post('/addGroceryItem', async (req, res, next) => {
     try {
         console.log(req.query);
         await pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], function (errs, results) {
             console.log(results);
             if (results.rowCount > 0) {
-                pool.query('INSERT INTO groceries (grocery_item_name, user_id) VALUES ($1, $2)',
+                pool.query('INSERT INTO groceries (grocery_item_name, user_id, query_id) VALUES ($1, $2, $3)',
                     //default tag is 'not bought' (tag is enum('not bought', 'bought'))
-                    [req.query.item_name, req.query.user_id],
+                    [req.query.item_name, req.query.user_id, req.query.query_id],
                     function (err, result) {
                         let result_string = JSON.stringify(result);
                         let err_string = JSON.stringify(err);
@@ -273,6 +288,37 @@ app.post('/addInventoryItem', async (req, res, next) => {
                 );
             } else {
                 let string = "User does not exist."
+                console.log(string);
+                res.send(string);
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.send("Error. " + err);
+    }
+});
+
+//Description: edit the display tag in the groceries table
+//Parameters: tag (boolean), user_id (int), item_id (int)
+app.put('/editDisplayTag', async (req, res, next) => {
+    try {
+        await pool.query('SELECT * FROM groceries WHERE user_id=$1 AND grocery_item_id=$2', [req.query.user_id, req.query.item_id], async function (errs, results) {
+            console.log(results);
+            if (results.rowCount > 0) {
+                if (req.query.tag === true || req.query.tag === false ) {
+                    await pool.query('UPDATE grocery SET display_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
+                        if (result) {
+                            res.send('Success.')
+                        } else {
+                            res.send('Error. ' + err.detail);
+                        }
+                    });
+                } else {
+                    let string = "Tag is not valid.";
+                    res.send(string);
+                }
+            } else {
+                let string = "User and/or item does not exist."
                 console.log(string);
                 res.send(string);
             }
@@ -366,7 +412,25 @@ const addDate = (input_date, expiry_time) => {
     return expiry_date_formatted;
 }
 
-//Description update grocery_tag to given tag parameter
+//Description: update the display_tag boolean in the groceries table
+const updateDisplayTag = async (tag, user_id, item_id) => {
+    return await pool.query('UPDATE groceries SET display_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id],
+    function (err, result) {
+        let string = JSON.stringify(result);
+        console.log(result);
+        var text = 'Loading.';
+        if (!err) {
+            var text = 'Success.';
+        } else {
+            var text = 'Error. ' + err.detail;
+        }
+        console.log(text);
+        return text;
+    }
+    )
+}
+
+//Description: update grocery_tag to given tag parameter
 const updateGroceryTag = async (tag, user_id, item_id) => {
     return await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id], function (err, result) {
         let string = JSON.stringify(result);
