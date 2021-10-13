@@ -3,6 +3,7 @@ import axios from "axios";
 import SingleItem from "../components/SingleItem";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
+import { store } from "react-notifications-component";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -52,7 +53,19 @@ function SearchPage() {
     try {
       OwnAPI.addGrocery(item_name, user_id);
       console.log(item_name, user_id);
-      alert("success!"); // replace it with notification component
+      store.addNotification({
+        title: "Hey!",
+        message: `success add ${item_name}!`, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
     } catch (e) {
       alert(e);
     }
