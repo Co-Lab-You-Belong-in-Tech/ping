@@ -63,7 +63,7 @@ class OwnAPI {
   // edit fridge inventory method
   static async editFridge(tag, user_id, item_id) {
     try {
-      let resp = await axios.post(
+      let resp = await axios.put(
         `${OWN_URL}/editInventoryTag?tag=${tag}&user_id=${user_id}&item_id=${item_id}`
       );
       return resp.data;

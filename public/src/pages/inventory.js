@@ -23,6 +23,7 @@ function Inventory() {
 
   function getExpiredArray(data) {
     let result = [];
+    if (!data) return;
     data = data.filter((a) => a.inventory_tag == "expired");
     for (var i in data) {
       result.push(data[i].inventory_item_name);

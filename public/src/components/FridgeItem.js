@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import OwnAPI from "../Api";
+import UserContext from "../UserContext";
 
 const FridgeItem = ({
   expiry_date,
@@ -7,6 +9,7 @@ const FridgeItem = ({
   query_id,
   inventory_item_id,
 }) => {
+  const { user } = useContext(UserContext);
   function calTime(time) {
     var currentDate = new Date();
     var time = new Date(time);
@@ -14,6 +17,13 @@ const FridgeItem = ({
     var result = Math.abs(time - currentDate) / one_day;
     return Math.floor(result);
   }
+
+  // hanlde mark as used button
+
+  async function handleUsed(tag, user_id, item_id) {
+    OwnAPI.editFridge(tag, user_id, item_id);
+  }
+
   return (
     <div>
       <li>
@@ -29,8 +39,12 @@ const FridgeItem = ({
             tips
           </a>
         </small>
-        <button>Mark as used</button>
-        <button>Toss</button>
+        <button onClick={() => handleUsed("used", user, inventory_item_id)}>
+          Mark as used
+        </button>
+        <button onClick={() => handleUsed("expired", user, inventory_item_id)}>
+          Toss
+        </button>
       </li>
     </div>
   );
