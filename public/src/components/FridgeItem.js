@@ -18,8 +18,7 @@ const FridgeItem = ({
     <div>
       <li>
         {inventory_item_id}
-        {inventory_item_name} --- Expire in {calTime(expiry_date)} Days ---
-        <small>{inventory_tag}</small>
+        {inventory_item_name} --- {inventory_tag} in {calTime(expiry_date)} Days
         <small>
           <a
             className="App-link"
