@@ -18,11 +18,11 @@ function App() {
     [user, setUser, expiredItem, setExpiredItems]
   ); // passing the value
 
-  function editInventory(tag, item_id) {
+  /*function editInventory(tag, item_id) {
     if (!user || !item_id || tag) return;
     OwnAPI.editFridge(tag, user, item_id);
     // better set expired item here but i am not sure
-  }
+  }*/
 
   return (
     <div className="App">

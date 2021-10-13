@@ -4,8 +4,7 @@ import OwnAPI from "../Api";
 import FridgeArea from "../components/FridgeArea";
 
 function Inventory() {
-  const { user, setUser, setExpiredItems, expiredItem } =
-    useContext(UserContext);
+  const { user, setExpiredItems, expiredItem } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   useEffect(() => {
     async function getData() {
@@ -24,7 +23,7 @@ function Inventory() {
   function getExpiredArray(data) {
     let result = [];
     if (!data) return;
-    data = data.filter((a) => a.inventory_tag == "expired");
+    data = data.filter((a) => a.inventory_tag === "expired");
     for (var i in data) {
       result.push(data[i].inventory_item_name);
     }

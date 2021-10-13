@@ -71,6 +71,18 @@ class OwnAPI {
       console.log(e);
     }
   }
+
+  // put the grocery item into fridge ( add to inventory)
+  static async addFridge(item_name, user_id, expiry_time, query_id) {
+    try {
+      let resp = await axios.post(
+        `${OWN_URL}/addInventoryItem?item_name=${item_name}&user_id=${user_id}&expiry_time=${expiry_time}&query_id=${query_id}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 export default OwnAPI;

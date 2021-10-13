@@ -17,6 +17,7 @@ const GroceryItems = ({ userData }) => {
             grocery_item_id={a.grocery_item_id}
             grocery_tag={a.grocery_tag}
             grocery_item_name={a.grocery_item_name}
+            query_id={a.query_id}
           />
         ))}
     </div>
