@@ -83,6 +83,17 @@ class OwnAPI {
       console.error(e);
     }
   }
+
+  static async editGroceryTag(tag, user_id, item_id) {
+    try {
+      let resp = await axios.put(
+        `${OWN_URL}/editGroceryTag?tag=${tag}&user_id=${user_id}&item_id=${item_id}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 export default OwnAPI;
