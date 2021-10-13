@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
+import reactNotificationsComponent from "react-notifications-component";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
+import { store } from "react-notifications-component";
 
 const FridgeItem = ({
   expiry_date,
@@ -21,7 +23,37 @@ const FridgeItem = ({
   // hanlde mark as used button
 
   async function handleUsed(tag, user_id, item_id) {
-    OwnAPI.editFridge(tag, user_id, item_id);
+    try {
+      OwnAPI.editFridge(tag, user_id, item_id);
+      store.addNotification({
+        title: "Hey!",
+        message: `success add ${tag}!`, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
+    } catch (e) {
+      console.error(e);
+      store.addNotification({
+        title: "Hey!",
+        message: `unfortunately there are errors.`, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
+    }
   }
 
   return (
