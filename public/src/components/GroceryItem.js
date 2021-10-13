@@ -10,14 +10,15 @@ const GroceryItems = ({ userData }) => {
   if (!userData) return <div>No Grocery available!</div>;
   return (
     <div>
-      {userData.map((a) => (
-        <SingleGrocery
-          key={a.grocery_item_id}
-          grocery_item_id={a.grocery_item_id}
-          grocery_tag={a.grocery_tag}
-          grocery_item_name={a.grocery_item_name}
-        />
-      ))}
+      {Array.isArray(userData) &&
+        userData.map((a) => (
+          <SingleGrocery
+            key={a.grocery_item_id}
+            grocery_item_id={a.grocery_item_id}
+            grocery_tag={a.grocery_tag}
+            grocery_item_name={a.grocery_item_name}
+          />
+        ))}
     </div>
   );
 };
