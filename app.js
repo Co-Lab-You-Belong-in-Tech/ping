@@ -233,7 +233,8 @@ app.post('/addGroceryItem', async (req, res, next) => {
             console.log(results);
             if (results.rowCount > 0) {
                 pool.query('INSERT INTO groceries (grocery_item_name, user_id, query_id) VALUES ($1, $2, $3)',
-                    //default tag is 'not bought' (tag is enum('not bought', 'bought'))
+                    //default grocery_tag is 'not bought' (tag is enum('not bought', 'bought'))
+                    //default display_tag is 'not deleted' (tag is enum ('not deleted', 'deleted'))
                     [req.query.item_name, req.query.user_id, req.query.query_id],
                     function (err, result) {
                         let result_string = JSON.stringify(result);
@@ -272,7 +273,8 @@ app.post('/addInventoryItem', async (req, res, next) => {
                 var expiry_date = addDate(input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
                 //console.log(expiry_date);
                 pool.query('INSERT INTO inventory (inventory_item_name, user_id, input_date, expiry_date, query_id) VALUES ($1, $2, $3, $4, $5)',
-                    //default tag is 'not expired' (tag is enum('not expired', 'expired', 'used'))
+                    //default inventory_tag is 'not expired' (tag is enum('not expired', 'expired'))
+                    //default usage_tag is blank (tag is enum('not used', 'used'))
                     [req.query.item_name, req.query.user_id, input_date, expiry_date, req.query.query_id],
                     function (err, result) {
                         let result_string = JSON.stringify(result);
@@ -299,7 +301,7 @@ app.post('/addInventoryItem', async (req, res, next) => {
 });
 
 //Description: edit the display tag in the groceries table
-//Parameters: tag (boolean), user_id (int), item_id (int)
+//Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editDisplayTag', async (req, res, next) => {
     try {
         //console.log(req.query);
