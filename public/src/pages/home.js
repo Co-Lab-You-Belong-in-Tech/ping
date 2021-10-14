@@ -4,6 +4,7 @@ import UserContext from "../UserContext";
 import validator from "validator";
 import OwnAPI from "../Api";
 import Logo from "../assets/Logo.png";
+import "../login.css";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id
@@ -54,7 +55,7 @@ function HomePage() {
   };
 
   return (
-    <div>
+    <div class="login">
       <div>
         <img src={Logo}></img>
       </div>
