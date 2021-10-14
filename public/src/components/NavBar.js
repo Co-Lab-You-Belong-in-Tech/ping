@@ -5,7 +5,7 @@ import { store } from "react-notifications-component";
 //import "animate.css/animate.min.css";  // i didnt find this animate css???
 
 function NavBar() {
-  const { setUser, expiredItem } = useContext(UserContext); // use useContext to grab user id
+  const { setUser, expiredItem, setExpiredItems } = useContext(UserContext); // use useContext to grab user id
 
   /**this is the react notifications part */
 
@@ -25,6 +25,10 @@ function NavBar() {
     });
   };
 
+  // need t do something here to handle no expiredItem error
+  if (expiredItem.length == undefined) {
+    console.log("length undefined");
+  }
   return (
     <div>
       <li>
