@@ -302,15 +302,20 @@ app.post('/addInventoryItem', async (req, res, next) => {
 //Parameters: tag (boolean), user_id (int), item_id (int)
 app.put('/editDisplayTag', async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM groceries WHERE user_id=$1 AND grocery_item_id=$2', [req.query.user_id, req.query.item_id], async function (errs, results) {
-            console.log(results);
+        //console.log(req.query);
+        console.log(req.query.tag);
+        var item_id_arr = req.query.item_id.split(",");
+        console.log(item_id_arr);
+        await pool.query('SELECT * FROM groceries WHERE user_id=$1 AND grocery_item_id = ANY($2)', [req.query.user_id, item_id_arr], async function (errs, results) {
+            //console.log(results);
             if (results.rowCount > 0) {
-                if (req.query.tag === true || req.query.tag === false ) {
-                    await pool.query('UPDATE grocery SET display_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
+                const enum_tags = ['deleted', 'not deleted'];
+                if (enum_tags.includes(req.query.tag)) {
+                    await pool.query('UPDATE groceries SET display_tag = $1 WHERE user_id = $2 AND grocery_item_id = ANY($3)', [req.query.tag, req.query.user_id, item_id_arr], function (err, result) {
                         if (result) {
                             res.send('Success.')
                         } else {
-                            res.send('Error. ' + err.detail);
+                            res.send('Error. ' + err);
                         }
                     });
                 } else {
@@ -338,7 +343,7 @@ app.put('/editGroceryTag', async (req, res, next) => {
             if (results.rowCount > 0) {
                 const enum_tags = ['bought', 'not bought'];
                 if (enum_tags.includes(req.query.tag)) {
-                    await pool.query('UPDATE grocery SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
+                    await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
                         if (result) {
                             res.send('Success.')
                         } else {
