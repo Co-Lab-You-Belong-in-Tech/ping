@@ -37,7 +37,6 @@ function Inventory() {
   return (
     <div>
       <h1>This is {user} fridge</h1>
-      {expiredItem}
 
       <FridgeArea userData={userData} />
     </div>

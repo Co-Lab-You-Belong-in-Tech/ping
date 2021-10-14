@@ -27,7 +27,7 @@ const List = () => {
       <Link to="/search">
         <button>Add Item</button>
       </Link>
-      <button> Delete Checked Items</button>
+      <button onClick={() => setUserData(null)}> Delete All</button>
       <GroceryItems userData={userData} />
     </div>
   );

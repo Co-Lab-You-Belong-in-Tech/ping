@@ -15,7 +15,7 @@ const SingleGrocery = ({
     expiry_time = "12232132",
     query_id = "16808"
   ) {
-    OwnAPI.addFridge(item_name, user_id, expiry_time, query_id);
+    OwnAPI.addFridge(item_name, user_id, expiry_time, query_id); // talk to anita about update the tag?
   }
 
   // need some functions to get expiry_time

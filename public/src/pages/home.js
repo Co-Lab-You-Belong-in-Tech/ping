@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
 import OwnAPI from "../Api";
+import Logo from "../assets/Logo.png";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id
@@ -54,8 +55,12 @@ function HomePage() {
 
   return (
     <div>
-      <h1>KARROT</h1>
+      <div>
+        <img src={Logo}></img>
+      </div>
+      <p>Deliciously simple.</p>
 
+      <h1>Karrot</h1>
       <div>
         <span
           style={{
@@ -78,7 +83,7 @@ function HomePage() {
           />
 
           <button type="submit" disabled={formData.email.length < 1}>
-            Start!
+            Login
           </button>
         </form>
         {user}
