@@ -1,11 +1,13 @@
 import React from "react";
 import NavBar from "../components/NavBar";
+import receipeLogo from "../assets/Recipe_Logo.png";
 
 const RecipesPage = () => {
   return (
     <div>
-      <h1>Recipes</h1>
-      Based on ingredients Left
+      <img src={receipeLogo} />
+      <h1>My Recipes</h1>
+      <p>Based on ingredients Left</p>
     </div>
   );
 };
