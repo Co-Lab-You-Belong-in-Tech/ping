@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import OwnAPI from "../Api";
+import UserContext from "../UserContext";
 
 const SingleGrocery = ({
   grocery_item_id,
@@ -8,7 +9,9 @@ const SingleGrocery = ({
   display_tag,
   query_id = 16623,
 }) => {
-  /*handle Bought function*/
+  /*grab user id  */
+  const { user } = useContext(UserContext);
+  /*handle Bought function, it is works now but need to add expiry time */
   async function handleBought(
     item_name,
     user_id,
@@ -22,7 +25,7 @@ const SingleGrocery = ({
 
   return (
     <div key={grocery_item_id}>
-      <button onClick={() => handleBought(grocery_item_name, "5", query_id)}>
+      <button onClick={() => handleBought(grocery_item_name, user, query_id)}>
         {grocery_tag === "not bought" ? "x" : <span>&#10003;</span>}
       </button>
       {grocery_item_name}

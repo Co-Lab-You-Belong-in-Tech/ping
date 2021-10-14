@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import FridgeArea from "../components/FridgeArea";
+import { get } from "http";
 
 function Inventory() {
   const { user, setExpiredItems, expiredItem } = useContext(UserContext);

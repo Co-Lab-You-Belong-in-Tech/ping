@@ -7,6 +7,9 @@ const FridgeArea = ({ userData }) => {
   if (!userData) return <div>Nononononono!</div>;
   return (
     <div>
+      <button>Mark as used </button>
+      <button> Toss </button>
+
       {Array.isArray(userData) &&
         userData.map((a) => (
           <FridgeItem
