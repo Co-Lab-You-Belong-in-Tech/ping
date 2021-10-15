@@ -1,10 +1,11 @@
 import React from "react";
+import FridgeHolder from "./empty_holder/Fridge_holder";
 import FridgeItem from "./FridgeItem";
 
 // this is the fridge area for place holder to hold all single fridge items
 
 const FridgeArea = ({ userData }) => {
-  if (!userData) return <div>Nononononono!</div>;
+  if (!userData) return <FridgeHolder />;
   return (
     <div>
       <button className="btn-large">MARK AS USED</button>
