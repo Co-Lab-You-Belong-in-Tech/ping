@@ -115,7 +115,7 @@ app.get('/getRecipes', (req, res) => {
 app.get('/getRecipeInfo', (req, res) => {
     var query_id = req.query.query_id;
     request({
-            url: 'https://api.spoonacular.com/recipes/'+ query_id + '/information' + "?apiKey=" + process.env.API_KEY
+            url: 'https://api.spoonacular.com/recipes/' + query_id + '/information' + "?apiKey=" + process.env.API_KEY
         },
         (error, response, body) => {
             if (error || response.statusCode !== 200) {
@@ -154,11 +154,11 @@ app.get('/getGroceries', async (req, res) => { //TO DO: add validation that user
         console.log(req.query.user_id);
         if (validator.isNumeric(req.query.user_id)) {
             await pool.query('SELECT * FROM groceries WHERE user_id=$1 ORDER BY grocery_item_name ASC', [req.query.user_id],
-            function (err, result, fields, rowCount) {
-                console.log(result);
-                let string = JSON.stringify(result.rows);
-                res.send(string);
-            });
+                function (err, result, fields, rowCount) {
+                    console.log(result);
+                    let string = JSON.stringify(result.rows);
+                    res.send(string);
+                });
         } else {
             let string = 'Invalid user.';
             console.log(string);
@@ -177,11 +177,11 @@ app.get('/getInventory', async (req, res) => { //TO DO: add validation that user
         console.log(req.query.user_id);
         if (validator.isNumeric(req.query.user_id)) {
             await pool.query('SELECT * FROM inventory WHERE user_id=$1 ORDER BY expiry_date ASC', [req.query.user_id],
-            function (err, result, fields, rowCount) {
-                console.log(result);
-                let string = JSON.stringify(result.rows);
-                res.send(string);
-            });
+                function (err, result, fields, rowCount) {
+                    console.log(result);
+                    let string = JSON.stringify(result.rows);
+                    res.send(string);
+                });
         } else {
             let string = 'Invalid user.';
             console.log(string);
@@ -300,7 +300,7 @@ app.post('/addInventoryItem', async (req, res, next) => {
     }
 });
 
-//Description: edit the display tag in the groceries table
+//Description: edit the display tag in the groceries table to either deleted or not deleted
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editDisplayTag', async (req, res, next) => {
     try {
@@ -336,7 +336,7 @@ app.put('/editDisplayTag', async (req, res, next) => {
     }
 });
 
-//Description: edit the item's tag in the groceries table
+//Description: edit the item's tag in the groceries table to either bought or not bought
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editGroceryTag', async (req, res, next) => {
     try {
@@ -346,6 +346,43 @@ app.put('/editGroceryTag', async (req, res, next) => {
                 const enum_tags = ['bought', 'not bought'];
                 if (enum_tags.includes(req.query.tag)) {
                     await pool.query('UPDATE groceries SET grocery_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
+                        if (result) {
+                            if (req.query.tag === 'bought') {
+                                autoAddItem(req.query.user_id, req.query.item_id);
+                            } else {
+                                autoDeleteItem(req.query.user_id, req.query.item_id);
+                            }
+                            res.send('Success.');
+                        } else {
+                            res.send('Error. ' + err.detail);
+                        }
+                    });
+                } else {
+                    let string = "Tag is not valid.";
+                    res.send(string);
+                }
+            } else {
+                let string = "User and/or item does not exist."
+                console.log(string);
+                res.send(string);
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.send("Error. " + err);
+    }
+});
+
+//Description: edit the usage tag in the inventory table to either tossed or used
+//Parameters: tag (enum), user_id (int), item_id (int)
+app.put('/editUsageTag', async (req, res, next) => {
+    try {
+        await pool.query('SELECT * FROM inventory WHERE user_id=$1 AND inventory_item_id=$2', [req.query.user_id, req.query.item_id], async function (errs, results) {
+            console.log(results);
+            if (results.rowCount > 0) {
+                const enum_tags = ['tossed', 'used'];
+                if (enum_tags.includes(req.query.tag)) {
+                    await pool.query('UPDATE inventory SET usage_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
                         if (result) {
                             res.send('Success.')
                         } else {
@@ -368,14 +405,14 @@ app.put('/editGroceryTag', async (req, res, next) => {
     }
 });
 
-//Description: edit the item's tag in the inventory table
+//Description: edit the item's tag in the inventory table to either expired or not expired
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editInventoryTag', async (req, res, next) => {
     try {
         await pool.query('SELECT * FROM inventory WHERE user_id=$1 AND inventory_item_id=$2', [req.query.user_id, req.query.item_id], async function (errs, results) {
             console.log(results);
             if (results.rowCount > 0) {
-                const enum_tags = ['expired', 'not expired', 'used'];
+                const enum_tags = ['expired', 'not expired'];
                 if (enum_tags.includes(req.query.tag)) {
                     await pool.query('UPDATE inventory SET inventory_tag = $1 WHERE user_id = $2 AND inventory_item_id = $3', [req.query.tag, req.query.user_id, req.query.item_id], function (err, result) {
                         if (result) {
@@ -401,14 +438,112 @@ app.put('/editInventoryTag', async (req, res, next) => {
 });
 
 /*Utils*/
+//Description: get shelf life from StillTasty API
+const getShelfLife = (query_id) => {
+    return new Promise (resolve => {
+        request({url: 'https://shelf-life-api.herokuapp.com/guides/' + query_id.toString()},
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                console.log('Error. ' + error);
+                return 'Error.';
+            }
+            var string = JSON.parse(body);
+            var test = string.methods[0].expirationTime;
+            //console.log(test);
+            resolve(test);
+        }
+    )
+    });   
+}
+
+//Description: get item's query_id from groceries table
+const getQueryId = (user_id, item_id) => {
+    return new Promise (resolve => {
+        pool.query('SELECT * FROM groceries WHERE user_id = $1 AND grocery_item_id = $2', [user_id, item_id], function (err, result) {
+            var query_id = result.rows[0].query_id;
+            resolve(query_id);
+        });
+    });
+}
+
+//Description: auto add item to inventory if grocery_tag set to 'bought' aka checked item
+const autoAddItem = async (user_id, item_id) => {
+    const query_id = await getQueryId(user_id, item_id);
+    const shelf_life = await getShelfLife(query_id);
+    const shelf_life_converted = await convertExpiry(shelf_life);
+    var input_date = await new Date();
+    const expiry_date = await addExpiry(input_date, shelf_life_converted);
+    var item_name = await getItemName(user_id, item_id);
+    var res = await addInventoryItem(item_name, user_id, input_date, expiry_date, query_id, item_id);
+    console.log(res);
+}
+
+//Description: auto remove item from inventory if grocery_tag set to 'not bought' aka unchecked item
+const autoDeleteItem = async (user_id, item_id) => {
+    var res = await deleteInventoryItem(user_id, item_id);
+    console.log(res);
+}
+
+//Description: retrieve item_name for selected item recorded
+const getItemName = (user_id, item_id) => {
+    return new Promise (resolve => {
+        pool.query('SELECT * FROM groceries WHERE user_id=$1 AND grocery_item_id=$2', [user_id, item_id], function(err, result) {
+            resolve(result.rows[0].grocery_item_name);
+        });
+    });
+}
+
+//Description: insert new record into inventory table
+const addInventoryItem = (item_name, user_id, input_date, expiry_date, query_id, item_id) => {
+    return new Promise (resolve => {
+        pool.query('INSERT INTO inventory (inventory_item_name, user_id, input_date, expiry_date, query_id, grocery_item_id) VALUES ($1, $2, $3, $4, $5, $6)', [item_name, user_id, input_date, expiry_date, query_id, item_id], function (err, result) {
+            console.log(result);
+            resolve(result);
+        });
+    })
+}
+
+//Description: delete record from inventory table
+const deleteInventoryItem = (user_id, item_id) => {
+    return new Promise (resolve => {
+        pool.query('DELETE FROM inventory WHERE user_id = $1 AND grocery_item_id = $2', [user_id, item_id], function (err, result) {
+            console.log(result);
+            resolve(result);
+        });
+    })
+}
+
+//Description: convert the time in seconds to days (Promise)
+const convertExpiry = (expiry_time) => {
+    return new Promise (resolve => {
+        var shelf_life = Math.round(expiry_time / (60 * 60 * 24));
+        resolve(shelf_life);
+    })
+}
+
 //Description: convert the time in seconds to days
+//TO DO: Delete this and refractor code above
 const convertDate = (expiry_time) => {
     var shelf_life = Math.round(expiry_time / (60 * 60 * 24));
     //console.log("Shelf Life: " + shelf_life);
     return shelf_life;
 }
 
+//Description: adds the shelf life to the input date to calculate the expiry date (Promise)
+const addExpiry = (input_date, expiry_time) => {
+    return new Promise(resolve => {
+        const current_date = new Date(input_date);
+    //console.log("Input Date: " + current_date);
+    const new_date = current_date.setDate(current_date.getDate() + expiry_time);
+    const expiry_date = new Date(new_date);
+    const expiry_date_formatted = expiry_date.toISOString().split('T')[0]; //retains the date portion of datetime
+    console.log("Expiry Date Formatted: " + expiry_date_formatted);
+    resolve(expiry_date_formatted);
+    });
+}
+
 //Description: adds the shelf life to the input date to calculate the expiry date
+//TO DO: Delete this and refractor code above
 const addDate = (input_date, expiry_time) => {
     const current_date = new Date(input_date);
     //console.log("Input Date: " + current_date);
@@ -422,18 +557,18 @@ const addDate = (input_date, expiry_time) => {
 //Description: update the display_tag boolean in the groceries table
 const updateDisplayTag = async (tag, user_id, item_id) => {
     return await pool.query('UPDATE groceries SET display_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id],
-    function (err, result) {
-        let string = JSON.stringify(result);
-        console.log(result);
-        var text = 'Loading.';
-        if (!err) {
-            var text = 'Success.';
-        } else {
-            var text = 'Error. ' + err.detail;
+        function (err, result) {
+            let string = JSON.stringify(result);
+            console.log(result);
+            var text = 'Loading.';
+            if (!err) {
+                var text = 'Success.';
+            } else {
+                var text = 'Error. ' + err.detail;
+            }
+            console.log(text);
+            return text;
         }
-        console.log(text);
-        return text;
-    }
     )
 }
 
