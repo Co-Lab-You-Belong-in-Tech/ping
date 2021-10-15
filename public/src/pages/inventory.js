@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import FridgeArea from "../components/FridgeArea";
-import FridgeLogo from "../assets/Fridge_Logo.png";
+import logo from "../assets/Fridge_Logo.png";
 
 function Inventory() {
   const { user, setExpiredItems, expiredItem } = useContext(UserContext);
@@ -37,8 +37,8 @@ function Inventory() {
   // logic:  if the itemtag is not expired , display here; if user click toss or used buttom they disapper from the page but change the tag in database
   return (
     <div>
-      <img scr={FridgeLogo} />
-      <h1>This is {user} fridge</h1>
+      <img src={logo} />
+      <h1>{user}My Fridge</h1>
 
       <FridgeArea userData={userData} />
     </div>

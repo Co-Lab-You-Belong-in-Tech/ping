@@ -1,6 +1,7 @@
 import React from "react";
 import "../errorPage.css";
 import sadFace from "../assets/sadFace.png";
+import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
   return (
@@ -12,7 +13,9 @@ const ErrorPage = () => {
         <h4>This page doesn't exist</h4>
       </div>
 
-      <button className="btn-large">BACK TO HOMEPAGE</button>
+      <button className="btn-large">
+        <Link to="/list">BACK TO HOMEPAGE</Link>
+      </button>
     </div>
   );
 };

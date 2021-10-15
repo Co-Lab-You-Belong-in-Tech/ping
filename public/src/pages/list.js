@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import GroceryItems from "../components/GroceryItem";
 import UserContext from "../UserContext";
 import OwnAPI from "../Api";
+import groceryLogo from "../assets/Grocery_Logo.png";
 
 const List = () => {
   const { user } = useContext(UserContext);
@@ -22,13 +23,19 @@ const List = () => {
 
   return (
     <div>
+      <img src={groceryLogo} />
       <h1>My Grocery {user} List</h1>
-
-      <Link to="/search">
-        <button>Add Item</button>
-      </Link>
-      <button onClick={() => setUserData(null)}> Delete All</button>
-      <GroceryItems userData={userData} />
+      <div>
+        <Link to="/search">
+          <button className="btn-large">ADD ITEM</button>
+        </Link>
+        <button className="btn-lg-danger" onClick={() => setUserData(null)}>
+          DELETE ALL
+        </button>
+      </div>
+      <div>
+        <GroceryItems userData={userData} />
+      </div>
     </div>
   );
 };

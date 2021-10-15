@@ -40,3 +40,36 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* Button - Large */
+.btn-large {
+  /*position: absolute;*/
+  width: 128px;
+  height: 41px;
+  left: 124px;
+  top: 430px;
+  color: #2a9d8f;
+  border: #2a9d8f 2px solid;
+  background-color: #eaf5f5;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-lg-danger {
+  /*position: absolute;*/
+  width: 128px;
+  height: 41px;
+  left: 124px;
+  top: 430px;
+  color: #e76f51;
+  border: #e76f51 2px solid;
+  background-color: #ffede9;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+}
