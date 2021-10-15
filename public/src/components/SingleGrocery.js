@@ -23,13 +23,24 @@ const SingleGrocery = ({
 
   // need some functions to get expiry_time
 
+  // handle simple delete
+  async function singleDelete(tag, user_id, item_id, getData) {
+    OwnAPI.editGroceryDeleteTag(tag, user_id, item_id);
+    console.log("deleted!");
+  }
+
   return (
     <div key={grocery_item_id}>
       <button onClick={() => handleBought(grocery_item_name, user, query_id)}>
         {grocery_tag === "not bought" ? "x" : <span>&#10003;</span>}
       </button>
+      {grocery_tag}---{display_tag}
       {grocery_item_name}
-      -----{query_id}
+      -----{query_id}--
+      {grocery_item_id}
+      <button onClick={() => singleDelete("deleted", user, grocery_item_id)}>
+        delete
+      </button>
     </div>
   );
 };

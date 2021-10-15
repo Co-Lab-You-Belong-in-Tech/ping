@@ -94,6 +94,18 @@ class OwnAPI {
       console.error(e);
     }
   }
+
+  /*** edit display tag in the grocery table to either deleted or not deleted */
+  static async editGroceryDeleteTag(tag, user_id, item_id_array) {
+    try {
+      let resp = await axios.put(
+        `${OWN_URL}/editDisplayTag?tag=${tag}&user_id=${user_id}&item_id=${item_id_array}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 export default OwnAPI;

@@ -66,7 +66,7 @@ function HomePage() {
         <span
           style={{
             fontWeight: "bold",
-            color: "red",
+            color: "#e76f51",
           }}
         >
           {emailError}
@@ -87,7 +87,6 @@ function HomePage() {
             Login
           </button>
         </form>
-        {user}
       </div>
     </div>
   );
