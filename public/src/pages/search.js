@@ -58,7 +58,7 @@ function SearchPage() {
         message: `success add ${item_name}!`, // content:MyNotify (custom notification)
         type: "success",
         insert: "top",
-        container: "top-right",
+        container: "top-center",
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
