@@ -4,11 +4,10 @@ import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import SingleGrocery from "./SingleGrocery";
 
-const GroceryItems = ({ userData }) => {
+const GroceryItems = ({ userData, getData }) => {
   const { user } = useContext(UserContext);
 
   if (!userData) return <div>No Grocery available!</div>;
-  userData = userData.filter((a) => a.display_tag != "deleted"); // filter the userdata to display no deleted one
 
   return (
     <div>
@@ -21,6 +20,7 @@ const GroceryItems = ({ userData }) => {
             grocery_item_name={a.grocery_item_name}
             query_id={a.query_id}
             display_tag={a.display_tag}
+            getData={getData}
           />
         ))}
     </div>

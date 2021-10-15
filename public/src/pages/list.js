@@ -8,19 +8,29 @@ import groceryLogo from "../assets/Grocery_Logo.png";
 const List = () => {
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
-  useEffect(() => {
-    async function getData() {
-      try {
-        const data = await OwnAPI.getGroceries(user);
-        console.log(data);
-        setUserData(data);
-      } catch (e) {
-        console.error(e);
-      }
+  async function getData() {
+    try {
+      const data = await OwnAPI.getGroceries(user);
+      console.log(data);
+      const a = data.filter((a) => a.display_tag != "deleted"); // filter the userdata to display no deleted one
+      setUserData(a);
+    } catch (e) {
+      console.error(e);
     }
+  }
+  useEffect(() => {
     getData();
   }, [user]);
 
+  function deleteAll(userData) {
+    let array = [];
+    for (var i = 0; i < userData.length; i++) {
+      array.push(userData[i].grocery_item_id);
+    }
+    console.log(array);
+    OwnAPI.editGroceryDeleteTag("deleted", user, array); //call api to delete all
+    setUserData(null);
+  }
   return (
     <div>
       <img src={groceryLogo} />
@@ -29,12 +39,12 @@ const List = () => {
         <Link to="/search">
           <button className="btn-large">ADD ITEM</button>
         </Link>
-        <button className="btn-lg-danger" onClick={() => setUserData(null)}>
+        <button className="btn-lg-danger" onClick={() => deleteAll(userData)}>
           DELETE ALL
         </button>
       </div>
       <div>
-        <GroceryItems userData={userData} />
+        <GroceryItems userData={userData} getData={getData} />
       </div>
     </div>
   );
