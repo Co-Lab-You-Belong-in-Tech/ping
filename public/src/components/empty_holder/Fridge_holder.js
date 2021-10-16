@@ -1,12 +1,11 @@
-import emptyfridge from "../../assets/Empty_Fridge_Logo.png";
-
-const FridgeHolder = () => {
+const FridgeHolder = ({ img, message, title }) => {
   return (
     <div>
+      <h2>{title}</h2>
+      {message}
       <div>
-        <img src={emptyfridge} />
+        <img src={img} />
       </div>
-      You don't have any items yet
     </div>
   );
 };

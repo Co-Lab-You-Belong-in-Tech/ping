@@ -3,11 +3,20 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import SingleGrocery from "./SingleGrocery";
+import FridgeHolder from "./empty_holder/Fridge_holder";
+import EmptyCartLogo from "../assets/EmptyCart_Logo.png";
 
 const GroceryItems = ({ userData, getData }) => {
   const { user } = useContext(UserContext);
 
-  if (!userData) return <div>No Grocery available!</div>;
+  if (!userData)
+    return (
+      <FridgeHolder
+        img={EmptyCartLogo}
+        title={"Your grocery list is empty"}
+        message={"Tap Add item to add to your list"}
+      />
+    );
 
   return (
     <div>
