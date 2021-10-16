@@ -6,6 +6,7 @@ import SearchPage from "../pages/search";
 import ErrorPage from "../pages/errorPage";
 import List from "../pages/list";
 import RecipesPage from "../pages/recipes";
+import RecipeDetails from "../pages/recipeDetail";
 
 function Routes() {
   return (
@@ -28,6 +29,9 @@ function Routes() {
         </Route>
         <Route path="/recipes" exact>
           <RecipesPage />
+        </Route>
+        <Route path="/recipes/:id">
+          <RecipeDetails />
         </Route>
         <Route path="*">
           <ErrorPage />

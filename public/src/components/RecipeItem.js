@@ -7,6 +7,16 @@ const RecipeItem = ({ id, image, title }) => {
         <img src={image} />
       </div>
       {id}---{title}
+      <small>
+        <a
+          className="App-link"
+          href={`recipe/${id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          tips
+        </a>
+      </small>
     </div>
   );
 };
