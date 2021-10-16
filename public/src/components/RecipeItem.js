@@ -6,7 +6,7 @@ const RecipeItem = ({ id, image, title }) => {
       <div>
         <img src={image} />
       </div>
-      {id}---{title}
+      {title}
       <small>
         <a
           className="App-link"

@@ -27,6 +27,8 @@ const RecipeDetails = () => {
       <img src={receipeLogo} />
       <h1>My Recipes</h1>
       <p>Based on ingredients Left</p>
+      {theRecipe.title}
+      <div>{theRecipe.analyzedInstructions[0].steps[0].step}</div>
     </div>
   );
 };
