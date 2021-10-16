@@ -17,7 +17,7 @@ const RecipesPage = () => {
       const { data } = await axios.get(
         "https://food-ping.herokuapp.com/getRecipes",
         {
-          params: { ingredients: expiredItem, number: "4" },
+          params: { ingredients: expiredItem, number: "3" },
         }
       );
       console.log(data);
@@ -29,7 +29,7 @@ const RecipesPage = () => {
   if (!recipeData)
     return (
       <div>
-        <img src={receipeLogo} className="recipe-photo" />
+        <img src={receipeLogo} />
         <h1>My Recipes</h1>
         <p>Based on ingredients Left</p>
         <FridgeHolder
