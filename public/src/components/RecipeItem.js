@@ -10,11 +10,11 @@ const RecipeItem = ({ id, image, title }) => {
       <small>
         <a
           className="App-link"
-          href={`recipe/${id}`}
+          href={`recipes/${id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          tips
+          RecipeDetails
         </a>
       </small>
     </div>
