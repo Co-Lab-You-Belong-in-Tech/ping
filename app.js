@@ -209,7 +209,7 @@ app.post('/addUser', async (req, res, next) => {
                     if (!err) {
                         res.send('Success.');
                     } else {
-                        res.send('Error.' + err.detail);
+                        res.send('Error.' + err);
                     }
                 });
             } else {
@@ -244,7 +244,7 @@ app.post('/addGroceryItem', async (req, res, next) => {
                         if (!err) {
                             res.send('Success.');
                         } else {
-                            res.send('Error. ' + err.detail);
+                            res.send('Error. ' + err);
                         }
                     }
                 );
@@ -265,13 +265,11 @@ app.post('/addGroceryItem', async (req, res, next) => {
 //Parameters: item_name (varchar(255)) not null, user_id (int), expiry_time (int), query_id (int)
 app.post('/addInventoryItem', async (req, res, next) => {
     try {
-        await pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], function (errs, results) {
+        await pool.query('SELECT * FROM users WHERE user_id=$1', [req.query.user_id], async function (errs, results) {
             if (results.rowCount > 0) {
-                console.log(req.query);
-                var expiry_time = convertDate(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
+                var expiry_time = await convertExpiry(req.query.expiry_time); //converts expiry_time in seconds to days (rounded)
                 var input_date = new Date();
-                var expiry_date = addDate(input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
-                //console.log(expiry_date);
+                var expiry_date = await addExpiry(input_date, expiry_time); //calculates the expiry_date by adding the expiry_time to input_date
                 pool.query('INSERT INTO inventory (inventory_item_name, user_id, input_date, expiry_date, query_id) VALUES ($1, $2, $3, $4, $5)',
                     //default inventory_tag is 'not expired' (tag is enum('not expired', 'expired'))
                     //default usage_tag is blank (tag is enum('not used', 'used'))
@@ -284,7 +282,7 @@ app.post('/addInventoryItem', async (req, res, next) => {
                         if (!err) {
                             res.send('Success.');
                         } else {
-                            res.send('Error. ' + err.detail);
+                            res.send('Error. ' + err);
                         }
                     }
                 );
@@ -354,7 +352,7 @@ app.put('/editGroceryTag', async (req, res, next) => {
                             }
                             res.send('Success.');
                         } else {
-                            res.send('Error. ' + err.detail);
+                            res.send('Error. ' + err);
                         }
                     });
                 } else {
@@ -386,7 +384,7 @@ app.put('/editUsageTag', async (req, res, next) => {
                         if (result) {
                             res.send('Success.')
                         } else {
-                            res.send('Error. ' + err.detail);
+                            res.send('Error. ' + err);
                         }
                     });
                 } else {
@@ -418,7 +416,7 @@ app.put('/editInventoryTag', async (req, res, next) => {
                         if (result) {
                             res.send('Success.')
                         } else {
-                            res.send('Error. ' + err.detail);
+                            res.send('Error. ' + err);
                         }
                     });
                 } else {
@@ -440,25 +438,26 @@ app.put('/editInventoryTag', async (req, res, next) => {
 /*Utils*/
 //Description: get shelf life from StillTasty API
 const getShelfLife = (query_id) => {
-    return new Promise (resolve => {
-        request({url: 'https://shelf-life-api.herokuapp.com/guides/' + query_id.toString()},
-        (error, response, body) => {
-            if (error || response.statusCode !== 200) {
-                console.log('Error. ' + error);
-                return 'Error.';
+    return new Promise(resolve => {
+        request({
+                url: 'https://shelf-life-api.herokuapp.com/guides/' + query_id.toString()
+            },
+            (error, response, body) => {
+                if (error || response.statusCode !== 200) {
+                    console.log('Error. ' + error);
+                    return 'Error.';
+                }
+                var string = JSON.parse(body);
+                var shelf_life = string.methods[0].expirationTime;
+                resolve(shelf_life);
             }
-            var string = JSON.parse(body);
-            var test = string.methods[0].expirationTime;
-            //console.log(test);
-            resolve(test);
-        }
-    )
-    });   
+        )
+    });
 }
 
 //Description: get item's query_id from groceries table
 const getQueryId = (user_id, item_id) => {
-    return new Promise (resolve => {
+    return new Promise(resolve => {
         pool.query('SELECT * FROM groceries WHERE user_id = $1 AND grocery_item_id = $2', [user_id, item_id], function (err, result) {
             var query_id = result.rows[0].query_id;
             resolve(query_id);
@@ -474,28 +473,29 @@ const autoAddItem = async (user_id, item_id) => {
     var input_date = await new Date();
     const expiry_date = await addExpiry(input_date, shelf_life_converted);
     var item_name = await getItemName(user_id, item_id);
-    var res = await addInventoryItem(item_name, user_id, input_date, expiry_date, query_id, item_id);
-    console.log(res);
+    var result = await addInventoryItem(item_name, user_id, input_date, expiry_date, query_id, item_id);
+    console.log(result);
 }
 
 //Description: auto remove item from inventory if grocery_tag set to 'not bought' aka unchecked item
 const autoDeleteItem = async (user_id, item_id) => {
-    var res = await deleteInventoryItem(user_id, item_id);
-    console.log(res);
+    var result = await deleteInventoryItem(user_id, item_id);
+    console.log(result);
 }
 
-//Description: retrieve item_name for selected item recorded
+//Description: retrieve item_name for selected item record
 const getItemName = (user_id, item_id) => {
-    return new Promise (resolve => {
-        pool.query('SELECT * FROM groceries WHERE user_id=$1 AND grocery_item_id=$2', [user_id, item_id], function(err, result) {
-            resolve(result.rows[0].grocery_item_name);
+    return new Promise(resolve => {
+        pool.query('SELECT * FROM groceries WHERE user_id=$1 AND grocery_item_id=$2', [user_id, item_id], function (err, result) {
+            var item_name = result.rows[0].grocery_item_name;
+            resolve(item_name);
         });
     });
 }
 
-//Description: insert new record into inventory table
+//Description: insert a new record into inventory table
 const addInventoryItem = (item_name, user_id, input_date, expiry_date, query_id, item_id) => {
-    return new Promise (resolve => {
+    return new Promise(resolve => {
         pool.query('INSERT INTO inventory (inventory_item_name, user_id, input_date, expiry_date, query_id, grocery_item_id) VALUES ($1, $2, $3, $4, $5, $6)', [item_name, user_id, input_date, expiry_date, query_id, item_id], function (err, result) {
             console.log(result);
             resolve(result);
@@ -503,9 +503,9 @@ const addInventoryItem = (item_name, user_id, input_date, expiry_date, query_id,
     })
 }
 
-//Description: delete record from inventory table
+//Description: delete a record from inventory table
 const deleteInventoryItem = (user_id, item_id) => {
-    return new Promise (resolve => {
+    return new Promise(resolve => {
         pool.query('DELETE FROM inventory WHERE user_id = $1 AND grocery_item_id = $2', [user_id, item_id], function (err, result) {
             console.log(result);
             resolve(result);
@@ -515,46 +515,25 @@ const deleteInventoryItem = (user_id, item_id) => {
 
 //Description: convert the time in seconds to days (Promise)
 const convertExpiry = (expiry_time) => {
-    return new Promise (resolve => {
+    return new Promise(resolve => {
         var shelf_life = Math.round(expiry_time / (60 * 60 * 24));
         resolve(shelf_life);
     })
-}
-
-//Description: convert the time in seconds to days
-//TO DO: Delete this and refractor code above
-const convertDate = (expiry_time) => {
-    var shelf_life = Math.round(expiry_time / (60 * 60 * 24));
-    //console.log("Shelf Life: " + shelf_life);
-    return shelf_life;
 }
 
 //Description: adds the shelf life to the input date to calculate the expiry date (Promise)
 const addExpiry = (input_date, expiry_time) => {
     return new Promise(resolve => {
         const current_date = new Date(input_date);
-    //console.log("Input Date: " + current_date);
-    const new_date = current_date.setDate(current_date.getDate() + expiry_time);
-    const expiry_date = new Date(new_date);
-    const expiry_date_formatted = expiry_date.toISOString().split('T')[0]; //retains the date portion of datetime
-    console.log("Expiry Date Formatted: " + expiry_date_formatted);
-    resolve(expiry_date_formatted);
+        const new_date = current_date.setDate(current_date.getDate() + expiry_time);
+        const expiry_date = new Date(new_date);
+        const expiry_date_formatted = expiry_date.toISOString().split('T')[0]; //retains the date portion of datetime
+        console.log("Expiry Date: " + expiry_date_formatted);
+        resolve(expiry_date_formatted);
     });
 }
 
-//Description: adds the shelf life to the input date to calculate the expiry date
-//TO DO: Delete this and refractor code above
-const addDate = (input_date, expiry_time) => {
-    const current_date = new Date(input_date);
-    //console.log("Input Date: " + current_date);
-    const new_date = current_date.setDate(current_date.getDate() + expiry_time);
-    const expiry_date = new Date(new_date);
-    const expiry_date_formatted = expiry_date.toISOString().split('T')[0]; //retains the date portion of datetime
-    console.log("Expiry Date Formatted: " + expiry_date_formatted);
-    return expiry_date_formatted;
-}
-
-//Description: update the display_tag boolean in the groceries table
+//Description: update the display_tag enum in the groceries table
 const updateDisplayTag = async (tag, user_id, item_id) => {
     return await pool.query('UPDATE groceries SET display_tag = $1 WHERE user_id = $2 AND grocery_item_id = $3', [tag, user_id, item_id],
         function (err, result) {
@@ -564,7 +543,7 @@ const updateDisplayTag = async (tag, user_id, item_id) => {
             if (!err) {
                 var text = 'Success.';
             } else {
-                var text = 'Error. ' + err.detail;
+                var text = 'Error. ' + err;
             }
             console.log(text);
             return text;
@@ -581,7 +560,7 @@ const updateGroceryTag = async (tag, user_id, item_id) => {
         if (!err) {
             var text = 'Success.';
         } else {
-            var text = 'Error. ' + err.detail;
+            var text = 'Error. ' + err;
         }
         console.log(text);
         return text;
@@ -598,7 +577,7 @@ const updateInventoryTag = async (tag, user_id, item_id) => {
             if (!err) {
                 var text = 'Success.';
             } else {
-                var text = 'Error. ' + err.detail;
+                var text = 'Error. ' + err;
             }
             console.log(text);
             return text;
@@ -625,7 +604,7 @@ var expiryCheck = async () => {
             var expiry_date = row.expiry_date;
             var today_date = new Date();
             var current_tag = row.inventory_tag;
-            if (today_date >= expiry_date && current_tag === 'not expired') { //update tag to expired if expiry date has passed and item is not completely used
+            if (today_date >= expiry_date && current_tag === 'not expired') { //update tag to expired if expiry date has passed 
                 var tag = 'expired';
                 updateInventoryTag(tag, user_id, item_id);
             }
@@ -637,6 +616,7 @@ var rule = new schedule.RecurrenceRule();
 rule.hour = 0; //runs once a day at midnight
 //rule.minute = new schedule.Range(0, 59, 1);
 
+//Description: CRON scheduler that runs the expiryCheck function based on the provide schedule rule
 const expiryCheckScheduler = schedule.scheduleJob(rule, function () { //runs function based on CRON scheduler
     console.log("Finished expiry check.");
     expiryCheck();
