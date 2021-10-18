@@ -7,6 +7,7 @@ import EmptyRecipe from "../assets/Empty_Recipe_Logo.png";
 import UserContext from "../UserContext";
 import RecipeItem from "../components/RecipeItem";
 import "../App.css";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipesPage = () => {
   const [recipeData, setRecipeData] = useState(null);
@@ -48,6 +49,8 @@ const RecipesPage = () => {
       {recipeData.map((a) => (
         <RecipeItem title={a.title} image={a.image} id={a.id} key={a.id} />
       ))}
+
+      <BottomNavBar name="recipes" />
     </div>
   );
 };

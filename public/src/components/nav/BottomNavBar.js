@@ -30,13 +30,6 @@ const BottomNavBar = (props) => {
   return (
     <div>
       <li>
-        {activeTabs === "home" ? (
-          <button onClick={() => setActiveTabs("home")}> Home</button>
-        ) : (
-          <button onClick={() => setActiveTabs("home")}>HomeNot</button>
-        )}
-      </li>
-      <li>
         {activeTabs === "list" ? (
           <button onClick={() => setActiveTabs("list")}> List</button>
         ) : (
