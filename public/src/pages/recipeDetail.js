@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import receipeLogo from "../assets/Recipe_Logo.png";
 import axios from "axios";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipeDetails = () => {
   const { id } = useParams();
