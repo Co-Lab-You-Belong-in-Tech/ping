@@ -3,6 +3,7 @@ import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import FridgeArea from "../components/FridgeArea";
 import logo from "../assets/Fridge_Logo.png";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 function Inventory() {
   const { user, setExpiredItems, expiredItem } = useContext(UserContext);
@@ -40,6 +41,7 @@ function Inventory() {
       <h1>{user}My Fridge</h1>
 
       <FridgeArea userData={userData} />
+      <BottomNavBar name="inventory" />
     </div>
   );
 }

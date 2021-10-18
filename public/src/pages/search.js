@@ -49,9 +49,9 @@ function SearchPage() {
   /** we get the veggigID and search  */
 
   /***add grocery function */
-  function addGrocery(item_name, user_id) {
+  function addGrocery(item_name, user_id, query_id) {
     try {
-      OwnAPI.addGrocery(item_name, user_id);
+      OwnAPI.addGrocery(item_name, user_id, query_id);
       console.log(item_name, user_id);
       store.addNotification({
         title: "Hey!",
@@ -80,7 +80,7 @@ function SearchPage() {
         value={text}
       />
       {text && veggieID && (
-        <button onClick={() => addGrocery(text, user)}>Add</button>
+        <button onClick={() => addGrocery(text, user, veggieID)}>Add</button>
       )}
       {suggestions &&
         suggestions.map((suggestion) => (

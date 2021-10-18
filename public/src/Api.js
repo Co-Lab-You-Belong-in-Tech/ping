@@ -49,10 +49,10 @@ class OwnAPI {
   }
 
   //add grocery
-  static async addGrocery(item_name, user_id) {
+  static async addGrocery(item_name, user_id, query_id) {
     try {
       let resp = await axios.post(
-        `${OWN_URL}/addGroceryItem?item_name=${item_name}&user_id=${user_id}`
+        `${OWN_URL}/addGroceryItem?item_name=${item_name}&user_id=${user_id}&query_id=${query_id}`
       );
       return resp.data;
     } catch (e) {

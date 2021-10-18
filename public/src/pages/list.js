@@ -4,6 +4,7 @@ import GroceryItems from "../components/GroceryItem";
 import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import groceryLogo from "../assets/Grocery_Logo.png";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 const List = () => {
   const { user } = useContext(UserContext);
@@ -46,6 +47,7 @@ const List = () => {
       <div>
         <GroceryItems userData={userData} getData={getData} />
       </div>
+      <BottomNavBar name="list" />
     </div>
   );
 };

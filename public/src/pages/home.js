@@ -5,6 +5,7 @@ import validator from "validator";
 import OwnAPI from "../Api";
 import Logo from "../assets/Logo.png";
 import "../login.css";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id
@@ -88,6 +89,7 @@ function HomePage() {
           </button>
         </form>
       </div>
+      <BottomNavBar name="home" />
     </div>
   );
 }
