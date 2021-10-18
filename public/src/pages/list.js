@@ -45,7 +45,11 @@ const List = () => {
         </button>
       </div>
       <div>
-        <GroceryItems userData={userData} getData={getData} />
+        <GroceryItems
+          userData={userData}
+          getData={getData}
+          setUserData={setUserData}
+        />
       </div>
       <BottomNavBar name="list" />
     </div>

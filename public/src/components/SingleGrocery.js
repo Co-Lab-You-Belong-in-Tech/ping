@@ -13,6 +13,8 @@ const SingleGrocery = ({
   display_tag,
   query_id = 16623,
   getData,
+  setUserData,
+  userData,
 }) => {
   /*grab user id  */
   const { user } = useContext(UserContext);
@@ -44,6 +46,8 @@ const SingleGrocery = ({
   async function singleDelete(tag, user_id, item_id) {
     OwnAPI.editGroceryDeleteTag(tag, user_id, item_id);
     getData(); // renew the list and it shows immediately
+    const b = userData.filter((a) => a.grocery_tag != "deleted"); // try to faster the delete function
+    setUserData(b);
   }
 
   //const firstLetter = name.replace(/ .*/, "").toLowerCase();

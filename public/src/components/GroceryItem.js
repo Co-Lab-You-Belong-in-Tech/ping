@@ -6,7 +6,7 @@ import SingleGrocery from "./SingleGrocery";
 import FridgeHolder from "./empty_holder/Fridge_holder";
 import EmptyCartLogo from "../assets/EmptyCart_Logo.png";
 
-const GroceryItems = ({ userData, getData }) => {
+const GroceryItems = ({ userData, getData, setUserData }) => {
   const { user } = useContext(UserContext);
 
   if (!userData)
@@ -30,6 +30,8 @@ const GroceryItems = ({ userData, getData }) => {
             query_id={a.query_id}
             display_tag={a.display_tag}
             getData={getData}
+            setUserData={setUserData}
+            userData={userData}
           />
         ))}
     </div>
