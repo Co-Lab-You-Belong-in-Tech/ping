@@ -27,7 +27,7 @@ function Inventory() {
     if (!data) return ["carrot"];
     data = data.filter((a) => a.inventory_tag === "expired");
     for (var i in data) {
-      result.push(data[i].inventory_item_name);
+      result.push(data[i].inventory_item_name.replace(/ .*/, "").toLowerCase());
     }
     return result;
   }
