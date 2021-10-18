@@ -12,9 +12,9 @@ const FridgeItem = ({
   inventory_item_id,
 }) => {
   const { user } = useContext(UserContext);
-  function calTime(time) {
+  function calTime(t) {
     var currentDate = new Date();
-    var time = new Date(time);
+    var time = new Date(t);
     var one_day = 1000 * 60 * 60 * 24;
     var result = Math.abs(time - currentDate) / one_day;
     return Math.floor(result);

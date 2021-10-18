@@ -25,7 +25,7 @@ function NavBar() {
   };
 
   // need t do something here to handle no expiredItem error
-  if (expiredItem.length == undefined) {
+  if (expiredItem.length === undefined) {
     console.log("length undefined");
   }
   return (

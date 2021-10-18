@@ -12,8 +12,8 @@ const List = () => {
   async function getData() {
     try {
       const data = await OwnAPI.getGroceries(user);
-      console.log(data);
-      const a = data.filter((a) => a.display_tag != "deleted"); // filter the userdata to display no deleted one
+      //console.log(data);
+      const a = data.filter((a) => a.display_tag !== "deleted"); // filter the userdata to display no deleted one
       setUserData(a);
     } catch (e) {
       console.error(e);

@@ -8,7 +8,7 @@ import "../login.css";
 import BottomNavBar from "../components/nav/BottomNavBar";
 
 function HomePage() {
-  const { user, setUser } = useContext(UserContext); // use useContext to grab user id
+  const { setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();

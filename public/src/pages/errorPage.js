@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const ErrorPage = () => {
   return (
     <div class="page-box">
-      <img src={sadFace} />
+      <img src={sadFace} alt="sadFace" />
       <h1>Oops!</h1>
       <div className="empty-msg">
         <h2>404 - PAGE NOT FOUND</h2>
