@@ -20,6 +20,15 @@ const RecipeDetails = () => {
     getRecipe();
   }, []);
 
+  //helper fucntion to get the clean list of ingredient from theRecipe Data
+  function getIngredients(data) {
+    let array = [];
+    for (var i = 0; i < data.extendedIngredients.length; i++) {
+      array.push(data.extendedIngredients[i].name);
+    }
+    return array.map((a) => <li>{a}</li>);
+  }
+
   if (!theRecipe) return <div>Loading!</div>;
   return (
     <div>
@@ -27,8 +36,19 @@ const RecipeDetails = () => {
       <img src={receipeLogo} />
       <h1>My Recipes</h1>
       <p>Based on ingredients Left</p>
-      {theRecipe.title}
-      <div>{theRecipe.analyzedInstructions[0].steps[0].step}</div>
+      <h2>{theRecipe.title}</h2>
+
+      <div>
+        <h3>ingredients</h3>
+        {theRecipe.extendedIngredients[0].name}
+        {getIngredients(theRecipe)}
+      </div>
+      <div>
+        <h3>Instructions</h3>
+        {theRecipe.analyzedInstructions[0].steps.map((a) => (
+          <li>{a.step}</li>
+        ))}
+      </div>
     </div>
   );
 };
