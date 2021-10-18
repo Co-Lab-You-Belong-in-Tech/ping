@@ -7,6 +7,7 @@ import ErrorPage from "../pages/errorPage";
 import List from "../pages/list";
 import RecipesPage from "../pages/recipes";
 import RecipeDetails from "../pages/recipeDetail";
+import Signup from "../pages/signUp";
 
 function Routes() {
   return (
@@ -32,6 +33,9 @@ function Routes() {
         </Route>
         <Route path="/recipes/:id">
           <RecipeDetails />
+        </Route>
+        <Route path="/signup">
+          <Signup />
         </Route>
         <Route path="*">
           <ErrorPage />

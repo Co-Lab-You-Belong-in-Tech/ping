@@ -74,10 +74,10 @@ function HomePage() {
         </span>
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"></label>
           <input
             type="email"
-            placeholder="email"
+            placeholder="Email Address"
             name="email"
             id="email"
             value={formData.email}
@@ -88,6 +88,9 @@ function HomePage() {
             Login
           </button>
         </form>
+        <h4>
+          Don't have an accout? <a href="/signup">Sign up here.</a>
+        </h4>
       </div>
       <BottomNavBar name="home" />
     </div>
