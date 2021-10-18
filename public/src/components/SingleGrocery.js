@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { ReactComponent as DeleteBtn } from "../assets/Group_16.svg";
@@ -14,14 +14,26 @@ const SingleGrocery = ({
 }) => {
   /*grab user id  */
   const { user } = useContext(UserContext);
+
+  /* set the check, Checked to display the toggle button*/
+  const [check, setChecked] = useState(true);
+
+  /*check the  check status true or false*/
+  useEffect(() => {
+    function displayCheck() {
+      if (grocery_tag === "bought") {
+        setChecked(true);
+      } else {
+        setChecked(false);
+      }
+    }
+    displayCheck();
+  }, []);
   /*handle Bought function, it is works now but need to add expiry time */
-  async function handleBought(
-    item_name,
-    user_id,
-    expiry_time = "12232132",
-    query_id = "16808"
-  ) {
-    OwnAPI.addFridge(item_name, user_id, expiry_time, query_id); // talk to anita about update the tag?
+  async function handleBought(tag, user_id, item_id) {
+    OwnAPI.editGroceryTag(tag, user_id, item_id); // update tage
+    setChecked(!check);
+    getData();
   }
 
   // need some functions to get expiry_time
@@ -35,12 +47,19 @@ const SingleGrocery = ({
   //const firstLetter = name.replace(/ .*/, "").toLowerCase();
   return (
     <div key={grocery_item_id}>
-      <button onClick={() => handleBought(grocery_item_name, user, query_id)}>
-        {grocery_tag === "not bought" ? "x" : <span>&#10003;</span>}
-      </button>
+      {check ? (
+        <button
+          onClick={() => handleBought("not bought", user, grocery_item_id)}
+        >
+          <span>&#10003;</span>
+        </button>
+      ) : (
+        <button onClick={() => handleBought("bought", user, grocery_item_id)}>
+          x
+        </button>
+      )}
       {grocery_tag}---
       {grocery_item_name.replace(/ .*/, "").toLowerCase()}
-      -----{query_id}
       <button
         onClick={() => singleDelete("deleted", user, grocery_item_id)}
         className="deleteBtn"
