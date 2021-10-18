@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import reactNotificationsComponent from "react-notifications-component";
+//import reactNotificationsComponent from "react-notifications-component";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { store } from "react-notifications-component";

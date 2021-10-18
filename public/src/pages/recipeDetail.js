@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import receipeLogo from "../assets/Recipe_Logo.png";
 import axios from "axios";
-import BottomNavBar from "../components/nav/BottomNavBar";
+//import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -19,7 +19,7 @@ const RecipeDetails = () => {
       setTheRecipe(data);
     }
     getRecipe();
-  }, []);
+  }, [id]);
 
   //helper fucntion to get the clean list of ingredient from theRecipe Data
   function getIngredients(data) {
@@ -34,7 +34,7 @@ const RecipeDetails = () => {
   return (
     <div>
       <Link to="/recipes"> Back to Recipes</Link>
-      <img src={receipeLogo} />
+      <img src={receipeLogo} alt="recipeLogo" />
       <h1>My Recipes</h1>
       <p>Based on ingredients Left</p>
       <h2>{theRecipe.title}</h2>

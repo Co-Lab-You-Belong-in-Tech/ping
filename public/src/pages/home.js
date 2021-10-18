@@ -58,7 +58,7 @@ function HomePage() {
   return (
     <div class="login">
       <div>
-        <img src={Logo}></img>
+        <img src={Logo} alt="logo"></img>
       </div>
       <p>Deliciously simple.</p>
 

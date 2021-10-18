@@ -1,13 +1,12 @@
-import exp from "constants";
-import React, { useContext, useEffect, useState } from "react";
-import UserContext from "../UserContext";
-import OwnAPI from "../Api";
+import React from "react";
+//import UserContext from "../UserContext";
+//import OwnAPI from "../Api";
 import SingleGrocery from "./SingleGrocery";
 import FridgeHolder from "./empty_holder/Fridge_holder";
 import EmptyCartLogo from "../assets/EmptyCart_Logo.png";
 
 const GroceryItems = ({ userData, getData, setUserData }) => {
-  const { user } = useContext(UserContext);
+  //const { user } = useContext(UserContext);
 
   if (!userData)
     return (

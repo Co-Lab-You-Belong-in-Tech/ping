@@ -32,7 +32,7 @@ const SingleGrocery = ({
       }
     }
     displayCheck();
-  }, []);
+  }, [grocery_tag]);
   /*handle Bought function, it is works now but need to add expiry time */
   async function handleBought(tag, user_id, item_id) {
     OwnAPI.editGroceryTag(tag, user_id, item_id); // update tage
@@ -46,7 +46,7 @@ const SingleGrocery = ({
   async function singleDelete(tag, user_id, item_id) {
     OwnAPI.editGroceryDeleteTag(tag, user_id, item_id);
     getData(); // renew the list and it shows immediately
-    const b = userData.filter((a) => a.grocery_tag != "deleted"); // try to faster the delete function
+    const b = userData.filter((a) => a.grocery_tag !== "deleted"); // try to faster the delete function
     setUserData(b);
   }
 

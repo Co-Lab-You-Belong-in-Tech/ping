@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import NavBar from "../components/NavBar";
 import receipeLogo from "../assets/Recipe_Logo.png";
 import FridgeHolder from "../components/empty_holder/Fridge_holder";
 import EmptyRecipe from "../assets/Empty_Recipe_Logo.png";
@@ -25,12 +24,12 @@ const RecipesPage = () => {
       setRecipeData(data);
     }
     getRecipe();
-  }, []);
+  });
 
   if (!recipeData)
     return (
       <div>
-        <img src={receipeLogo} />
+        <img src={receipeLogo} alt="recipe_logo" />
         <h1>My Recipes</h1>
         <p>Based on ingredients Left</p>
         <FridgeHolder
@@ -42,7 +41,7 @@ const RecipesPage = () => {
     );
   return (
     <div>
-      <img src={receipeLogo} />
+      <img src={receipeLogo} alt="recipe_logo" />
       <h1>My Recipes</h1>
       <p>Based on ingredients Left</p>
 

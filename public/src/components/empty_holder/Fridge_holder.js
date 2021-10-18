@@ -4,7 +4,7 @@ const FridgeHolder = ({ img, message, title }) => {
       <h2>{title}</h2>
       {message}
       <div>
-        <img src={img} />
+        <img src={img} alt="holder_image" />
       </div>
     </div>
   );
