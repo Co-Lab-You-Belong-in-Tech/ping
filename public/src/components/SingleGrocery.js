@@ -2,6 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { ReactComponent as DeleteBtn } from "../assets/Group_16.svg";
+import { ReactComponent as Checkedbtn } from "../assets/checkedbtn.svg";
+import { ReactComponent as NotCheckedbtn } from "../assets/notChekcedbtn.svg";
 import "../App.css";
 
 const SingleGrocery = ({
@@ -49,13 +51,17 @@ const SingleGrocery = ({
     <div key={grocery_item_id}>
       {check ? (
         <button
+          style={{ border: "none" }}
           onClick={() => handleBought("not bought", user, grocery_item_id)}
         >
-          <span>&#10003;</span>
+          <Checkedbtn />
         </button>
       ) : (
-        <button onClick={() => handleBought("bought", user, grocery_item_id)}>
-          x
+        <button
+          onClick={() => handleBought("bought", user, grocery_item_id)}
+          style={{ border: "none" }}
+        >
+          <NotCheckedbtn />
         </button>
       )}
       {grocery_tag}---
