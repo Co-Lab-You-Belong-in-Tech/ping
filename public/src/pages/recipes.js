@@ -24,7 +24,7 @@ const RecipesPage = () => {
       setRecipeData(data);
     }
     getRecipe();
-  });
+  }, []);
 
   if (!recipeData)
     return (
