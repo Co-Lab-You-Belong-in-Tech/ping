@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import UserContext from "../UserContext";
 import FridgeHolder from "./empty_holder/Fridge_holder";
 import FridgeItem from "./FridgeItem";
 import emptyfridge from "../assets/Empty_Fridge_Logo.png";
+import OwnAPI from "../Api";
 
 // this is the fridge area for place holder to hold all single fridge items
 
 const FridgeArea = ({ userData }) => {
+  const [tagArray, setTagArray] = useState([]); // so we dont have mutiple items
+  const { user } = useContext(UserContext); // grab user id
+
+  async function handleUsageTag(tag, user_id, item_id_array) {
+    OwnAPI.editFridgeUsage(tag, user_id, item_id_array);
+  }
+
   if (!userData)
     return (
       <FridgeHolder
@@ -14,10 +23,23 @@ const FridgeArea = ({ userData }) => {
         title={"Your fridge is empty"}
       />
     );
+
   return (
     <div>
-      <button className="btn-large">MARK AS USED</button>
-      <button className="btn-lg-danger"> TOSS </button>
+      {user}
+      <button
+        className="btn-large"
+        onClick={() => handleUsageTag("used", user, tagArray)}
+      >
+        MARK AS USED
+      </button>
+      <button
+        className="btn-lg-danger"
+        onClick={() => handleUsageTag("tossed", user, tagArray)}
+      >
+        {" "}
+        TOSS{" "}
+      </button>
 
       {Array.isArray(userData) &&
         userData.map((a) => (
@@ -28,6 +50,9 @@ const FridgeArea = ({ userData }) => {
             query_id={a.query_id}
             inventory_item_id={a.inventory_item_id}
             key={a.inventory_item_id}
+            usage_tag={a.usage_tag}
+            tagArray={tagArray}
+            setTagArray={setTagArray}
           />
         ))}
     </div>

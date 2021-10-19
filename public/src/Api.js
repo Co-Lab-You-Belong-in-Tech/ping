@@ -72,6 +72,19 @@ class OwnAPI {
     }
   }
 
+  // handle fridge inventory useage tag
+
+  static async editFridgeUsage(tag, user_id, item_id_array) {
+    try {
+      let resp = await axios.put(
+        `${OWN_URL}/editUsageTag?tag=${tag}&user_id=${user_id}&item_id=${item_id_array}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   // put the grocery item into fridge ( add to inventory)
   static async addFridge(item_name, user_id, expiry_time, query_id) {
     try {

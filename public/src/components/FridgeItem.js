@@ -10,6 +10,9 @@ const FridgeItem = ({
   inventory_tag,
   query_id,
   inventory_item_id,
+  usage_tag,
+  tagArray,
+  setTagArray,
 }) => {
   const { user } = useContext(UserContext);
   function calTime(t) {
@@ -56,32 +59,50 @@ const FridgeItem = ({
     }
   }
 
+  function handleClick(item_id) {
+    setTagArray([...tagArray, item_id]);
+    console.log(tagArray);
+  }
+
+  function handleRemove(item_id) {
+    const arr = [...tagArray].filter((x) => x !== item_id);
+    setTagArray(arr);
+    console.log(tagArray);
+  }
+
   return (
     <div>
-      <li>
-        {inventory_item_id}
-        {inventory_item_name} ---{" "}
-        {inventory_tag === "not expired"
-          ? "expiring in "
-          : "already expired for "}
-        {calTime(expiry_date)} Days
-        <small>
-          <a
-            className="App-link"
-            href={`tips/${inventory_item_name}/${query_id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            tips
-          </a>
-        </small>
-        <button onClick={() => handleUsed("used", user, inventory_item_id)}>
-          Mark as used
-        </button>
-        <button onClick={() => handleUsed("expired", user, inventory_item_id)}>
-          Toss
-        </button>
-      </li>
+      <button
+        onClick={() => {
+          handleClick(inventory_item_id);
+        }}
+      >
+        X
+      </button>
+      <button onClick={() => handleRemove(inventory_item_id)}>Y</button>
+      {usage_tag}
+      {inventory_item_id}
+      {inventory_item_name}
+      {inventory_tag === "not expired"
+        ? "expiring in "
+        : "already expired for "}
+      {calTime(expiry_date)} Days
+      <small>
+        <a
+          className="App-link"
+          href={`tips/${inventory_item_name}/${query_id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          tips
+        </a>
+      </small>
+      <button onClick={() => handleUsed("used", user, inventory_item_id)}>
+        Mark as used
+      </button>
+      <button onClick={() => handleUsed("expired", user, inventory_item_id)}>
+        Toss
+      </button>
     </div>
   );
 };

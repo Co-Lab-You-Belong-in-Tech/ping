@@ -12,7 +12,8 @@ function Inventory() {
     async function getData() {
       try {
         const data = await OwnAPI.getTheUserInventory(user);
-        console.log(getExpiredArray(data));
+        console.log(data);
+        //console.log(getExpiredArray(data));
         setExpiredItems(getExpiredArray(data)); /// need to rethink where put this function?
         setUserData(data);
       } catch (e) {
