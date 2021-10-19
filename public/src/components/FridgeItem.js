@@ -26,7 +26,7 @@ const FridgeItem = ({
       setSelected(b);
     }
     displaySelected();
-  }, [tagArray]);
+  }, []);
 
   function calTime(t) {
     var currentDate = new Date();
@@ -73,6 +73,7 @@ const FridgeItem = ({
   }
 
   function handleClick(item_id) {
+    if (tagArray.includes(item_id)) return; // avoid duplicate data
     setTagArray([...tagArray, item_id]);
     setSelected(!select);
     console.log(tagArray);
@@ -88,20 +89,23 @@ const FridgeItem = ({
 
   return (
     <div>
-      <button
-        onClick={() => {
-          handleClick(inventory_item_id);
-        }}
-      >
-        yes
-      </button>
-      <button
-        onClick={() => {
-          handleRemove(inventory_item_id);
-        }}
-      >
-        no
-      </button>
+      {select ? (
+        <button
+          onClick={() => {
+            handleClick(inventory_item_id);
+          }}
+        >
+          yes
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            handleRemove(inventory_item_id);
+          }}
+        >
+          no
+        </button>
+      )}
       {usage_tag}
       {inventory_item_id}
       {inventory_item_name}
