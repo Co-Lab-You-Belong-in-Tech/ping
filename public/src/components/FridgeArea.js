@@ -13,6 +13,7 @@ const FridgeArea = ({ userData }) => {
 
   async function handleUsageTag(tag, user_id, item_id_array) {
     OwnAPI.editFridgeUsage(tag, user_id, item_id_array);
+    //setTagArray([]);
   }
 
   if (!userData)
@@ -26,7 +27,6 @@ const FridgeArea = ({ userData }) => {
 
   return (
     <div>
-      {user}
       <button
         className="btn-large"
         onClick={() => handleUsageTag("used", user, tagArray)}
@@ -37,8 +37,7 @@ const FridgeArea = ({ userData }) => {
         className="btn-lg-danger"
         onClick={() => handleUsageTag("tossed", user, tagArray)}
       >
-        {" "}
-        TOSS{" "}
+        TOSS
       </button>
 
       {Array.isArray(userData) &&

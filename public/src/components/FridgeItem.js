@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 //import reactNotificationsComponent from "react-notifications-component";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
@@ -15,6 +15,19 @@ const FridgeItem = ({
   setTagArray,
 }) => {
   const { user } = useContext(UserContext);
+
+  /*set the selected status*/
+
+  const [select, setSelected] = useState(true);
+
+  useEffect(() => {
+    function displaySelected() {
+      const b = tagArray.includes(inventory_item_id);
+      setSelected(b);
+    }
+    displaySelected();
+  }, [tagArray]);
+
   function calTime(t) {
     var currentDate = new Date();
     var time = new Date(t);
@@ -61,11 +74,14 @@ const FridgeItem = ({
 
   function handleClick(item_id) {
     setTagArray([...tagArray, item_id]);
+    setSelected(!select);
     console.log(tagArray);
+    //console.log(b);
   }
 
   function handleRemove(item_id) {
     const arr = [...tagArray].filter((x) => x !== item_id);
+    setSelected(!select);
     setTagArray(arr);
     console.log(tagArray);
   }
@@ -77,9 +93,15 @@ const FridgeItem = ({
           handleClick(inventory_item_id);
         }}
       >
-        X
+        yes
       </button>
-      <button onClick={() => handleRemove(inventory_item_id)}>Y</button>
+      <button
+        onClick={() => {
+          handleRemove(inventory_item_id);
+        }}
+      >
+        no
+      </button>
       {usage_tag}
       {inventory_item_id}
       {inventory_item_name}
@@ -97,12 +119,6 @@ const FridgeItem = ({
           tips
         </a>
       </small>
-      <button onClick={() => handleUsed("used", user, inventory_item_id)}>
-        Mark as used
-      </button>
-      <button onClick={() => handleUsed("expired", user, inventory_item_id)}>
-        Toss
-      </button>
     </div>
   );
 };
