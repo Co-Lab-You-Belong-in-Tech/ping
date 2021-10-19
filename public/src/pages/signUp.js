@@ -15,12 +15,9 @@ const Signup = () => {
   async function signup(signupEmail) {
     try {
       let data = await OwnAPI.addUser(signupEmail);
-      console.log(data);
-      /*if (data === "Success.") {
-        let a = await OwnAPI.isUser(signupEmail);
-        console.log(a);
-      }*/
-      //setUser(a[0].user_id);}
+      //console.log(data);
+
+      setUser(data[0].user_id);
     } catch (errors) {
       console.error("signup failed,temporay set user 2");
       setUser("2");
@@ -44,7 +41,7 @@ const Signup = () => {
     //alert(`${email}`);
     setFormData(initialState);
     signup(email);
-    history.push("/"); // right now it push user to login again but ideally the add user will return user_id
+    history.push("/list"); // right now it push user to login again but ideally the add user will return user_id
   };
 
   /*validate email*/
