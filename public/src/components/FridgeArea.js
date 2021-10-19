@@ -8,21 +8,23 @@ import OwnAPI from "../Api";
 // this is the fridge area for place holder to hold all single fridge items
 
 const FridgeArea = ({ userData }) => {
-  const [tagArray, setTagArray] = useState([]); // so we dont have mutiple items
+  const [tagArray, setTagArray] = useState([]); // tags for multi-selected items
   const { user } = useContext(UserContext); // grab user id
 
   async function handleUsageTag(tag, user_id, item_id_array) {
     OwnAPI.editFridgeUsage(tag, user_id, item_id_array);
-    //setTagArray([]);
+    setTagArray([]);
   }
 
   if (!userData)
     return (
-      <FridgeHolder
-        img={emptyfridge}
-        message={"Check items off your grocery list to add to your fridge"}
-        title={"Your fridge is empty"}
-      />
+      <div>
+        <FridgeHolder
+          img={emptyfridge}
+          message={"Check items off your grocery list to add to your fridge"}
+          title={"Your fridge is empty"}
+        />
+      </div>
     );
 
   return (

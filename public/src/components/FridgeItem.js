@@ -109,9 +109,7 @@ const FridgeItem = ({
       {usage_tag}
       {inventory_item_id}
       {inventory_item_name}
-      {inventory_tag === "not expired"
-        ? "expiring in "
-        : "already expired for "}
+      {inventory_tag === "not expired" ? "expires in " : "already expired for "}
       {calTime(expiry_date)} Days
       <small>
         <a
