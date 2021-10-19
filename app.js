@@ -481,7 +481,8 @@ const addUser = (email) => {
     return new Promise(resolve => {
         pool.query('INSERT INTO users (email) VALUES ($1)', [email], function (err, result) {
             if (!err) {
-                resolve('Success.');
+                var user = getUser(email);
+                resolve(user);
             } else {
                 resolve('Error.' + err);
             }
