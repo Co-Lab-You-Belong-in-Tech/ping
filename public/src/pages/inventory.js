@@ -23,6 +23,7 @@ function Inventory() {
     getData();
   }, []);
 
+  // the expire item logic need some refactor.
   function getExpiredArray(data) {
     let result = [];
     if (!data) return ["carrot"];
