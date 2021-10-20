@@ -61,15 +61,15 @@ const FridgeArea = ({ userData }) => {
       </button>
       <button
         className="btn-lg-danger"
-        onClick={() => handleUsageTag("tossed", user, tagArray)}
-      >
-        TOSS
-      </button>
-
-      <button
         onClick={() => {
           store.addNotification({
-            content: <LargeExp expireItems={"apple"} />, // content:MyNotify (custom notification)
+            content: (
+              <LargeToss
+                tagArray={tagArray}
+                handleUsageTag={handleUsageTag}
+                user={user}
+              />
+            ), // content:MyNotify (custom notification)
             type: "success",
             insert: "top",
             container: "center",
@@ -83,7 +83,7 @@ const FridgeArea = ({ userData }) => {
           });
         }}
       >
-        custom notifiy
+        TOSS
       </button>
 
       {Array.isArray(userData) &&
