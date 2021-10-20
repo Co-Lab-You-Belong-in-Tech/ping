@@ -90,20 +90,23 @@ const FridgeItem = ({
 
   return (
     <div>
-      <button
-        onClick={() => {
-          handleClick(inventory_item_id);
-        }}
-      >
-        yes
-      </button>
-      <button
-        onClick={() => {
-          handleRemove(inventory_item_id);
-        }}
-      >
-        no
-      </button>
+      {select === false ? (
+        <button
+          onClick={() => {
+            handleClick(inventory_item_id);
+          }}
+        >
+          No
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            handleRemove(inventory_item_id);
+          }}
+        >
+          Yes
+        </button>
+      )}
       {usage_tag}
       {inventory_item_id}
       {inventory_item_name}---------

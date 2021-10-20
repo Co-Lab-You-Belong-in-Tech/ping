@@ -5,6 +5,7 @@ import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import groceryLogo from "../assets/Grocery_Logo.png";
 import BottomNavBar from "../components/nav/BottomNavBar";
+import "../App.css";
 
 const List = () => {
   const { user } = useContext(UserContext);

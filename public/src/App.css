@@ -59,8 +59,8 @@ body {
 }
 
 .btn-large :hover {
+  /*position: absolute;*/
   color: #eaf5f5;
-  border: #2a9d8f 2px solid;
   background-color: #2a9d8f;
 }
 
