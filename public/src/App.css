@@ -58,6 +58,12 @@ body {
   font-weight: bold;
 }
 
+.btn-large :hover {
+  color: #eaf5f5;
+  border: #2a9d8f 2px solid;
+  background-color: #2a9d8f;
+}
+
 .btn-lg-danger {
   /*position: absolute;*/
   width: 128px;

@@ -35,7 +35,7 @@ const List = () => {
   return (
     <div>
       <img src={groceryLogo} alt="grocery_logo" />
-      <h1>My Grocery {user} List</h1>
+      <h1>My Grocery List</h1>
       <div>
         <Link to="/search">
           <button className="btn-large">ADD ITEM</button>

@@ -53,7 +53,6 @@ const SingleGrocery = ({
   //const firstLetter = name.replace(/ .*/, "").toLowerCase();
   return (
     <div key={grocery_item_id}>
-      {grocery_item_id}
       {check ? (
         <button
           style={{ border: "none" }}

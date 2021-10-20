@@ -8,7 +8,7 @@ const FridgeExpireTag = ({ inventory_tag, expiry_date }) => {
   }
   const days = calTime(expiry_date);
   return (
-    <div>
+    <div style={{ display: "inline-block" }}>
       {days <= 2 ? (
         <div style={{ color: "#2A9D8F" }}>
           {inventory_tag === "not expired"

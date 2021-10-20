@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
+import FridgeExpireTag from "./FridgeExpireTag";
 
 const FridgeItem = ({
   expiry_date,
@@ -89,28 +90,27 @@ const FridgeItem = ({
 
   return (
     <div>
-      {select ? (
-        <button
-          onClick={() => {
-            handleClick(inventory_item_id);
-          }}
-        >
-          yes
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            handleRemove(inventory_item_id);
-          }}
-        >
-          no
-        </button>
-      )}
+      <button
+        onClick={() => {
+          handleClick(inventory_item_id);
+        }}
+      >
+        yes
+      </button>
+      <button
+        onClick={() => {
+          handleRemove(inventory_item_id);
+        }}
+      >
+        no
+      </button>
       {usage_tag}
       {inventory_item_id}
-      {inventory_item_name}
-      {inventory_tag === "not expired" ? "expires in " : "already expired for "}
-      {calTime(expiry_date)} Days
+      {inventory_item_name}---------
+      <FridgeExpireTag
+        inventory_tag={inventory_tag}
+        expiry_date={expiry_date}
+      />
       <small>
         <a
           className="App-link"
