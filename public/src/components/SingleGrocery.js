@@ -69,8 +69,8 @@ const SingleGrocery = ({
           <NotCheckedbtn />
         </button>
       )}
-      {grocery_tag}---
       {grocery_item_name.replace(/ .*/, "").toLowerCase()}
+      ------------------
       <button
         onClick={() => singleDelete("deleted", user, grocery_item_id)}
         className="deleteBtn"

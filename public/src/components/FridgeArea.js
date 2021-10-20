@@ -4,6 +4,10 @@ import FridgeHolder from "./empty_holder/Fridge_holder";
 import FridgeItem from "./FridgeItem";
 import emptyfridge from "../assets/Empty_Fridge_Logo.png";
 import OwnAPI from "../Api";
+import { store } from "react-notifications-component";
+import LargeNtf from "./Notifications/largeNotify";
+import LargeToss from "./Notifications/largeToss";
+import LargeExp from "./Notifications/largeExp";
 
 // this is the fridge area for place holder to hold all single fridge items
 
@@ -12,8 +16,8 @@ const FridgeArea = ({ userData }) => {
   const { user } = useContext(UserContext); // grab user id
 
   async function handleUsageTag(tag, user_id, item_id_array) {
+    if (!item_id_array) return;
     OwnAPI.editFridgeUsage(tag, user_id, item_id_array);
-    //setTagArray([]);
   }
 
   if (!userData)
@@ -40,6 +44,26 @@ const FridgeArea = ({ userData }) => {
         onClick={() => handleUsageTag("tossed", user, tagArray)}
       >
         TOSS
+      </button>
+
+      <button
+        onClick={() => {
+          store.addNotification({
+            content: <LargeExp expireItems={"apple"} />, // content:MyNotify (custom notification)
+            type: "success",
+            insert: "top",
+            container: "center",
+            // animationIn: ["animate__animated", "animate__fadeIn"],
+            //animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 2000,
+              onScreen: true,
+              showIcon: true,
+            },
+          });
+        }}
+      >
+        custom notifiy
       </button>
 
       {Array.isArray(userData) &&
