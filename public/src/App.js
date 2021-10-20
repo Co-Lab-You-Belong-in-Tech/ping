@@ -7,6 +7,10 @@ import Tips from "./pages/tips";
 import Inventory from "./pages/inventory";
 import SearchPage from "./pages/search";
 import UserContext from "./UserContext"; //"create UserContext to store userID throughout the app "
+import ErrorPage from "./pages/errorPage";
+import List from "./pages/list";
+import RecipesPage from "./pages/recipes";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [user, setUser] = useState(1);
@@ -29,6 +33,15 @@ function App() {
             </Route>
             <Route path="/search" exact>
               <SearchPage />
+            </Route>
+            <Route path="/list" exact>
+              <List />
+            </Route>
+            <Route path="/recipes" exact>
+              <RecipesPage />
+            </Route>
+            <Route path="*">
+              <ErrorPage />
             </Route>
           </Switch>
         </BrowserRouter>

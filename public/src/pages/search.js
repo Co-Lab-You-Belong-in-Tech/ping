@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import SingleItem from "../components/SingleItem";
+import NavBar from "../components/NavBar";
+import OwnAPI from "../Api";
+import UserContext from "../UserContext";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
   const [text, setText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [veggieID, setVeggieID] = useState([""]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     async function getVeggie() {
@@ -44,14 +48,28 @@ function SearchPage() {
 
   /** we get the veggigID and search  */
 
+  /***add grocery function */
+  function addGrocery(item_name, user_id) {
+    try {
+      OwnAPI.addGrocery(item_name, user_id);
+      console.log(item_name, user_id);
+      alert("success!"); // replace it with notification component
+    } catch (e) {
+      alert(e);
+    }
+  }
+
   return (
     <div>
-      this is search page
+      {user}
       <input
         type="text"
         onChange={(e) => onChangeHandler(e.target.value)}
         value={text}
       />
+      {text && veggieID && (
+        <button onClick={() => addGrocery(text, user)}>Add</button>
+      )}
       {suggestions &&
         suggestions.map((suggestion) => (
           <div
@@ -62,7 +80,7 @@ function SearchPage() {
           </div>
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
-      <button>Update Inventory</button>
+      <NavBar />
     </div>
   );
 }
