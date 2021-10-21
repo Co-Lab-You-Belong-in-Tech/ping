@@ -55,7 +55,7 @@ function SearchPage() {
       OwnAPI.addGrocery(item_name, user_id, query_id);
       console.log(item_name, user_id);
       store.addNotification({
-        content: <AddItem item_name={item_name} />, // content:MyNotify (custom notification)
+        content: <AddItem item_name={item_name} location="list" />, // content:MyNotify (custom notification)
         type: "success",
         insert: "top",
         container: "top-center",
@@ -65,7 +65,6 @@ function SearchPage() {
           duration: 2000,
           onScreen: false,
         },
-        width: 200,
       });
     } catch (e) {
       alert(e);

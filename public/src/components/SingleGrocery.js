@@ -6,6 +6,8 @@ import { ReactComponent as Checkedbtn } from "../assets/checkedbtn.svg";
 import { ReactComponent as NotCheckedbtn } from "../assets/notChekcedbtn.svg";
 import x from "../assets/x.png";
 import "../App.css";
+import { store } from "react-notifications-component";
+import AddItem from "./Notifications/addItem";
 
 const SingleGrocery = ({
   grocery_item_id,
@@ -38,7 +40,19 @@ const SingleGrocery = ({
   async function handleBought(tag, user_id, item_id) {
     OwnAPI.editGroceryTag(tag, user_id, item_id); // update tage
     setChecked(!check);
-    getData();
+    //getData();
+    store.addNotification({
+      content: <AddItem item_name={grocery_item_name} location={"fridge"} />, // content:MyNotify (custom notification)
+      type: "success",
+      insert: "top",
+      container: "top-center",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 2000,
+        onScreen: false,
+      },
+    });
   }
 
   // need some functions to get expiry_time
@@ -69,7 +83,7 @@ const SingleGrocery = ({
           <NotCheckedbtn />
         </button>
       )}
-      {grocery_item_name.replace(/ .*/, "").toLowerCase()}
+      {grocery_item_name.replace(/ .*/, "")}
       ------------------
       <button
         onClick={() => singleDelete("deleted", user, grocery_item_id)}

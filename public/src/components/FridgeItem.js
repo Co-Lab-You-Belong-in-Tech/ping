@@ -109,7 +109,7 @@ const FridgeItem = ({
       )}
       {usage_tag}
       {inventory_item_id}
-      {inventory_item_name}---------
+      {inventory_item_name.replace(/ .*/, "")}---------
       <FridgeExpireTag
         inventory_tag={inventory_tag}
         expiry_date={expiry_date}
