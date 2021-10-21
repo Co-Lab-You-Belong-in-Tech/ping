@@ -8,6 +8,7 @@ import x from "../assets/x.png";
 import "../App.css";
 import { store } from "react-notifications-component";
 import AddItem from "./Notifications/addItem";
+import RemoveItem from "./Notifications/removeItem";
 
 const SingleGrocery = ({
   grocery_item_id,
@@ -41,18 +42,34 @@ const SingleGrocery = ({
     OwnAPI.editGroceryTag(tag, user_id, item_id); // update tage
     setChecked(!check);
     //getData();
-    store.addNotification({
-      content: <AddItem item_name={grocery_item_name} location={"fridge"} />, // content:MyNotify (custom notification)
-      type: "success",
-      insert: "top",
-      container: "top-center",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 2000,
-        onScreen: false,
-      },
-    });
+    //handle notifications here
+    if (tag === "bought") {
+      store.addNotification({
+        content: <AddItem item_name={grocery_item_name} location={"fridge"} />, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
+    } else if (tag === "not bought") {
+      store.addNotification({
+        content: <RemoveItem item_name={grocery_item_name} />, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
+    }
   }
 
   // need some functions to get expiry_time
