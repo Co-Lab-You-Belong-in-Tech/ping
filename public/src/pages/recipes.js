@@ -29,9 +29,15 @@ const RecipesPage = () => {
   if (!recipeData)
     return (
       <div>
-        <img src={receipeLogo} alt="recipe_logo" />
-        <h1>My Recipes</h1>
-        <p>Based on ingredients Left</p>
+        <div>
+        <div style={{display: "table-cell", width: 100, verticalAlign: "middle"}}>
+          <img src={receipeLogo} alt="recipe_logo" />
+        </div>
+        <div style={{display: "table-cell", width: 500, verticalAlign: "middle"}}>
+          <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center"}}>My Recipes</h1>
+          <p style={{color: "#C2D1D9", fontFamily: "Inter", fontStyle: "normal", fontWeight: "normal", fontSize: 12, alignItems: "center", textAlign: "center"}}>Based on leftovers in your fridge</p>
+        </div>
+        </div>
         <FridgeHolder
           img={EmptyRecipe}
           title={"You dont have any receipes yet"}
@@ -41,10 +47,15 @@ const RecipesPage = () => {
     );
   return (
     <div>
-      <img src={receipeLogo} alt="recipe_logo" />
-      <h1>My Recipes</h1>
-      <p>Based on ingredients Left</p>
-
+      <div style={{margin: 122}}>
+      <div style={{display: "table-cell", width: "20%", verticalAlign: "middle"}}>
+        <img src={receipeLogo} alt="recipe_logo" />
+      </div>
+      <div style={{display: "table-cell", width: "80%", verticalAlign: "middle"}}>
+        <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center"}}>My Recipes</h1>
+        <p style={{color: "#C2D1D9", fontFamily: "Inter", fontStyle: "normal", fontWeight: "normal", fontSize: 12, alignItems: "center", textAlign: "center"}}>Based on leftovers in your fridge</p>
+      </div>
+      </div>
       {recipeData.map((a) => (
         <RecipeItem title={a.title} image={a.image} id={a.id} key={a.id} />
       ))}
