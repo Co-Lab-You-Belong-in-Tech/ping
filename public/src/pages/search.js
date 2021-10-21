@@ -4,6 +4,7 @@ import SingleItem from "../components/SingleItem";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
+import AddItem from "../components/Notifications/addItem";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -54,8 +55,7 @@ function SearchPage() {
       OwnAPI.addGrocery(item_name, user_id, query_id);
       console.log(item_name, user_id);
       store.addNotification({
-        title: "Hey!",
-        message: `success add ${item_name}!`, // content:MyNotify (custom notification)
+        content: <AddItem item_name={item_name} />, // content:MyNotify (custom notification)
         type: "success",
         insert: "top",
         container: "top-center",
@@ -65,6 +65,7 @@ function SearchPage() {
           duration: 2000,
           onScreen: false,
         },
+        width: 200,
       });
     } catch (e) {
       alert(e);
@@ -87,7 +88,7 @@ function SearchPage() {
             key={suggestion.id}
             onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
           >
-            {suggestion.id}--{suggestion.name}
+            {suggestion.name}
           </div>
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
