@@ -31,7 +31,7 @@ const RecipesPage = () => {
       <div>
         <div>
         <div style={{display: "table-cell", width: 100, verticalAlign: "middle"}}>
-          <img src={receipeLogo} alt="recipe_logo" />
+          <img src={receipeLogo} alt="recipe_logo" style={{width: "10vw"}}/>
         </div>
         <div style={{display: "table-cell", width: 500, verticalAlign: "middle"}}>
           <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center"}}>My Recipes</h1>
@@ -49,7 +49,7 @@ const RecipesPage = () => {
     <div>
       <div style={{margin: 122}}>
       <div style={{display: "table-cell", width: "20%", verticalAlign: "middle"}}>
-        <img src={receipeLogo} alt="recipe_logo" />
+        <img src={receipeLogo} alt="recipe_logo" style={{width: "10vw"}}/>
       </div>
       <div style={{display: "table-cell", width: "80%", verticalAlign: "middle"}}>
         <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center"}}>My Recipes</h1>
