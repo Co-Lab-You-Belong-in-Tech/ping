@@ -31,7 +31,7 @@ const FridgeArea = ({ userData }) => {
         //animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
           duration: 2000,
-          onScreen: true,
+          onScreen: false,
           showIcon: true,
         },
       });
@@ -45,7 +45,7 @@ const FridgeArea = ({ userData }) => {
         //animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
           duration: 2000,
-          onScreen: true,
+          onScreen: false,
           showIcon: true,
         },
       });

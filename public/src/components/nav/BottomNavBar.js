@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { ReactComponent as RecipeUn } from "../../assets/RecipeUnselected.svg";
 
 const BottomNavBar = (props) => {
   const history = useHistory();
@@ -45,20 +46,22 @@ const BottomNavBar = (props) => {
           </button>
         )}
       </li>
-      <li>
+      <div style={{ display: "inline-block" }}>
         {activeTabs === "recipes" ? (
           <button onClick={() => setActiveTabs("recipes")}>recipes</button>
         ) : (
-          <button onClick={() => setActiveTabs("recipes")}>recipeNot</button>
+          <button onClick={() => setActiveTabs("recipes")}>
+            <RecipeUn />
+          </button>
         )}
-      </li>
-      <li>
+      </div>
+      <div>
         {activeTabs === "logout" ? (
           <button onClick={() => setActiveTabs("logout")}>logout</button>
         ) : (
           <button onClick={() => setActiveTabs("logout")}>logoutNot</button>
         )}
-      </li>
+      </div>
     </div>
   );
 };
