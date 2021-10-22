@@ -1,5 +1,14 @@
+import yes from "../../assets/yes.png";
+
 const SmTossed = () => {
-  return <div>You tossed your items.</div>;
+  return (
+    <div className="addItemNty" style={{ background: "#E76F51" }}>
+      <div style={{ paddingRight: "70px" }}>
+        <img src={yes} alt="yes" />
+      </div>
+      <div id="tossP">You tossed your items.</div>
+    </div>
+  );
 };
 
 export default SmTossed;

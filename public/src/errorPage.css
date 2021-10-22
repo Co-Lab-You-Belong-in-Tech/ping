@@ -14,23 +14,7 @@
   text-align: center;
 }
 
-/*
-background: #eaf5f5;
-border: 1px solid #2a9d8f;
-box-sizing: border-box;
-border-radius: 20px;
-
-
-
-font-family: Inter;
-font-style: normal;
-font-weight: bold;
-font-size: 10px;
-line-height: 18px;
-/* or 180% */
-/*display: flex;
-align-items: center;
-text-align: center;
-
-color: #2a9d8f; 
-*/
+.btn-large :hover {
+  color: #eaf5f5;
+  background-color: #2a9d8f;
+}
