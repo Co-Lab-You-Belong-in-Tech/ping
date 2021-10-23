@@ -27,7 +27,7 @@ const RecipeItem = ({ id, image, title }) => {
         </div>
         </a>
       </div>
-      <hr style={{color: "#C2D1D9", height: 0.001}}/>
+      <hr style={{borderTop: "#C2D1D9", height: 0.001, marginLeft: 50, marginRight: 50}}/>
     </div>
   );
 };

@@ -52,16 +52,16 @@ const RecipeDetails = () => {
       <h2 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: 500, fontSize: 18, textAlign: "center"}}>{theRecipe.title}</h2>
 
       <div>
-        <h3 style={{width: 310, height: 16, marginLeft: 41, marginTop: 30}}>Ingredients</h3>
+        <h3 style={{width: 310, height: 16, marginLeft: 41, marginTop: 30, marginBottom: 30}}>Ingredients</h3>
         <ul style={{listStyleType: "none", marginLeft: 105}}>
-        <li style={{textAlign: "left"}}>{getIngredients(theRecipe)}</li>
+        <li style={{textAlign: "left", color: "#424B5A"}}>{getIngredients(theRecipe)}</li>
         </ul>
       </div>
       <div>
-        <h3 style={{width: 310, height: 16, marginLeft: 41, marginTop: 30}}>Instructions</h3>
+        <h3 style={{width: 310, height: 16, marginLeft: 41, marginTop: 30, marginBottom: 30}}>Instructions</h3>
         <ul style={{listStyleType: "none", marginLeft: 103}}>
         {theRecipe.analyzedInstructions[0].steps.map((a) => (
-          <li style={{textAlign: "left"}}>{a.step}</li>
+          <li style={{textAlign: "left", color: "#424B5A"}}>{a.step}</li>
         ))}
         </ul>
       </div>

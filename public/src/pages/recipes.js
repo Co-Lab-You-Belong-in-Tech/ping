@@ -29,7 +29,7 @@ const RecipesPage = () => {
   if (!recipeData)
     return (
       <div>
-        <div>
+        <div style={{marginLeft: 50}}>
         <div style={{display: "table-cell", width: 100, verticalAlign: "middle"}}>
           <img src={receipeLogo} alt="recipe_logo" style={{width: "10vw"}}/>
         </div>
@@ -52,8 +52,8 @@ const RecipesPage = () => {
         <img src={receipeLogo} alt="recipe_logo" style={{width: "10vw"}}/>
       </div>
       <div style={{display: "table-cell", width: "80%", verticalAlign: "middle"}}>
-        <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center"}}>My Recipes</h1>
-        <p style={{color: "#C2D1D9", fontFamily: "Inter", fontStyle: "normal", fontWeight: "normal", fontSize: 12, alignItems: "center", textAlign: "center"}}>Based on leftovers in your fridge</p>
+        <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center", marginBottom: 0}}>My Recipes</h1>
+        <p style={{color: "#C2D1D9", fontFamily: "Inter", fontStyle: "normal", fontWeight: "normal", fontSize: 12, alignItems: "center", textAlign: "center", marginTop: 5}}>Based on leftovers in your fridge</p>
       </div>
       </div>
       {recipeData.map((a) => (
