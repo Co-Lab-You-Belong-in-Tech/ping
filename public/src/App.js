@@ -23,7 +23,6 @@ function App() {
         <ReactNotification />
         <BrowserRouter>
           <Routes />
-          <NavBar />
         </BrowserRouter>
       </UserContext.Provider>
     </div>

@@ -5,6 +5,7 @@ import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
 import AddItem from "../components/Notifications/addItem";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -95,6 +96,7 @@ function SearchPage() {
         <h2>Search for items to add</h2>
         <h5>Tap on the search bar to look for ingredients</h5>
       </div>
+      <BottomNavBar name="search" />
     </div>
   );
 }

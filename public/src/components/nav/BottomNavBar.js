@@ -39,6 +39,9 @@ const BottomNavBar = (props) => {
       case "logout":
         history.push("/");
         break;
+      case "search":
+        history.push("/search");
+        break;
       default:
         history.push("/");
         break;
@@ -55,7 +58,7 @@ const BottomNavBar = (props) => {
       }}
     >
       <div style={{ display: "inline-block" }}>
-        {activeTabs === "list" ? (
+        {activeTabs === "list" || "search" ? (
           <button onClick={() => setActiveTabs("list")}>
             <GroceryY />
           </button>

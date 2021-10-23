@@ -5,7 +5,6 @@ import validator from "validator";
 import OwnAPI from "../Api";
 import Logo from "../assets/Logo.png";
 import "../login.css";
-import BottomNavBar from "../components/nav/BottomNavBar";
 
 function HomePage() {
   const { setUser } = useContext(UserContext); // use useContext to grab user id
@@ -19,9 +18,11 @@ function HomePage() {
       let { data } = await OwnAPI.isUser(loginEmail);
       console.log(data);
       setUser(data[0].user_id);
+      history.push("/list");
     } catch (errors) {
-      console.error("log in failed,temporay set user 2");
-      setUser("2");
+      console.error("log in failed");
+      alert(errors);
+      //setUser("2");
     }
   }
 
@@ -40,7 +41,6 @@ function HomePage() {
     //alert(`${email}`);
     setFormData(initialState);
     login(email);
-    history.push("/list");
 
     //add some kind of login logic here
   };
@@ -92,7 +92,6 @@ function HomePage() {
           Don't have an accout? <a href="/signup">Sign up here.</a>
         </h4>
       </div>
-      <BottomNavBar name="home" />
     </div>
   );
 }

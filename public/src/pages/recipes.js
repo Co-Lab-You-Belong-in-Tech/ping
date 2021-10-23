@@ -26,7 +26,7 @@ const RecipesPage = () => {
     getRecipe();
   }, []);
 
-  if (!recipeData)
+  if (!recipeData || !expiredItem || recipeData.length === 0)
     return (
       <div>
         <img src={receipeLogo} alt="recipe_logo" />
@@ -37,6 +37,7 @@ const RecipesPage = () => {
           title={"You dont have any receipes yet"}
           message={"Add item to your fridge to see recipe ideas"}
         />
+        <BottomNavBar name="recipes" />
       </div>
     );
   return (

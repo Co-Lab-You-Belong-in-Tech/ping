@@ -52,7 +52,7 @@ const FridgeArea = ({ userData }) => {
     }
   }
 
-  if (!userData)
+  if (!userData || userData.length === 0)
     return (
       <div>
         <FridgeHolder
