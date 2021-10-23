@@ -9,6 +9,7 @@ import { ReactComponent as GroceryS } from "../../assets/GroceryS.svg";
 import { ReactComponent as GroceryY } from "../../assets/GroceryY.svg";
 import { ReactComponent as Logout } from "../../assets/Logout.svg";
 import FridgeNav from "./FridgeNav";
+import FridgeNot from "./FridgeNot";
 
 const BottomNavBar = (props) => {
   const history = useHistory();
@@ -45,7 +46,14 @@ const BottomNavBar = (props) => {
   }, [activeTabs, history]);
 
   return (
-    <div style={{ display: "inline-block" }}>
+    <div
+      style={{
+        display: "inline-block",
+        position: "sticky",
+        width: 375,
+        bottom: 0,
+      }}
+    >
       <div style={{ display: "inline-block" }}>
         {activeTabs === "list" ? (
           <button onClick={() => setActiveTabs("list")}>
@@ -63,7 +71,9 @@ const BottomNavBar = (props) => {
           <FridgeNav expiredItem={expiredItem} />
         </button>
       ) : (
-        <button onClick={() => setActiveTabs("inventory")}>inventoryNot</button>
+        <button onClick={() => setActiveTabs("inventory")}>
+          <FridgeNot expiredItem={expiredItem} />
+        </button>
       )}
 
       <div style={{ display: "inline-block" }}>

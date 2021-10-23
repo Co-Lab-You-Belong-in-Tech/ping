@@ -1,9 +1,8 @@
 import { store } from "react-notifications-component";
-import { ReactComponent as FridegeUn } from "../../assets/FridgeUnselected.svg";
+import { ReactComponent as FridegeNot } from "../../assets/FridgeNot.svg";
 import LargeExp from "../Notifications/largeExp";
-import Ellipse from "../../assets/Ellipse.png";
 
-const FridgeNav = ({ expiredItem }) => {
+const FridgeNot = ({ expiredItem }) => {
   /**this is the react notifications part */
 
   const handleClick = () => {
@@ -24,14 +23,13 @@ const FridgeNav = ({ expiredItem }) => {
     <div>
       {expiredItem.length > 0 ? (
         <div onClick={() => handleClick()} style={{ position: "relative" }}>
-          <FridegeUn />
-          <div id="circle"></div>
+          <FridegeNot /> <div id="circle"></div>
         </div>
       ) : (
-        <FridegeUn />
+        <FridegeNot />
       )}
     </div>
   );
 };
 
-export default FridgeNav;
+export default FridgeNot;
