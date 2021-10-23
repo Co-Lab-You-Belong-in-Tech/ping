@@ -29,14 +29,6 @@ const FridgeItem = ({
     displaySelected();
   }, []);
 
-  function calTime(t) {
-    var currentDate = new Date();
-    var time = new Date(t);
-    var one_day = 1000 * 60 * 60 * 24;
-    var result = Math.abs(time - currentDate) / one_day;
-    return Math.floor(result);
-  }
-
   // hanlde mark as used button
 
   async function handleUsed(tag, user_id, item_id) {
@@ -108,7 +100,6 @@ const FridgeItem = ({
         </button>
       )}
       {usage_tag}
-      {inventory_item_id}
       {inventory_item_name.replace(/ .*/, "")}---------
       <FridgeExpireTag
         inventory_tag={inventory_tag}

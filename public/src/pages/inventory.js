@@ -12,10 +12,11 @@ function Inventory() {
     async function getData() {
       try {
         const data = await OwnAPI.getTheUserInventory(user);
-        console.log(data);
+        const a = data.filter((a) => a.usage_tag === null);
+        console.log(a);
         //console.log(getExpiredArray(data));
         setExpiredItems(getExpiredArray(data)); /// need to rethink where put this function?
-        setUserData(data);
+        setUserData(a);
       } catch (e) {
         console.error(e);
       }
@@ -27,7 +28,9 @@ function Inventory() {
   function getExpiredArray(data) {
     let result = [];
     if (!data) return ["carrot"];
-    data = data.filter((a) => a.inventory_tag === "expired");
+    data = data.filter(
+      (a) => a.inventory_tag === "expired" && a.usage_tag === null
+    );
     for (var i in data) {
       result.push(data[i].inventory_item_name.replace(/ .*/, "").toLowerCase());
     }
