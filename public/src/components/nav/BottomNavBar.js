@@ -49,51 +49,51 @@ const BottomNavBar = (props) => {
   }, [activeTabs, history]);
 
   return (
-    <div
-      style={{
-        display: "inline-block",
-        position: "sticky",
-        width: 375,
-        bottom: 0,
-      }}
-    >
-      <div style={{ display: "inline-block" }}>
-        {activeTabs === "list" || "search" ? (
-          <button onClick={() => setActiveTabs("list")}>
+    <div className="nav">
+      <div className="nav-item">
+        {activeTabs === "list" ? (
+          <button onClick={() => setActiveTabs("list")} className="nav-btn">
             <GroceryY />
           </button>
         ) : (
-          <button onClick={() => setActiveTabs("list")}>
+          <button onClick={() => setActiveTabs("list")} className="nav-btn">
             <GroceryS />
           </button>
         )}
       </div>
-
-      {activeTabs === "inventory" ? (
-        <button onClick={() => setActiveTabs("inventory")}>
-          <FridgeNav expiredItem={expiredItem} />
-        </button>
-      ) : (
-        <button onClick={() => setActiveTabs("inventory")}>
-          <FridgeNot expiredItem={expiredItem} />
-        </button>
-      )}
-
-      <div style={{ display: "inline-block" }}>
+      <div className="nav-item">
+        {activeTabs === "inventory" ? (
+          <button
+            onClick={() => setActiveTabs("inventory")}
+            className="nav-btn"
+          >
+            <FridgeNav expiredItem={expiredItem} />
+          </button>
+        ) : (
+          <button
+            onClick={() => setActiveTabs("inventory")}
+            className="nav-btn"
+          >
+            <FridgeNot expiredItem={expiredItem} />
+          </button>
+        )}
+      </div>
+      <div className="nav-item">
         {activeTabs === "recipes" ? (
-          <button onClick={() => setActiveTabs("recipes")}>
+          <button onClick={() => setActiveTabs("recipes")} className="nav-btn">
             <RecipeS />
           </button>
         ) : (
-          <button onClick={() => setActiveTabs("recipes")}>
+          <button onClick={() => setActiveTabs("recipes")} className="nav-btn">
             <RecipeUn />
           </button>
         )}
       </div>
-
-      <button onClick={() => handleLogout()}>
-        <Logout />
-      </button>
+      <div className="nav-item">
+        <button onClick={() => handleLogout()} className="nav-btn">
+          <Logout />
+        </button>
+      </div>
     </div>
   );
 };

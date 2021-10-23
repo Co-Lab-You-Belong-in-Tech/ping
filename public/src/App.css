@@ -193,3 +193,67 @@ body {
   top: 1%;
   right: 32%;
 }
+
+/*bottom navigation bar*/
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: #424b5a;
+}
+
+.nav {
+  text-align: center;
+  width: 375px;
+  height: 89px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  border-top: 2px solid #2a9d8f;
+  background-color: #fff;
+}
+
+@media screen and (min-width: 600px) {
+  .nav {
+    width: 100%;
+  }
+}
+
+.nav-item {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-btn {
+  border: none;
+  background-color: #fff;
+}
+
+/***grcoery list style start here*/
+.header-box {
+  background: #eaf5f5;
+  height: 173px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header-logo {
+  width: 82px;
+  height: 93.74px;
+  padding-left: 5%;
+}
+
+.header-title {
+  padding-left: 10%;
+  text-align: center;
+  display: flex;
+  color: #424b5a;
+  line-height: 18px;
+}

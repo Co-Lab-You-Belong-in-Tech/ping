@@ -87,7 +87,7 @@ const SingleGrocery = ({
     <div key={grocery_item_id}>
       {check ? (
         <button
-          style={{ border: "none" }}
+          style={{ border: "none", background: "white" }}
           onClick={() => handleBought("not bought", user, grocery_item_id)}
         >
           <Checkedbtn />

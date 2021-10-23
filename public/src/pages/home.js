@@ -22,7 +22,7 @@ function HomePage() {
     } catch (errors) {
       console.error("log in failed");
       alert(errors);
-      //setUser("2");
+      setUser("2");
     }
   }
 
