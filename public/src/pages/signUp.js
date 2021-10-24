@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import validator from "validator";
+import { store } from "react-notifications-component";
+import LoginError from "../components/Notifications/loginError";
 
 const Signup = () => {
   const { setUser } = useContext(UserContext); // use useContext to grab user id
@@ -18,8 +20,22 @@ const Signup = () => {
       //console.log(data);
 
       setUser(data[0].user_id);
+      history.push("/list");
     } catch (errors) {
       console.error("signup failed,temporay set user 2");
+      store.addNotification({
+        content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        // animationIn: ["animate__animated", "animate__fadeIn"],
+        //animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+          showIcon: true,
+        },
+      });
       setUser("2");
     }
   }
@@ -41,7 +57,7 @@ const Signup = () => {
     //alert(`${email}`);
     setFormData(initialState);
     signup(email);
-    history.push("/list"); // right now it push user to login again but ideally the add user will return user_id
+    // right now it push user to login again but ideally the add user will return user_id
   };
 
   /*validate email*/
