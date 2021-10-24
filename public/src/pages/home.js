@@ -60,9 +60,9 @@ function HomePage() {
       <div>
         <img src={Logo} alt="logo"></img>
       </div>
-      <p>Deliciously simple.</p>
 
-      <h1>Karrot</h1>
+      <h1 className="app-name">Karrot</h1>
+      <p>Deliciously simple.</p>
       <div>
         <span
           style={{
@@ -76,6 +76,7 @@ function HomePage() {
         <form onSubmit={handleSubmit}>
           <label htmlFor="email"></label>
           <input
+            className="email-input"
             type="email"
             placeholder="Email Address"
             name="email"
@@ -84,12 +85,13 @@ function HomePage() {
             onChange={handleChange}
           />
 
-          <button type="submit" disabled={formData.email.length < 1}>
+          <button className="login" type="submit" disabled={formData.email.length < 1}>
             Login
           </button>
         </form>
-        <h4>
-          Don't have an accout? <a href="/signup">Sign up here.</a>
+        <h4 className="signup-message">
+          Don't have an account? {' '}
+          <a className="signup-link" href="/signup">Sign up here.</a>
         </h4>
       </div>
       <BottomNavBar name="home" />
