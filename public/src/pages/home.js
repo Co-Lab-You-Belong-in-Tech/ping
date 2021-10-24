@@ -5,6 +5,8 @@ import validator from "validator";
 import OwnAPI from "../Api";
 import Logo from "../assets/Logo.png";
 import "../login.css";
+import { store } from "react-notifications-component";
+import LoginError from "../components/Notifications/loginError";
 
 function HomePage() {
   const { setUser } = useContext(UserContext); // use useContext to grab user id
@@ -21,7 +23,22 @@ function HomePage() {
       history.push("/list");
     } catch (errors) {
       console.error("log in failed");
-      alert(errors);
+      console.log(errors.Error);
+
+      store.addNotification({
+        content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        // animationIn: ["animate__animated", "animate__fadeIn"],
+        //animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+          showIcon: true,
+        },
+      });
+
       setUser("2");
     }
   }

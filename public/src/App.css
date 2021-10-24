@@ -358,6 +358,7 @@ body {
   border-radius: 3px;
   border: 1px solid #c2d1d9;
   background-color: #fff;
+  z-index: 100;
 }
 
 #login {
@@ -369,7 +370,9 @@ body {
   display: inline-block;
   font-size: 14px;
   font-weight: bold;
+  z-index: 100;
 }
+
 #signup {
   background-color: #e76f51;
   color: #fff;
@@ -379,6 +382,7 @@ body {
   display: inline-block;
   font-size: 14px;
   font-weight: bold;
+  z-index: 100;
 }
 
 .email-error {
@@ -413,3 +417,5 @@ a {
 a {
   color: #c2d1d9;
 }
+
+/*** error page*/
