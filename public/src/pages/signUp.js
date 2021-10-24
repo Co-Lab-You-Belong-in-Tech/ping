@@ -56,21 +56,28 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="login">
+      <div className="login-logo">
         <img src={Logo} alt="logo" />
       </div>
-      <div>
-        <span
+
+      <span
+        style={{
+          fontWeight: "bold",
+          color: "#e76f51",
+        }}
+      >
+        {emailError}
+      </span>
+      <div className="login-form">
+        <form
+          onSubmit={handleSubmit}
           style={{
-            fontWeight: "bold",
-            color: "#e76f51",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
-          {emailError}
-        </span>
-
-        <form onSubmit={handleSubmit}>
           <label htmlFor="email"></label>
           <input
             type="email"
@@ -79,14 +86,24 @@ const Signup = () => {
             id="email"
             value={formData.email}
             onChange={handleChange}
+            className="input"
           />
 
-          <button type="submit" disabled={formData.email.length < 1}>
+          <button
+            type="submit"
+            disabled={formData.email.length < 1}
+            id="signup"
+          >
             Sign Up
           </button>
         </form>
       </div>
-      Back to <a href="/">login.</a>
+
+      <div className="signup-p">
+        <h5>
+          Back to <a href="/">login.</a>
+        </h5>
+      </div>
     </div>
   );
 };

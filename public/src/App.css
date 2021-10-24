@@ -370,21 +370,46 @@ body {
   font-size: 14px;
   font-weight: bold;
 }
+#signup {
+  background-color: #e76f51;
+  color: #fff;
+  height: 41px;
+  width: 93px;
+  border-radius: 0px 3px 3px 0px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+}
 
 .email-error {
   position: absolute;
   top: 270px;
 }
 
-.login-p h5 {
+.login-p {
   position: absoulte;
   z-index: 100;
   display: flex;
   color: #c2d1d9;
-  padding-top: 125%;
+  padding-top: 355px;
   z-index: 1;
 }
 
-.login-p a {
+.login-p h5,
+a {
+  color: #c2d1d9;
+}
+
+.signup-p {
+  position: absoulte;
+  z-index: 100;
+  display: flex;
+  color: #c2d1d9;
+  z-index: 1;
+  padding-top: 355px;
+}
+
+.signup-p h5,
+a {
   color: #c2d1d9;
 }
