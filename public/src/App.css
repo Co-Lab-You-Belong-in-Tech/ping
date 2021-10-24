@@ -260,7 +260,7 @@ body {
   color: #c2d1d9;
   font-weight: 400;
   text-align: center;
-  size: 12px;
+  font-size: small;
 }
 
 /**grcoery list style **/
@@ -284,4 +284,67 @@ body {
   left: 89.18%;
   right: 6.18%;
   mix-blend-mode: multiply;
+}
+
+/***empty fridge hodler*/
+.holder-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.holder-title {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 38px;
+  padding-top: 65px;
+}
+
+/***login and signup page*/
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.login-logo {
+  position: absolute;
+  width: 75px;
+  height: 95px;
+  top: 81px;
+  padding-bottom: 10px;
+}
+
+.app-name {
+  position: absolute;
+  width: 375px;
+  height: 73px;
+  top: 180px;
+  color: #2a9d8f;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 18px;
+  padding-top: 15px;
+}
+
+.slogan {
+  position: absolute;
+  width: 375px;
+  height: 38px;
+  top: 234px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.login-form {
+  position: absolute;
+  top: 308px;
+  width: 299px;
 }

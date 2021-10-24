@@ -34,7 +34,7 @@ const List = () => {
     setUserData(null);
   }
   return (
-    <div style={{ backgroundColor: "white" }}>
+    <div>
       <div className="header-box">
         <div className="header-logo">
           <img src={groceryLogo} alt="grocery_logo" />

@@ -56,13 +56,14 @@ function HomePage() {
   };
 
   return (
-    <div class="login">
-      <div>
+    <div className="login">
+      <div className="login-logo">
         <img src={Logo} alt="logo"></img>
       </div>
-      <p>Deliciously simple.</p>
-
-      <h1>Karrot</h1>
+      <div className="slogan">
+        <p>Deliciously simple.</p>
+      </div>
+      <h1 className="app-name">Karrot</h1>
       <div>
         <span
           style={{
@@ -72,7 +73,9 @@ function HomePage() {
         >
           {emailError}
         </span>
+      </div>
 
+      <div className="login-form">
         <form onSubmit={handleSubmit}>
           <label htmlFor="email"></label>
           <input
@@ -88,10 +91,11 @@ function HomePage() {
             Login
           </button>
         </form>
-        <h4>
-          Don't have an accout? <a href="/signup">Sign up here.</a>
-        </h4>
       </div>
+
+      <p>
+        Don't have an accout? <a href="/signup">Sign up here.</a>
+      </p>
     </div>
   );
 }

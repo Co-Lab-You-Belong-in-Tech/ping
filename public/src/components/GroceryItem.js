@@ -18,7 +18,7 @@ const GroceryItems = ({ userData, getData, setUserData }) => {
     );
 
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       {Array.isArray(userData) &&
         userData.map((a) => (
           <SingleGrocery

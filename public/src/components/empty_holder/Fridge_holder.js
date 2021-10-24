@@ -1,9 +1,12 @@
 const FridgeHolder = ({ img, message, title }) => {
   return (
-    <div>
-      <h2>{title}</h2>
-      <p className="p-font">{message}</p>
-      <div>
+    <div className="holder-box">
+      <div className="holder-title">
+        <h3>{title}</h3>
+        <p className="p-font">{message}</p>
+      </div>
+
+      <div style={{ paddingTop: "25px" }}>
         <img src={img} alt="holder_image" />
       </div>
     </div>
