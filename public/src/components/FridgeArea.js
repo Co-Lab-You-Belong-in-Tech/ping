@@ -65,58 +65,60 @@ const FridgeArea = ({ userData }) => {
 
   return (
     <div>
-      <button
-        className="btn-large"
-        onClick={() => {
-          store.addNotification({
-            content: (
-              <LargeNtf
-                tagArray={tagArray}
-                handleUsageTag={handleUsageTag}
-                user={user}
-              />
-            ), // content:MyNotify (custom notification), pass value and function into
-            type: "success",
-            insert: "top",
-            container: "center",
-            // animationIn: ["animate__animated", "animate__fadeIn"],
-            //animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 2000,
-              onScreen: true,
-              showIcon: true,
-            },
-          });
-        }}
-      >
-        MARK AS USED
-      </button>
-      <button
-        className="btn-lg-danger"
-        onClick={() => {
-          store.addNotification({
-            content: (
-              <LargeToss
-                tagArray={tagArray}
-                handleUsageTag={handleUsageTag}
-                user={user}
-              />
-            ), // content:MyNotify (custom notification)
-            type: "success",
-            insert: "top",
-            container: "center",
-            // animationIn: ["animate__animated", "animate__fadeIn"],
-            //animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 2000,
-              onScreen: true,
-              showIcon: true,
-            },
-          });
-        }}
-      >
-        TOSS
-      </button>
+      <div style={{ padding: "2%" }}>
+        <button
+          className="btn-large"
+          onClick={() => {
+            store.addNotification({
+              content: (
+                <LargeNtf
+                  tagArray={tagArray}
+                  handleUsageTag={handleUsageTag}
+                  user={user}
+                />
+              ), // content:MyNotify (custom notification), pass value and function into
+              type: "success",
+              insert: "top",
+              container: "center",
+              // animationIn: ["animate__animated", "animate__fadeIn"],
+              //animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 2000,
+                onScreen: true,
+                showIcon: true,
+              },
+            });
+          }}
+        >
+          MARK AS USED
+        </button>
+        <button
+          className="btn-lg-danger"
+          onClick={() => {
+            store.addNotification({
+              content: (
+                <LargeToss
+                  tagArray={tagArray}
+                  handleUsageTag={handleUsageTag}
+                  user={user}
+                />
+              ), // content:MyNotify (custom notification)
+              type: "success",
+              insert: "top",
+              container: "center",
+              // animationIn: ["animate__animated", "animate__fadeIn"],
+              //animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 2000,
+                onScreen: true,
+                showIcon: true,
+              },
+            });
+          }}
+        >
+          TOSS
+        </button>
+      </div>
 
       {Array.isArray(userData) &&
         userData.map((a) => (

@@ -84,29 +84,31 @@ const SingleGrocery = ({
 
   //const firstLetter = name.replace(/ .*/, "").toLowerCase();
   return (
-    <div key={grocery_item_id}>
-      {check ? (
-        <button
-          style={{ border: "none", background: "white" }}
-          onClick={() => handleBought("not bought", user, grocery_item_id)}
-        >
-          <Checkedbtn />
-        </button>
-      ) : (
-        <button
-          onClick={() => handleBought("bought", user, grocery_item_id)}
-          style={{ border: "none" }}
-        >
-          <NotCheckedbtn />
-        </button>
-      )}
+    <div key={grocery_item_id} className="grocery-list-box">
+      <div style={{ padding: "10px" }}>
+        {check ? (
+          <button
+            style={{ border: "none", background: "white" }}
+            onClick={() => handleBought("not bought", user, grocery_item_id)}
+          >
+            <Checkedbtn />
+          </button>
+        ) : (
+          <button
+            onClick={() => handleBought("bought", user, grocery_item_id)}
+            style={{ border: "none", background: "white" }}
+          >
+            <NotCheckedbtn />
+          </button>
+        )}
+      </div>
       {grocery_item_name.replace(/ .*/, "")}
-      ------------------
+
       <button
         onClick={() => singleDelete("deleted", user, grocery_item_id)}
         className="deleteBtn"
       >
-        <img src={x} alt="x" />
+        <DeleteBtn />
       </button>
     </div>
   );

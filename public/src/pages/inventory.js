@@ -42,8 +42,14 @@ function Inventory() {
   // logic:  if the itemtag is not expired , display here; if user click toss or used buttom they disapper from the page but change the tag in database
   return (
     <div>
-      <img src={logo} />
-      <h1>{user}My Fridge</h1>
+      <div className="header-box">
+        <div className="header-logo">
+          <img src={logo} />
+        </div>
+        <div className="header-title" style={{ paddingLeft: "15%" }}>
+          <h1>My Fridge</h1>
+        </div>
+      </div>
 
       <FridgeArea userData={userData} />
       <BottomNavBar name="inventory" />

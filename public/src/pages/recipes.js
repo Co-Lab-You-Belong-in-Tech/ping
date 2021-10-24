@@ -29,9 +29,16 @@ const RecipesPage = () => {
   if (!recipeData || !expiredItem || recipeData.length === 0)
     return (
       <div>
-        <img src={receipeLogo} alt="recipe_logo" />
-        <h1>My Recipes</h1>
-        <p>Based on ingredients Left</p>
+        <div className="header-box">
+          <div className="header-logo">
+            <img src={receipeLogo} alt="recipe_logo" />
+          </div>
+          <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
+            <h1 style={{ padding: "5px" }}>My Recipes</h1>
+            <p className="p-font">Based on ingredients Left</p>
+          </div>
+        </div>
+
         <FridgeHolder
           img={EmptyRecipe}
           title={"You dont have any receipes yet"}

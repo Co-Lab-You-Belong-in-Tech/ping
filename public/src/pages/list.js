@@ -34,7 +34,7 @@ const List = () => {
     setUserData(null);
   }
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       <div className="header-box">
         <div className="header-logo">
           <img src={groceryLogo} alt="grocery_logo" />
@@ -43,7 +43,7 @@ const List = () => {
           <h1>My Grocery List</h1>
         </div>
       </div>
-      <div>
+      <div style={{ padding: "2%" }}>
         <Link to="/search">
           <button className="btn-large">ADD ITEM</button>
         </Link>

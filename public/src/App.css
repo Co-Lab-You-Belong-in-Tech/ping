@@ -89,15 +89,6 @@ body {
   width: 10px;
 }
 
-.deleteBtn {
-  left: 89.18%;
-  right: 6.18%;
-  top: 62.16%;
-  bottom: 7.18%;
-  border: none;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
 .largeNtf {
   /* Rectangle 281 */
   width: 278px;
@@ -220,6 +211,11 @@ body {
   .nav {
     width: 100%;
   }
+  .deleteBtn {
+    padding-top: 0%;
+    padding-bottom: 4%;
+    background-color: none;
+  }
 }
 
 .nav-item {
@@ -256,4 +252,35 @@ body {
   display: flex;
   color: #424b5a;
   line-height: 18px;
+}
+
+/** the font under the title*/
+
+.p-font {
+  color: #c2d1d9;
+  font-weight: 400;
+  text-align: center;
+  size: 12px;
+}
+
+/**grcoery list style **/
+.grocery-list-box {
+  border-bottom: 0.5px solid #c2d1d9;
+  text-align: center;
+  margin: 35px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+}
+
+.deleteBtn {
+  position: absolute;
+  border: none;
+  background-color: #fff;
+  padding-top: 5%;
+  left: 89.18%;
+  right: 6.18%;
+  mix-blend-mode: multiply;
 }
