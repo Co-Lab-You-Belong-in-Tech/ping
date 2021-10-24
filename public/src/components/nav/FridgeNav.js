@@ -1,7 +1,6 @@
 import { store } from "react-notifications-component";
 import { ReactComponent as FridegeUn } from "../../assets/FridgeUnselected.svg";
 import LargeExp from "../Notifications/largeExp";
-import Ellipse from "../../assets/Ellipse.png";
 
 const FridgeNav = ({ expiredItem }) => {
   /**this is the react notifications part */

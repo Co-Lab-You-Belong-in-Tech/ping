@@ -1,5 +1,3 @@
-import { wrap } from "module";
-
 const LargeExp = ({ expireItems }) => {
   return (
     <div className="largeNtf">

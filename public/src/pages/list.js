@@ -37,7 +37,11 @@ const List = () => {
     <div>
       <div className="header-box">
         <div className="header-logo">
-          <img src={groceryLogo} alt="grocery_logo" />
+          <img
+            src={groceryLogo}
+            alt="grocery_logo"
+            style={{ width: "84.36px", height: "84.36px" }}
+          />
         </div>
         <div className="header-title">
           <h1>My Grocery List</h1>

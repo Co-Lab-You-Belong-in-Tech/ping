@@ -65,7 +65,6 @@ function HomePage() {
       </div>
       <h1 className="app-name">Karrot</h1>
       <div className="email-error">
-
         <span
           style={{
             fontWeight: "bold",
@@ -83,7 +82,6 @@ function HomePage() {
         >
           <label htmlFor="email"></label>
           <input
-            className="email-input"
             type="email"
             placeholder="   Email Address"
             name="email"
@@ -102,7 +100,6 @@ function HomePage() {
         <h5>
           Don't have an accout? <a href="/signup">Sign up here.</a>
         </h5>
-
       </div>
     </div>
   );

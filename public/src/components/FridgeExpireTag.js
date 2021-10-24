@@ -16,7 +16,7 @@ const FridgeExpireTag = ({ inventory_tag, expiry_date }) => {
       {inventory_tag === "not expired" && days <= 2 && (
         <div style={{ color: "#e76f51" }}>{`expires in ${days} Days`} </div>
       )}
-      {inventory_tag == "not expired" && days > 2 && (
+      {inventory_tag === "not expired" && days > 2 && (
         <div style={{ color: "#2A9D8F" }}>
           {`expires in 
           ${days} Days`}

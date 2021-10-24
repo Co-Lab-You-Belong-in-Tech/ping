@@ -118,7 +118,7 @@ const FridgeItem = ({
           expiry_date={expiry_date}
         />
       </div>
-      <small>
+      {/*<small>
         <a
           className="App-link"
           href={`tips/${inventory_item_name}/${query_id}`}
@@ -127,7 +127,7 @@ const FridgeItem = ({
         >
           tips
         </a>
-      </small>
+      </small>*/}
     </div>
   );
 };

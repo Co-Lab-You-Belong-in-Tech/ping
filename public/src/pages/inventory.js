@@ -44,7 +44,11 @@ function Inventory() {
     <div>
       <div className="header-box">
         <div className="header-logo">
-          <img src={logo} />
+          <img
+            src={logo}
+            alt="grocery_logo"
+            style={{ width: "84.36px", height: "84.36px" }}
+          />
         </div>
         <div className="header-title" style={{ paddingLeft: "15%" }}>
           <h1>My Fridge</h1>
