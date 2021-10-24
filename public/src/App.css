@@ -347,4 +347,44 @@ body {
   position: absolute;
   top: 308px;
   width: 299px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.input {
+  width: 206px;
+  height: 41px;
+  border-radius: 3px;
+  border: 1px solid #c2d1d9;
+  background-color: #fff;
+}
+
+#login {
+  background-color: #2a9d8f;
+  color: #fff;
+  height: 41px;
+  width: 93px;
+  border-radius: 0px 3px 3px 0px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.email-error {
+  position: absolute;
+  top: 270px;
+}
+
+.login-p h5 {
+  position: absoulte;
+  z-index: 100;
+  display: flex;
+  color: #c2d1d9;
+  padding-top: 125%;
+  z-index: 1;
+}
+
+.login-p a {
+  color: #c2d1d9;
 }

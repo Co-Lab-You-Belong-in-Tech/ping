@@ -64,7 +64,7 @@ function HomePage() {
         <p>Deliciously simple.</p>
       </div>
       <h1 className="app-name">Karrot</h1>
-      <div>
+      <div className="email-error">
         <span
           style={{
             fontWeight: "bold",
@@ -76,26 +76,30 @@ function HomePage() {
       </div>
 
       <div className="login-form">
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ alignItems: "center", display: "flex" }}
+        >
           <label htmlFor="email"></label>
           <input
             type="email"
-            placeholder="Email Address"
+            placeholder="   Email Address"
             name="email"
             id="email"
             value={formData.email}
             onChange={handleChange}
+            className="input"
           />
-
-          <button type="submit" disabled={formData.email.length < 1}>
-            Login
+          <button type="submit" disabled={formData.email.length < 1} id="login">
+            LOGIN
           </button>
         </form>
       </div>
-
-      <p>
-        Don't have an accout? <a href="/signup">Sign up here.</a>
-      </p>
+      <div className="login-p">
+        <h5>
+          Don't have an accout? <a href="/signup">Sign up here.</a>
+        </h5>
+      </div>
     </div>
   );
 }
