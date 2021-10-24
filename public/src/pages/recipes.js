@@ -26,23 +26,26 @@ const RecipesPage = () => {
     getRecipe();
   }, []);
 
-  if (!recipeData)
+  if (!recipeData || !expiredItem || recipeData.length === 0)
     return (
       <div>
-        <div className="header-container">
-          <div className="logo">
-            <img className="recipe-logo" src={receipeLogo} alt="recipe_logo"/>
+        <div className="header-box">
+          <div className="header-logo">
+            <img src={receipeLogo} alt="recipe_logo" />
           </div>
-          <div className="header">
-            <h1 className="header-title">My Recipes</h1>
-            <p className="header-subtitle">Based on leftovers in your fridge</p>
+          <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
+            <h1 style={{ padding: "5px" }}>My Recipes</h1>
+            <p className="p-font">Based on ingredients Left</p>
           </div>
         </div>
+
+
         <FridgeHolder
           img={EmptyRecipe}
           title={"You dont have any receipes yet"}
           message={"Add item to your fridge to see recipe ideas"}
         />
+        <BottomNavBar name="recipes" />
       </div>
     );
   return (

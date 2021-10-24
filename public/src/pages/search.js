@@ -4,6 +4,8 @@ import SingleItem from "../components/SingleItem";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
+import AddItem from "../components/Notifications/addItem";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -54,8 +56,7 @@ function SearchPage() {
       OwnAPI.addGrocery(item_name, user_id, query_id);
       console.log(item_name, user_id);
       store.addNotification({
-        title: "Hey!",
-        message: `success add ${item_name}!`, // content:MyNotify (custom notification)
+        content: <AddItem item_name={item_name} location="list" />, // content:MyNotify (custom notification)
         type: "success",
         insert: "top",
         container: "top-center",
@@ -87,7 +88,7 @@ function SearchPage() {
             key={suggestion.id}
             onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
           >
-            {suggestion.id}--{suggestion.name}
+            {suggestion.name}
           </div>
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
@@ -95,6 +96,7 @@ function SearchPage() {
         <h2>Search for items to add</h2>
         <h5>Tap on the search bar to look for ingredients</h5>
       </div>
+      <BottomNavBar name="search" />
     </div>
   );
 }

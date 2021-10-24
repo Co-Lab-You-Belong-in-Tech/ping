@@ -12,10 +12,11 @@ function Inventory() {
     async function getData() {
       try {
         const data = await OwnAPI.getTheUserInventory(user);
-        console.log(data);
+        const a = data.filter((a) => a.usage_tag === null);
+        console.log(a);
         //console.log(getExpiredArray(data));
         setExpiredItems(getExpiredArray(data)); /// need to rethink where put this function?
-        setUserData(data);
+        setUserData(a);
       } catch (e) {
         console.error(e);
       }
@@ -27,7 +28,9 @@ function Inventory() {
   function getExpiredArray(data) {
     let result = [];
     if (!data) return ["carrot"];
-    data = data.filter((a) => a.inventory_tag === "expired");
+    data = data.filter(
+      (a) => a.inventory_tag === "expired" && a.usage_tag === null
+    );
     for (var i in data) {
       result.push(data[i].inventory_item_name.replace(/ .*/, "").toLowerCase());
     }
@@ -39,8 +42,14 @@ function Inventory() {
   // logic:  if the itemtag is not expired , display here; if user click toss or used buttom they disapper from the page but change the tag in database
   return (
     <div>
-      <img src={logo} />
-      <h1>{user}My Fridge</h1>
+      <div className="header-box">
+        <div className="header-logo">
+          <img src={logo} />
+        </div>
+        <div className="header-title" style={{ paddingLeft: "15%" }}>
+          <h1>My Fridge</h1>
+        </div>
+      </div>
 
       <FridgeArea userData={userData} />
       <BottomNavBar name="inventory" />

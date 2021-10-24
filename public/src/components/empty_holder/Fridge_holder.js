@@ -2,10 +2,14 @@ import "../../recipe.css";
 
 const FridgeHolder = ({ img, message, title }) => {
   return (
-    <div>
-      <h5 className="empty-title">{title}</h5>
-      <p className="empty-message">{message}</p>
-      <div>
+    <div className="holder-box">
+      <div className="holder-title">
+        <h3>{title}</h3>
+        <p className="p-font">{message}</p>
+      </div>
+
+      <div style={{ paddingTop: "25px" }}>
+
         <img src={img} alt="holder_image" />
       </div>
     </div>

@@ -5,7 +5,6 @@ import validator from "validator";
 import OwnAPI from "../Api";
 import Logo from "../assets/Logo.png";
 import "../login.css";
-import BottomNavBar from "../components/nav/BottomNavBar";
 
 function HomePage() {
   const { setUser } = useContext(UserContext); // use useContext to grab user id
@@ -19,8 +18,10 @@ function HomePage() {
       let { data } = await OwnAPI.isUser(loginEmail);
       console.log(data);
       setUser(data[0].user_id);
+      history.push("/list");
     } catch (errors) {
-      console.error("log in failed,temporay set user 2");
+      console.error("log in failed");
+      alert(errors);
       setUser("2");
     }
   }
@@ -40,7 +41,6 @@ function HomePage() {
     //alert(`${email}`);
     setFormData(initialState);
     login(email);
-    history.push("/list");
 
     //add some kind of login logic here
   };
@@ -56,14 +56,16 @@ function HomePage() {
   };
 
   return (
-    <div class="login">
-      <div>
+    <div className="login">
+      <div className="login-logo">
         <img src={Logo} alt="logo"></img>
       </div>
-
+      <div className="slogan">
+        <p>Deliciously simple.</p>
+      </div>
       <h1 className="app-name">Karrot</h1>
-      <p>Deliciously simple.</p>
-      <div>
+      <div className="email-error">
+
         <span
           style={{
             fontWeight: "bold",
@@ -72,29 +74,36 @@ function HomePage() {
         >
           {emailError}
         </span>
+      </div>
 
-        <form onSubmit={handleSubmit}>
+      <div className="login-form">
+        <form
+          onSubmit={handleSubmit}
+          style={{ alignItems: "center", display: "flex" }}
+        >
           <label htmlFor="email"></label>
           <input
             className="email-input"
             type="email"
-            placeholder="Email Address"
+            placeholder="   Email Address"
             name="email"
             id="email"
             value={formData.email}
             onChange={handleChange}
+            className="input"
           />
 
-          <button className="login" type="submit" disabled={formData.email.length < 1}>
-            Login
+          <button type="submit" disabled={formData.email.length < 1} id="login">
+            LOGIN
           </button>
         </form>
-        <h4 className="signup-message">
-          Don't have an account? {' '}
-          <a className="signup-link" href="/signup">Sign up here.</a>
-        </h4>
       </div>
-      <BottomNavBar name="home" />
+      <div className="login-p">
+        <h5>
+          Don't have an accout? <a href="/signup">Sign up here.</a>
+        </h5>
+
+      </div>
     </div>
   );
 }

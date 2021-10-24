@@ -8,7 +8,7 @@ import EmptyCartLogo from "../assets/EmptyCart_Logo.png";
 const GroceryItems = ({ userData, getData, setUserData }) => {
   //const { user } = useContext(UserContext);
 
-  if (!userData)
+  if (!userData || userData.length === 0)
     return (
       <FridgeHolder
         img={EmptyCartLogo}
@@ -18,7 +18,7 @@ const GroceryItems = ({ userData, getData, setUserData }) => {
     );
 
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       {Array.isArray(userData) &&
         userData.map((a) => (
           <SingleGrocery

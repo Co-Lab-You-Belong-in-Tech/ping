@@ -6,6 +6,9 @@ import { ReactComponent as Checkedbtn } from "../assets/checkedbtn.svg";
 import { ReactComponent as NotCheckedbtn } from "../assets/notChekcedbtn.svg";
 import x from "../assets/x.png";
 import "../App.css";
+import { store } from "react-notifications-component";
+import AddItem from "./Notifications/addItem";
+import RemoveItem from "./Notifications/removeItem";
 
 const SingleGrocery = ({
   grocery_item_id,
@@ -38,7 +41,35 @@ const SingleGrocery = ({
   async function handleBought(tag, user_id, item_id) {
     OwnAPI.editGroceryTag(tag, user_id, item_id); // update tage
     setChecked(!check);
-    getData();
+    //getData();
+    //handle notifications here
+    if (tag === "bought") {
+      store.addNotification({
+        content: <AddItem item_name={grocery_item_name} location={"fridge"} />, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
+    } else if (tag === "not bought") {
+      store.addNotification({
+        content: <RemoveItem item_name={grocery_item_name} />, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
+    }
   }
 
   // need some functions to get expiry_time
@@ -53,29 +84,31 @@ const SingleGrocery = ({
 
   //const firstLetter = name.replace(/ .*/, "").toLowerCase();
   return (
-    <div key={grocery_item_id}>
-      {check ? (
-        <button
-          style={{ border: "none" }}
-          onClick={() => handleBought("not bought", user, grocery_item_id)}
-        >
-          <Checkedbtn />
-        </button>
-      ) : (
-        <button
-          onClick={() => handleBought("bought", user, grocery_item_id)}
-          style={{ border: "none" }}
-        >
-          <NotCheckedbtn />
-        </button>
-      )}
-      {grocery_item_name.replace(/ .*/, "").toLowerCase()}
-      ------------------
+    <div key={grocery_item_id} className="grocery-list-box">
+      <div style={{ padding: "10px" }}>
+        {check ? (
+          <button
+            style={{ border: "none", background: "white" }}
+            onClick={() => handleBought("not bought", user, grocery_item_id)}
+          >
+            <Checkedbtn />
+          </button>
+        ) : (
+          <button
+            onClick={() => handleBought("bought", user, grocery_item_id)}
+            style={{ border: "none", background: "white" }}
+          >
+            <NotCheckedbtn />
+          </button>
+        )}
+      </div>
+      {grocery_item_name.replace(/ .*/, "")}
+
       <button
         onClick={() => singleDelete("deleted", user, grocery_item_id)}
         className="deleteBtn"
       >
-        <img src={x} alt="x" />
+        <DeleteBtn />
       </button>
     </div>
   );
