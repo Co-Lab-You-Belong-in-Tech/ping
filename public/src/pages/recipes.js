@@ -1,12 +1,66 @@
-import React from "react";
-import NavBar from "../components/NavBar";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import receipeLogo from "../assets/Recipe_Logo.png";
+import FridgeHolder from "../components/empty_holder/Fridge_holder";
+import EmptyRecipe from "../assets/Empty_Recipe_Logo.png";
+import UserContext from "../UserContext";
+import RecipeItem from "../components/RecipeItem";
+import "../recipe.css";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipesPage = () => {
+  const [recipeData, setRecipeData] = useState(null);
+  const { expiredItem } = useContext(UserContext);
+
+  useEffect(() => {
+    async function getRecipe() {
+      const { data } = await axios.get(
+        "https://food-ping.herokuapp.com/getRecipes",
+        {
+          params: { ingredients: expiredItem, number: "3" },
+        }
+      );
+      console.log(data);
+      setRecipeData(data);
+    }
+    getRecipe();
+  }, []);
+
+  if (!recipeData)
+    return (
+      <div>
+        <div className="header-container">
+          <div className="logo">
+            <img className="recipe-logo" src={receipeLogo} alt="recipe_logo"/>
+          </div>
+          <div className="header">
+            <h1 className="header-title">My Recipes</h1>
+            <p className="header-subtitle">Based on leftovers in your fridge</p>
+          </div>
+        </div>
+        <FridgeHolder
+          img={EmptyRecipe}
+          title={"You dont have any receipes yet"}
+          message={"Add item to your fridge to see recipe ideas"}
+        />
+      </div>
+    );
   return (
     <div>
-      <h1>Recipes</h1>
-      Based on ingredients Left
-      <NavBar />
+      <div className="header-container">
+        <div className="logo">
+          <img className="recipe-logo" src={receipeLogo} alt="recipe_logo"/>
+        </div>
+        <div className="header">
+          <h1 className="header-title">My Recipes</h1>
+          <p className="header-subtitle">Based on leftovers in your fridge</p>
+        </div>
+      </div>
+      {recipeData.map((a) => (
+        <RecipeItem title={a.title} image={a.image} id={a.id} key={a.id} />
+      ))}
+
+      <BottomNavBar name="recipes" />
     </div>
   );
 };

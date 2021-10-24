@@ -1,0 +1,36 @@
+/* Button - Large */
+.btn-large {
+  /*position: absolute;*/
+  width: 128px;
+  height: 41px;
+  left: 124px;
+  top: 430px;
+  color: #2a9d8f;
+  border: #2a9d8f 2px solid;
+  background-color: #eaf5f5;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 20px;
+  text-align: center;
+}
+
+/*
+background: #eaf5f5;
+border: 1px solid #2a9d8f;
+box-sizing: border-box;
+border-radius: 20px;
+
+
+
+font-family: Inter;
+font-style: normal;
+font-weight: bold;
+font-size: 10px;
+line-height: 18px;
+/* or 180% */
+/*display: flex;
+align-items: center;
+text-align: center;
+
+color: #2a9d8f; 
+*/

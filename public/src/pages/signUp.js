@@ -1,30 +1,30 @@
+import Logo from "../assets/Logo.png";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
-import validator from "validator";
 import OwnAPI from "../Api";
-import Logo from "../assets/Logo.png";
-import "../login.css";
-import BottomNavBar from "../components/nav/BottomNavBar";
+import validator from "validator";
 
-function HomePage() {
+const Signup = () => {
   const { setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
 
-  // login logic
-  async function login(loginEmail) {
+  // create new user logic
+  async function signup(signupEmail) {
     try {
-      let { data } = await OwnAPI.isUser(loginEmail);
-      console.log(data);
+      let data = await OwnAPI.addUser(signupEmail);
+      //console.log(data);
+
       setUser(data[0].user_id);
     } catch (errors) {
-      console.error("log in failed,temporay set user 2");
+      console.error("signup failed,temporay set user 2");
       setUser("2");
     }
   }
 
+  /*handle change*/
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((data) => ({
@@ -34,17 +34,17 @@ function HomePage() {
     validateEmail(e);
   };
 
+  /*handle submit*/
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email } = formData;
     //alert(`${email}`);
     setFormData(initialState);
-    login(email);
-    history.push("/list");
-
-    //add some kind of login logic here
+    signup(email);
+    history.push("/list"); // right now it push user to login again but ideally the add user will return user_id
   };
 
+  /*validate email*/
   const [emailError, setEmailError] = useState("");
   const validateEmail = (e) => {
     var email = e.target.value;
@@ -56,13 +56,10 @@ function HomePage() {
   };
 
   return (
-    <div class="login">
+    <div>
       <div>
-        <img src={Logo} alt="logo"></img>
+        <img src={Logo} alt="logo" />
       </div>
-
-      <h1 className="app-name">Karrot</h1>
-      <p>Deliciously simple.</p>
       <div>
         <span
           style={{
@@ -76,7 +73,6 @@ function HomePage() {
         <form onSubmit={handleSubmit}>
           <label htmlFor="email"></label>
           <input
-            className="email-input"
             type="email"
             placeholder="Email Address"
             name="email"
@@ -85,18 +81,14 @@ function HomePage() {
             onChange={handleChange}
           />
 
-          <button className="login" type="submit" disabled={formData.email.length < 1}>
-            Login
+          <button type="submit" disabled={formData.email.length < 1}>
+            Sign Up
           </button>
         </form>
-        <h4 className="signup-message">
-          Don't have an account? {' '}
-          <a className="signup-link" href="/signup">Sign up here.</a>
-        </h4>
       </div>
-      <BottomNavBar name="home" />
+      Back to <a href="/">login.</a>
     </div>
   );
-}
+};
 
-export default HomePage;
+export default Signup;
