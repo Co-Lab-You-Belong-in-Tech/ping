@@ -81,7 +81,7 @@ const Signup = () => {
           <label htmlFor="email"></label>
           <input
             type="email"
-            placeholder="Email Address"
+            placeholder="   Email Address"
             name="email"
             id="email"
             value={formData.email}
