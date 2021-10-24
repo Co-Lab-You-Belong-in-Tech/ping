@@ -66,6 +66,7 @@ const Signup = () => {
           fontWeight: "bold",
           color: "#e76f51",
         }}
+        className="email-error"
       >
         {emailError}
       </span>
@@ -94,7 +95,7 @@ const Signup = () => {
             disabled={formData.email.length < 1}
             id="signup"
           >
-            Sign Up
+            SIGN UP
           </button>
         </form>
       </div>
