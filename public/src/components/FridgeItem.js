@@ -4,6 +4,8 @@ import OwnAPI from "../Api";
 import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
 import FridgeExpireTag from "./FridgeExpireTag";
+import { ReactComponent as Checkedbtn } from "../assets/checkedbtn.svg";
+import { ReactComponent as NotCheckedbtn } from "../assets/notChekcedbtn.svg";
 
 const FridgeItem = ({
   expiry_date,
@@ -81,30 +83,41 @@ const FridgeItem = ({
   }
 
   return (
-    <div>
-      {select === false ? (
-        <button
-          onClick={() => {
-            handleClick(inventory_item_id);
-          }}
-        >
-          No
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            handleRemove(inventory_item_id);
-          }}
-        >
-          Yes
-        </button>
-      )}
-      {usage_tag}
-      {inventory_item_name.replace(/ .*/, "")}---------
-      <FridgeExpireTag
-        inventory_tag={inventory_tag}
-        expiry_date={expiry_date}
-      />
+    <div className="grocery-list-box">
+      <div style={{ padding: "10px" }}>
+        {select === false ? (
+          <button
+            onClick={() => {
+              handleClick(inventory_item_id);
+            }}
+            style={{ border: "none", background: "white" }}
+          >
+            <NotCheckedbtn />
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              handleRemove(inventory_item_id);
+            }}
+            style={{ border: "none", background: "white" }}
+          >
+            <Checkedbtn />
+          </button>
+        )}
+      </div>
+      {inventory_item_name.replace(/ .*/, "")}
+      <div
+        style={{
+          position: "absolute",
+          left: "68%",
+          fontSize: "12px",
+        }}
+      >
+        <FridgeExpireTag
+          inventory_tag={inventory_tag}
+          expiry_date={expiry_date}
+        />
+      </div>
       <small>
         <a
           className="App-link"

@@ -64,7 +64,7 @@ const FridgeArea = ({ userData }) => {
     );
 
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       <div style={{ padding: "2%" }}>
         <button
           className="btn-large"

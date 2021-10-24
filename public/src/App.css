@@ -273,6 +273,7 @@ body {
   justify-content: left;
   align-items: center;
   position: relative;
+  background-color: #fff;
 }
 
 .deleteBtn {

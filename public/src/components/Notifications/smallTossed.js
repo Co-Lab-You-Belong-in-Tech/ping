@@ -6,7 +6,9 @@ const SmTossed = () => {
       <div style={{ paddingRight: "70px" }}>
         <img src={yes} alt="yes" />
       </div>
-      <div id="tossP">You tossed your items.</div>
+      <div id="tossP" style={{ color: "white" }}>
+        You tossed your items.
+      </div>
     </div>
   );
 };

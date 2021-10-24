@@ -7,7 +7,7 @@ const SmUsed = () => {
         <img src={yes} alt="yes" />
       </div>
 
-      <div>Congrats on using your items!</div>
+      <div style={{ color: "white" }}>Congrats on using your items!</div>
     </div>
   );
 };
