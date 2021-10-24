@@ -98,9 +98,11 @@ app.get('/getRecipes', (req, res) => {
         },
         (error, response, body) => {
             if (error || response.statusCode !== 200) {
+                var error_res = JSON.parse(body);
+                console.log(error_res.message);
                 return res.status(500).json({
                     type: 'error',
-                    message: error.message
+                    message: error_res.message
                 });
             }
             res.json(JSON.parse(body));
@@ -117,9 +119,11 @@ app.get('/getRecipeInfo', (req, res) => {
         },
         (error, response, body) => {
             if (error || response.statusCode !== 200) {
+                var error_res = JSON.parse(body);
+                console.log(error_res.message);
                 return res.status(500).json({
                     type: 'error',
-                    message: error.message
+                    message: error_res.message
                 });
             }
             res.json(JSON.parse(body));
@@ -258,6 +262,10 @@ app.post('/addInventoryItem', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editDisplayTag', async (req, res, next) => {
     try {
+        if (checkFalse(req.query.user_id) || checkFalse(req.query.item_id) || checkFalse(req.query.tag)) {
+            res.send("Missing input.");
+            return;
+        }
         var item_id_arr = req.query.item_id.split(",");
         var test = await getGroceryItem(req.query.user_id, item_id_arr);
         if (test.length > 0) {
@@ -284,6 +292,10 @@ app.put('/editDisplayTag', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editGroceryTag', async (req, res, next) => {
     try {
+        if (checkFalse(req.query.user_id) || checkFalse(req.query.item_id) || checkFalse(req.query.tag)) {
+            res.send("Missing input.");
+            return;
+        }
         var item_id_arr = req.query.item_id.split(",");
         var test = await getGroceryItem(req.query.user_id, item_id_arr);
         if (test.length > 0) {
@@ -319,6 +331,10 @@ app.put('/editGroceryTag', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editUsageTag', async (req, res, next) => {
     try {
+        if (checkFalse(req.query.user_id) || checkFalse(req.query.item_id) || checkFalse(req.query.tag)) {
+            res.send("Missing input.");
+            return;
+        }
         var item_id_arr = req.query.item_id.split(",");
         var test = await getInventoryItem(req.query.user_id, item_id_arr);
         if (test.length > 0) {
@@ -345,6 +361,10 @@ app.put('/editUsageTag', async (req, res, next) => {
 //Parameters: tag (enum), user_id (int), item_id (int)
 app.put('/editInventoryTag', async (req, res, next) => {
     try {
+        if (checkFalse(req.query.user_id) || checkFalse(req.query.item_id) || checkFalse(req.query.tag)) {
+            res.send("Missing input.");
+            return;
+        }
         var item_id_arr = req.query.item_id.split(",");
         var test = await getInventoryItem(req.query.user_id, item_id_arr);
         if (test.length > 0) {
