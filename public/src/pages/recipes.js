@@ -5,7 +5,7 @@ import FridgeHolder from "../components/empty_holder/Fridge_holder";
 import EmptyRecipe from "../assets/Empty_Recipe_Logo.png";
 import UserContext from "../UserContext";
 import RecipeItem from "../components/RecipeItem";
-import "../App.css";
+import "../recipe.css";
 import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipesPage = () => {
@@ -39,6 +39,7 @@ const RecipesPage = () => {
           </div>
         </div>
 
+
         <FridgeHolder
           img={EmptyRecipe}
           title={"You dont have any receipes yet"}
@@ -49,10 +50,15 @@ const RecipesPage = () => {
     );
   return (
     <div>
-      <img src={receipeLogo} alt="recipe_logo" />
-      <h1>My Recipes</h1>
-      <p>Based on ingredients Left</p>
-
+      <div className="header-container">
+        <div className="logo">
+          <img className="recipe-logo" src={receipeLogo} alt="recipe_logo"/>
+        </div>
+        <div className="header">
+          <h1 className="header-title">My Recipes</h1>
+          <p className="header-subtitle">Based on leftovers in your fridge</p>
+        </div>
+      </div>
       {recipeData.map((a) => (
         <RecipeItem title={a.title} image={a.image} id={a.id} key={a.id} />
       ))}

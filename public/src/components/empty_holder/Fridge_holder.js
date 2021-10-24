@@ -1,3 +1,5 @@
+import "../../recipe.css";
+
 const FridgeHolder = ({ img, message, title }) => {
   return (
     <div className="holder-box">
@@ -7,6 +9,7 @@ const FridgeHolder = ({ img, message, title }) => {
       </div>
 
       <div style={{ paddingTop: "25px" }}>
+
         <img src={img} alt="holder_image" />
       </div>
     </div>
