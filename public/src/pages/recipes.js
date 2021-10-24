@@ -5,7 +5,7 @@ import FridgeHolder from "../components/empty_holder/Fridge_holder";
 import EmptyRecipe from "../assets/Empty_Recipe_Logo.png";
 import UserContext from "../UserContext";
 import RecipeItem from "../components/RecipeItem";
-import "../App.css";
+import "../recipe.css";
 import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipesPage = () => {
@@ -29,14 +29,14 @@ const RecipesPage = () => {
   if (!recipeData)
     return (
       <div>
-        <div style={{marginLeft: 50}}>
-        <div style={{display: "table-cell", width: 100, verticalAlign: "middle"}}>
-          <img src={receipeLogo} alt="recipe_logo" style={{width: "10vw"}}/>
-        </div>
-        <div style={{display: "table-cell", width: 500, verticalAlign: "middle"}}>
-          <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center"}}>My Recipes</h1>
-          <p style={{color: "#C2D1D9", fontFamily: "Inter", fontStyle: "normal", fontWeight: "normal", fontSize: 12, alignItems: "center", textAlign: "center"}}>Based on leftovers in your fridge</p>
-        </div>
+        <div className="header-container">
+          <div className="logo">
+            <img className="recipe-logo" src={receipeLogo} alt="recipe_logo"/>
+          </div>
+          <div className="header">
+            <h1 className="header-title">My Recipes</h1>
+            <p className="header-subtitle">Based on leftovers in your fridge</p>
+          </div>
         </div>
         <FridgeHolder
           img={EmptyRecipe}
@@ -47,14 +47,14 @@ const RecipesPage = () => {
     );
   return (
     <div>
-      <div style={{margin: 122}}>
-      <div style={{display: "table-cell", width: "20%", verticalAlign: "middle"}}>
-        <img src={receipeLogo} alt="recipe_logo" style={{width: "10vw"}}/>
-      </div>
-      <div style={{display: "table-cell", width: "80%", verticalAlign: "middle"}}>
-        <h1 style={{color: "#424B5A", fontFamily: "Inter", fontStyle: "normal", fontWeight: "bold", fontSize: 24, alignItems: "center", textAlign: "center", marginBottom: 0}}>My Recipes</h1>
-        <p style={{color: "#C2D1D9", fontFamily: "Inter", fontStyle: "normal", fontWeight: "normal", fontSize: 12, alignItems: "center", textAlign: "center", marginTop: 5}}>Based on leftovers in your fridge</p>
-      </div>
+      <div className="header-container">
+        <div className="logo">
+          <img className="recipe-logo" src={receipeLogo} alt="recipe_logo"/>
+        </div>
+        <div className="header">
+          <h1 className="header-title">My Recipes</h1>
+          <p className="header-subtitle">Based on leftovers in your fridge</p>
+        </div>
       </div>
       {recipeData.map((a) => (
         <RecipeItem title={a.title} image={a.image} id={a.id} key={a.id} />
