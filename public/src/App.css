@@ -419,3 +419,67 @@ a {
 }
 
 /*** error page*/
+.page-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-box #sad-face {
+  padding-top: 100px;
+}
+
+.page-box > h1 {
+  color: #2a9d8f;
+  padding: 40px;
+  top: 245px;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 18px;
+}
+
+.page-box > h3 {
+  padding: 25px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 38px;
+  /* or 211% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #424b5a;
+}
+
+.error-p {
+  color: #c2d1d9;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.error-btn {
+  position: absolute;
+  width: 128px;
+  height: 41px;
+
+  top: 430px;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 20px;
+  border: #2a9d8f 2px solid;
+  background-color: #eaf5f5;
+  text-align: center;
+}
+
+.btn-link {
+  color: #2a9d8f;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 18px;
+}
