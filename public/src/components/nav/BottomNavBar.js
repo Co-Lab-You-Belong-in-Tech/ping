@@ -44,7 +44,7 @@ const BottomNavBar = (props) => {
         history.push("/search");
         break;
       case "recipedetails":
-        history.push("/recipes/*");
+        history.push("/recipes/:id"); /// how to use dynamtic useparmas with usehistory??
         break;
       default:
         history.push("/");

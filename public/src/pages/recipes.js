@@ -24,9 +24,11 @@ const RecipesPage = () => {
       setRecipeData(data);
     }
     getRecipe();
-  }, [expiredItem]);
+  }, []);
 
-  if (!recipeData || !expiredItem || recipeData.length === 0)
+  if (!recipeData) return <div>Loading!</div>;
+
+  if (recipeData.length === 0)
     return (
       <div>
         <div className="header-box">

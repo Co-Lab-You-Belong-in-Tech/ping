@@ -40,7 +40,7 @@ const RecipeDetails = () => {
         height: "100%",
       }}
     >
-      <Link to="/recipes" className="recipe-back">
+      <a href="/recipes" className="recipe-back">
         <div style={{ paddingRight: "8px", display: "inline-block" }}>
           <svg
             width="8"
@@ -69,7 +69,7 @@ const RecipeDetails = () => {
           </svg>
         </div>
         Back to Recipes
-      </Link>
+      </a>
       <div className="header-box">
         <div className="header-logo">
           <img
@@ -102,7 +102,6 @@ const RecipeDetails = () => {
           ))}
         </ul>
       </div>
-      <BottomNavBar name="recipedetails" />
     </div>
   );
 };
