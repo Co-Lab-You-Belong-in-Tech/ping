@@ -88,12 +88,17 @@ app.get('/getDetails', (req, res) => {
 
 //Description: proxy for Spoonacular recipe search API endpoint
 //Parameters: ingredients (varchar(255)), number (int)
-app.get('/getRecipes', (req, res) => {
+app.get('/getRecipes', async (req, res) => {
     var ingredients = req.query.ingredients;
     console.log(ingredients);
     var ranking = 1;
     var number = req.query.number;
-    request({
+    var result = await getRecipe(ingredients, ranking, number, process.env.API_KEY);
+    if (parseInt(result) >= 400) {
+        var result = await getRecipe(ingredients, ranking, number, process.env.API_KEY_SPARE);
+    } 
+    res.json(JSON.parse(result));
+    /*request({
             url: 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredients + "&ranking=" + ranking + "&number=" + number + "&apiKey=" + process.env.API_KEY
         },
         (error, response, body) => {
@@ -105,8 +110,26 @@ app.get('/getRecipes', (req, res) => {
             }
             res.json(JSON.parse(body));
         }
-    )
+    )*/
 });
+
+const getRecipe = (ingredients, ranking, number, apiKey) => {
+    return new Promise(resolve => {
+        request({
+            url: 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredients + "&ranking=" + ranking + "&number=" + number + "&apiKey=" + apiKey
+            },
+            (error, response, body) => {
+                if (error || response.statusCode !== 200) {
+                    var error_res = JSON.parse(body);
+                    console.log(error_res.message);
+                    resolve(error_res.code);
+                }
+                var string = JSON.parse(body);
+                resolve(string);
+            }
+        )
+    });
+}
 
 //Description: proxy for Spoonacular recipe information API endpoint
 //parameters: query_id (int)
