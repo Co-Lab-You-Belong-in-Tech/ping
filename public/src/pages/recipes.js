@@ -53,19 +53,24 @@ const RecipesPage = () => {
     );
   return (
     <div>
-      <div className="header-container">
-        <div className="logo">
-          <img className="recipe-logo" src={receipeLogo} alt="recipe_logo" />
+      <div className="header-box">
+        <div className="header-logo">
+          <img
+            src={receipeLogo}
+            alt="recipe_logo"
+            style={{ width: "84.36px", height: "84.36px" }}
+          />
         </div>
-        <div className="header">
-          <h1 className="header-title">My Recipes</h1>
-          <p className="header-subtitle">Based on leftovers in your fridge</p>
+        <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
+          <h1 style={{ padding: "5px" }}>My Recipes</h1>
+          <p className="p-font">Based on ingredients Left</p>
         </div>
       </div>
-      {recipeData.map((a) => (
-        <RecipeItem title={a.title} image={a.image} id={a.id} key={a.id} />
-      ))}
-
+      <div style={{ paddingTop: "45px" }}>
+        {recipeData.map((a) => (
+          <RecipeItem title={a.title} image={a.image} id={a.id} key={a.id} />
+        ))}
+      </div>
       <BottomNavBar name="recipes" />
     </div>
   );

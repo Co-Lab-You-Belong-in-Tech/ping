@@ -483,3 +483,9 @@ a {
   font-size: 10px;
   line-height: 18px;
 }
+
+/**recipe addon*/
+.recipe-in {
+  font-size: 12px;
+  line-height: 20px;
+}

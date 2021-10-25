@@ -9,7 +9,7 @@ import { store } from "react-notifications-component";
 import LoginError from "../components/Notifications/loginError";
 
 function HomePage() {
-  const { setUser } = useContext(UserContext); // use useContext to grab user id
+  const { user, setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
@@ -21,6 +21,8 @@ function HomePage() {
       console.log(data);
       setUser(data[0].user_id);
       history.push("/list");
+      // local storage to make user login
+      localStorage.setItem("currentUser", data[0].user_id);
     } catch (errors) {
       console.error("log in failed");
       console.log(errors.Error);
@@ -58,8 +60,6 @@ function HomePage() {
     //alert(`${email}`);
     setFormData(initialState);
     login(email);
-
-    //add some kind of login logic here
   };
 
   const [emailError, setEmailError] = useState("");

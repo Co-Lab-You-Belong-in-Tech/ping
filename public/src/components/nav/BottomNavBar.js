@@ -20,6 +20,7 @@ const BottomNavBar = (props) => {
   function handleLogout() {
     setUser(null);
     setActiveTabs("logout");
+    localStorage.clear(); // set the localstorage null
   }
 
   useEffect(() => {
