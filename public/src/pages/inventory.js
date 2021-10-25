@@ -4,6 +4,7 @@ import OwnAPI from "../Api";
 import FridgeArea from "../components/FridgeArea";
 import logo from "../assets/Fridge_Logo.png";
 import BottomNavBar from "../components/nav/BottomNavBar";
+import Helper from "../hooks/Helpers";
 
 function Inventory() {
   const { user, setExpiredItems, expiredItem } = useContext(UserContext);
@@ -16,7 +17,15 @@ function Inventory() {
         console.log(a);
         //console.log(getExpiredArray(data));
         setExpiredItems(getExpiredArray(data)); /// need to rethink where put this function?
-        setUserData(a);
+
+        // need to sort the data by the expiration date
+        let sortedA = a.sort(
+          (a, b) =>
+            Date.parse(new Date(a.expiry_date.split("/").reverse().join("-"))) -
+            Date.parse(new Date(b.expiry_date.split("/").reverse().join("-")))
+        );
+
+        setUserData(sortedA);
       } catch (e) {
         console.error(e);
       }
@@ -29,8 +38,11 @@ function Inventory() {
     let result = [];
     if (!data) return ["carrot"];
     data = data.filter(
-      (a) => a.inventory_tag === "expired" && a.usage_tag === null
-    );
+      (a) =>
+        Helper.calTime(a.expiry_date) <= 2 &&
+        a.usage_tag === null &&
+        a.inventory_tag === "not expired"
+    ); // need to rerange the data standard
     for (var i in data) {
       result.push(data[i].inventory_item_name.replace(/ .*/, "").toLowerCase());
     }

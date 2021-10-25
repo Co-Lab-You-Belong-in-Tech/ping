@@ -1,12 +1,7 @@
+import Helper from "../hooks/Helpers";
+
 const FridgeExpireTag = ({ inventory_tag, expiry_date }) => {
-  function calTime(t) {
-    var currentDate = new Date();
-    var time = new Date(t);
-    var one_day = 1000 * 60 * 60 * 24;
-    var result = Math.abs(time - currentDate) / one_day;
-    return Math.floor(result);
-  }
-  const days = calTime(expiry_date);
+  const days = Helper.calTime(expiry_date);
   return (
     <div style={{ display: "inline-block" }}>
       {inventory_tag === "expired" && (

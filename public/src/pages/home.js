@@ -3,16 +3,17 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
 import OwnAPI from "../Api";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/Logo_2.png";
 import "../login.css";
-import { store } from "react-notifications-component";
-import LoginError from "../components/Notifications/loginError";
+//import { store } from "react-notifications-component";
+//import LoginError from "../components/Notifications/loginError";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
+  const [emailError, setEmailError] = useState("");
 
   // login logic
   async function login(loginEmail) {
@@ -27,7 +28,9 @@ function HomePage() {
       console.error("log in failed");
       console.log(errors.Error);
 
-      store.addNotification({
+      setEmailError("Email address does not exist.Please try again.");
+
+      /*store.addNotification({
         content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
         type: "success",
         insert: "top",
@@ -39,7 +42,7 @@ function HomePage() {
           onScreen: false,
           showIcon: true,
         },
-      });
+      });*/
 
       setUser("2");
     }
@@ -62,7 +65,6 @@ function HomePage() {
     login(email);
   };
 
-  const [emailError, setEmailError] = useState("");
   const validateEmail = (e) => {
     var email = e.target.value;
     if (validator.isEmail(email)) {
@@ -75,7 +77,11 @@ function HomePage() {
   return (
     <div className="login">
       <div className="login-logo">
-        <img src={Logo} alt="logo"></img>
+        <img
+          src={Logo}
+          alt="logo"
+          style={{ width: "75px", height: "95px", zIndex: "99" }}
+        ></img>
       </div>
       <div className="slogan">
         <p>Deliciously simple.</p>
@@ -84,8 +90,11 @@ function HomePage() {
       <div className="email-error">
         <span
           style={{
-            fontWeight: "bold",
+            fontWeight: "700",
             color: "#e76f51",
+            fontSize: "12px",
+            lineHeight: "18px",
+            textAlign: "center",
           }}
         >
           {emailError}

@@ -24,7 +24,7 @@ const RecipesPage = () => {
       setRecipeData(data);
     }
     getRecipe();
-  }, []);
+  }, [expiredItem]);
 
   if (!recipeData || !expiredItem || recipeData.length === 0)
     return (
