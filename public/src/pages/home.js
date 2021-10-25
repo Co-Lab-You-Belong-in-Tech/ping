@@ -13,6 +13,7 @@ function HomePage() {
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
+  const [emailError, setEmailError] = useState("");
 
   // login logic
   async function login(loginEmail) {
@@ -27,7 +28,9 @@ function HomePage() {
       console.error("log in failed");
       console.log(errors.Error);
 
-      store.addNotification({
+      setEmailError("Email address does not exist.Please try again.");
+
+      /*store.addNotification({
         content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
         type: "success",
         insert: "top",
@@ -39,7 +42,7 @@ function HomePage() {
           onScreen: false,
           showIcon: true,
         },
-      });
+      });*/
 
       setUser("2");
     }
@@ -62,7 +65,6 @@ function HomePage() {
     login(email);
   };
 
-  const [emailError, setEmailError] = useState("");
   const validateEmail = (e) => {
     var email = e.target.value;
     if (validator.isEmail(email)) {
@@ -84,8 +86,11 @@ function HomePage() {
       <div className="email-error">
         <span
           style={{
-            fontWeight: "bold",
+            fontWeight: "700",
             color: "#e76f51",
+            fontSize: "12px",
+            lineHeight: "18px",
+            textAlign: "center",
           }}
         >
           {emailError}

@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import OwnAPI from "../Api";
 import validator from "validator";
-import { store } from "react-notifications-component";
-import LoginError from "../components/Notifications/loginError";
+//import { store } from "react-notifications-component";
+//import LoginError from "../components/Notifications/loginError";
 
 const Signup = () => {
   const { setUser } = useContext(UserContext); // use useContext to grab user id
@@ -23,7 +23,8 @@ const Signup = () => {
       history.push("/list");
     } catch (errors) {
       console.error("signup failed,temporay set user 2");
-      store.addNotification({
+      setEmailError("Email address does not exist.Please try again.");
+      /*store.addNotification({
         content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
         type: "success",
         insert: "top",
@@ -35,7 +36,7 @@ const Signup = () => {
           onScreen: false,
           showIcon: true,
         },
-      });
+      });*/
       setUser("2");
     }
   }
@@ -79,8 +80,11 @@ const Signup = () => {
 
       <span
         style={{
-          fontWeight: "bold",
+          fontWeight: "700",
           color: "#e76f51",
+          fontSize: "12px",
+          lineHeight: "18px",
+          textAlign: "center",
         }}
         className="email-error"
       >
