@@ -1,31 +1,30 @@
+import Logo from "../assets/Logo.png";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
-import validator from "validator";
 import OwnAPI from "../Api";
-import Logo from "../assets/Logo.png";
-import "../login.css";
+import validator from "validator";
 
-function HomePage() {
+const Signup = () => {
   const { setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
 
-  // login logic
-  async function login(loginEmail) {
+  // create new user logic
+  async function signup(signupEmail) {
     try {
-      let { data } = await OwnAPI.isUser(loginEmail);
-      console.log(data);
+      let data = await OwnAPI.addUser(signupEmail);
+      //console.log(data);
+
       setUser(data[0].user_id);
-      history.push("/list");
     } catch (errors) {
-      console.error("log in failed");
-      alert(errors);
+      console.error("signup failed,temporay set user 2");
       setUser("2");
     }
   }
 
+  /*handle change*/
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((data) => ({
@@ -35,16 +34,17 @@ function HomePage() {
     validateEmail(e);
   };
 
+  /*handle submit*/
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email } = formData;
     //alert(`${email}`);
     setFormData(initialState);
-    login(email);
-
-    //add some kind of login logic here
+    signup(email);
+    history.push("/list"); // right now it push user to login again but ideally the add user will return user_id
   };
 
+  /*validate email*/
   const [emailError, setEmailError] = useState("");
   const validateEmail = (e) => {
     var email = e.target.value;
@@ -58,32 +58,28 @@ function HomePage() {
   return (
     <div className="login">
       <div className="login-logo">
-        <img src={Logo} alt="logo"></img>
-      </div>
-      <div className="slogan">
-        <p>Deliciously simple.</p>
-      </div>
-      <h1 className="app-name">Karrot</h1>
-      <div className="email-error">
-
-        <span
-          style={{
-            fontWeight: "bold",
-            color: "#e76f51",
-          }}
-        >
-          {emailError}
-        </span>
+        <img src={Logo} alt="logo" />
       </div>
 
+      <span
+        style={{
+          fontWeight: "bold",
+          color: "#e76f51",
+        }}
+      >
+        {emailError}
+      </span>
       <div className="login-form">
         <form
           onSubmit={handleSubmit}
-          style={{ alignItems: "center", display: "flex" }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
         >
           <label htmlFor="email"></label>
           <input
-            className="email-input"
             type="email"
             placeholder="   Email Address"
             name="email"
@@ -93,19 +89,23 @@ function HomePage() {
             className="input"
           />
 
-          <button type="submit" disabled={formData.email.length < 1} id="login">
-            LOGIN
+          <button
+            type="submit"
+            disabled={formData.email.length < 1}
+            id="signup"
+          >
+            Sign Up
           </button>
         </form>
       </div>
-      <div className="login-p">
-        <h5>
-          Don't have an accout? <a href="/signup">Sign up here.</a>
-        </h5>
 
+      <div className="signup-p">
+        <h5>
+          Back to <a href="/">login.</a>
+        </h5>
       </div>
     </div>
   );
-}
+};
 
-export default HomePage;
+export default Signup;

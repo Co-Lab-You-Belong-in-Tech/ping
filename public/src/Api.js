@@ -21,8 +21,12 @@ class OwnAPI {
   // to pull data from users inventory using userID
   /**** this one works****/
   static async getTheUserInventory(id) {
-    let { data } = await axios.get(`${OWN_URL}/getInventory?user_id=${id}`);
-    return data;
+    try {
+      let { data } = await axios.get(`${OWN_URL}/getInventory?user_id=${id}`);
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   /****post routes */
@@ -45,14 +49,74 @@ class OwnAPI {
   }
 
   //add grocery
-  static async addGrocery(item_name, user_id) {
+  static async addGrocery(item_name, user_id, query_id) {
     try {
       let resp = await axios.post(
-        `${OWN_URL}/addGroceryItem?item_name=${item_name}&user_id=${user_id}`
+        `${OWN_URL}/addGroceryItem?item_name=${item_name}&user_id=${user_id}&query_id=${query_id}`
       );
       return resp.data;
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  // edit fridge inventory method
+  static async editFridge(tag, user_id, item_id) {
+    try {
+      let resp = await axios.put(
+        `${OWN_URL}/editInventoryTag?tag=${tag}&user_id=${user_id}&item_id=${item_id}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // handle fridge inventory useage tag
+
+  static async editFridgeUsage(tag, user_id, item_id_array) {
+    try {
+      let resp = await axios.put(
+        `${OWN_URL}/editUsageTag?tag=${tag}&user_id=${user_id}&item_id=${item_id_array}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // put the grocery item into fridge ( add to inventory)
+  static async addFridge(item_name, user_id, expiry_time, query_id) {
+    try {
+      let resp = await axios.post(
+        `${OWN_URL}/addInventoryItem?item_name=${item_name}&user_id=${user_id}&expiry_time=${expiry_time}&query_id=${query_id}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  static async editGroceryTag(tag, user_id, item_id) {
+    try {
+      let resp = await axios.put(
+        `${OWN_URL}/editGroceryTag?tag=${tag}&user_id=${user_id}&item_id=${item_id}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /*** edit display tag in the grocery table to either deleted or not deleted */
+  static async editGroceryDeleteTag(tag, user_id, item_id_array) {
+    try {
+      let resp = await axios.put(
+        `${OWN_URL}/editDisplayTag?tag=${tag}&user_id=${user_id}&item_id=${item_id_array}`
+      );
+      return resp.data;
+    } catch (e) {
+      console.error(e);
     }
   }
 }

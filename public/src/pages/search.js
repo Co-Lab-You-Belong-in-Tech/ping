@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import SingleItem from "../components/SingleItem";
-import NavBar from "../components/NavBar";
 import OwnAPI from "../Api";
 import UserContext from "../UserContext";
+import { store } from "react-notifications-component";
+import AddItem from "../components/Notifications/addItem";
+import BottomNavBar from "../components/nav/BottomNavBar";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -49,11 +51,22 @@ function SearchPage() {
   /** we get the veggigID and search  */
 
   /***add grocery function */
-  function addGrocery(item_name, user_id) {
+  function addGrocery(item_name, user_id, query_id) {
     try {
-      OwnAPI.addGrocery(item_name, user_id);
+      OwnAPI.addGrocery(item_name, user_id, query_id);
       console.log(item_name, user_id);
-      alert("success!"); // replace it with notification component
+      store.addNotification({
+        content: <AddItem item_name={item_name} location="list" />, // content:MyNotify (custom notification)
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+        },
+      });
     } catch (e) {
       alert(e);
     }
@@ -61,14 +74,13 @@ function SearchPage() {
 
   return (
     <div>
-      {user}
       <input
         type="text"
         onChange={(e) => onChangeHandler(e.target.value)}
         value={text}
       />
       {text && veggieID && (
-        <button onClick={() => addGrocery(text, user)}>Add</button>
+        <button onClick={() => addGrocery(text, user, veggieID)}>Add</button>
       )}
       {suggestions &&
         suggestions.map((suggestion) => (
@@ -76,11 +88,15 @@ function SearchPage() {
             key={suggestion.id}
             onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
           >
-            {suggestion.id}--{suggestion.name}
+            {suggestion.name}
           </div>
         ))}
       {text && veggieID && <SingleItem name={text} id={veggieID} />}
-      <NavBar />
+      <div>
+        <h2>Search for items to add</h2>
+        <h5>Tap on the search bar to look for ingredients</h5>
+      </div>
+      <BottomNavBar name="search" />
     </div>
   );
 }

@@ -1,0 +1,66 @@
+body {
+  background-image: linear-gradient(180deg, #ffffff 47.4%, #e7ebef 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+html {
+  height: 100%;
+}
+
+h1.app-name {
+  color: #2A9D8F;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 18px;
+  align-items: center;
+  text-align: center;
+  /*display: flex;*/
+}
+
+p.tag-line {
+  color: #505D68;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  align-items: center;
+  text-align: center;
+  /*display: flex;*/
+}
+
+input.email-input {
+  background-color: #FFFFFF;
+  border: 1px solid #C2D1D9;
+  box-sizing: border-box;
+  border-radius: 3px;
+  height: 41px;
+  width: 299px;
+}
+
+button.login {
+  background-color: #2A9D8F;
+  color: #FFFFFF;
+  height: 41px;
+  width: 96px;
+  border-radius: 0px 3px 3px 0px;
+}
+
+h4.signup-message {
+  color: #C2D1D9;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 18px;
+  align-items: center;
+  text-align: center;
+  /*display: flex;*/
+}
+
+a.signup-link {
+  color: #C2D1D9;
+}
