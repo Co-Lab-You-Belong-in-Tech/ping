@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../UserContext";
 import validator from "validator";
 import OwnAPI from "../Api";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/Logo_2.png";
 import "../login.css";
 //import { store } from "react-notifications-component";
 //import LoginError from "../components/Notifications/loginError";
@@ -77,7 +77,11 @@ function HomePage() {
   return (
     <div className="login">
       <div className="login-logo">
-        <img src={Logo} alt="logo"></img>
+        <img
+          src={Logo}
+          alt="logo"
+          style={{ width: "75px", height: "95px", zIndex: "99" }}
+        ></img>
       </div>
       <div className="slogan">
         <p>Deliciously simple.</p>
