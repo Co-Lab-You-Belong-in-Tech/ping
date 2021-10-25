@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
   return (
-    <div class="page-box">
+    <div className="page-box">
       <div id="sad-face">
         <img src={sadFace} alt="sadFace" />
       </div>

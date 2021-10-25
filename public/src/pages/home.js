@@ -5,8 +5,8 @@ import validator from "validator";
 import OwnAPI from "../Api";
 import Logo from "../assets/Logo.png";
 import "../login.css";
-import { store } from "react-notifications-component";
-import LoginError from "../components/Notifications/loginError";
+//import { store } from "react-notifications-component";
+//import LoginError from "../components/Notifications/loginError";
 
 function HomePage() {
   const { user, setUser } = useContext(UserContext); // use useContext to grab user id

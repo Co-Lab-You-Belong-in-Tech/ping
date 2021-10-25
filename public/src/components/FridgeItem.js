@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 //import reactNotificationsComponent from "react-notifications-component";
 import OwnAPI from "../Api";
-import UserContext from "../UserContext";
+//import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
 import FridgeExpireTag from "./FridgeExpireTag";
 import { ReactComponent as Checkedbtn } from "../assets/checkedbtn.svg";
@@ -17,7 +17,7 @@ const FridgeItem = ({
   tagArray,
   setTagArray,
 }) => {
-  const { user } = useContext(UserContext);
+  //const { user } = useContext(UserContext);
 
   /*set the selected status*/
 
