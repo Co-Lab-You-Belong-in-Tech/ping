@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import receipeLogo from "../assets/Recipe_Logo.png";
 import axios from "axios";
 import "../recipe.css";
+import BottomNavBar from "../components/nav/BottomNavBar";
 //import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipeDetails = () => {
@@ -16,7 +17,7 @@ const RecipeDetails = () => {
       const { data } = await axios.get(
         `https://food-ping.herokuapp.com/getRecipeInfo?query_id=${id}`
       );
-      console.log(data);
+      //console.log(data);
       setTheRecipe(data);
     }
     getRecipe();
@@ -101,6 +102,7 @@ const RecipeDetails = () => {
           ))}
         </ul>
       </div>
+      <BottomNavBar name="recipedetails" />
     </div>
   );
 };
