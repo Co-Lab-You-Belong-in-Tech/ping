@@ -101,10 +101,6 @@ app.get('/getRecipes', (req, res) => {
                 var error_res = JSON.parse(body);
                 console.log(error_res.message);
                 res.json(JSON.parse(body));
-                /*return res.status(500).json({
-                    type: 'error',
-                    message: error_res.message
-                });*/
             }
             res.json(JSON.parse(body));
         }
@@ -123,10 +119,6 @@ app.get('/getRecipeInfo', (req, res) => {
                 var error_res = JSON.parse(body);
                 console.log(error_res.message);
                 res.json(JSON.parse(body));
-                /*return res.status(500).json({
-                    type: 'error',
-                    message: error_res.message
-                });*/
             }
             res.json(JSON.parse(body));
         }
