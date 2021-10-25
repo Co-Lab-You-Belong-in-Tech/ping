@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import UserContext from "../../UserContext";
 
 import { ReactComponent as RecipeUn } from "../../assets/RecipeUnselected.svg";
@@ -20,6 +20,7 @@ const BottomNavBar = (props) => {
   function handleLogout() {
     setUser(null);
     setActiveTabs("logout");
+    localStorage.clear(); // set the localstorage null
   }
 
   useEffect(() => {
@@ -41,6 +42,9 @@ const BottomNavBar = (props) => {
         break;
       case "search":
         history.push("/search");
+        break;
+      case "recipedetails":
+        history.push("/recipes/*");
         break;
       default:
         history.push("/");

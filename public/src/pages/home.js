@@ -5,9 +5,11 @@ import validator from "validator";
 import OwnAPI from "../Api";
 import Logo from "../assets/Logo.png";
 import "../login.css";
+import { store } from "react-notifications-component";
+import LoginError from "../components/Notifications/loginError";
 
 function HomePage() {
-  const { setUser } = useContext(UserContext); // use useContext to grab user id
+  const { user, setUser } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
@@ -19,9 +21,26 @@ function HomePage() {
       console.log(data);
       setUser(data[0].user_id);
       history.push("/list");
+      // local storage to make user login
+      localStorage.setItem("currentUser", data[0].user_id);
     } catch (errors) {
       console.error("log in failed");
-      alert(errors);
+      console.log(errors.Error);
+
+      store.addNotification({
+        content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
+        type: "success",
+        insert: "top",
+        container: "top-center",
+        // animationIn: ["animate__animated", "animate__fadeIn"],
+        //animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false,
+          showIcon: true,
+        },
+      });
+
       setUser("2");
     }
   }
@@ -41,8 +60,6 @@ function HomePage() {
     //alert(`${email}`);
     setFormData(initialState);
     login(email);
-
-    //add some kind of login logic here
   };
 
   const [emailError, setEmailError] = useState("");
@@ -65,7 +82,6 @@ function HomePage() {
       </div>
       <h1 className="app-name">Karrot</h1>
       <div className="email-error">
-
         <span
           style={{
             fontWeight: "bold",
@@ -83,7 +99,6 @@ function HomePage() {
         >
           <label htmlFor="email"></label>
           <input
-            className="email-input"
             type="email"
             placeholder="   Email Address"
             name="email"
@@ -102,7 +117,6 @@ function HomePage() {
         <h5>
           Don't have an accout? <a href="/signup">Sign up here.</a>
         </h5>
-
       </div>
     </div>
   );

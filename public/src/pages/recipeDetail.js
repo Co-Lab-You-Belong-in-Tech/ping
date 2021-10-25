@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import receipeLogo from "../assets/Recipe_Logo.png";
 import axios from "axios";
 import "../recipe.css";
+import BottomNavBar from "../components/nav/BottomNavBar";
 //import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipeDetails = () => {
@@ -16,7 +17,7 @@ const RecipeDetails = () => {
       const { data } = await axios.get(
         `https://food-ping.herokuapp.com/getRecipeInfo?query_id=${id}`
       );
-      console.log(data);
+      //console.log(data);
       setTheRecipe(data);
     }
     getRecipe();
@@ -33,39 +34,75 @@ const RecipeDetails = () => {
 
   if (!theRecipe) return <div>Loading!</div>;
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: "white",
+        height: "100%",
+      }}
+    >
       <Link to="/recipes" className="recipe-back">
-      <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="7.99341" y="12.4766" width="1.69288" height="9.62083" rx="0.84644" transform="rotate(135.171 7.99341 12.4766)" fill="#2A9D8F"/>
-        <rect x="6.80298" width="1.69288" height="9.62083" rx="0.84644" transform="rotate(45 6.80298 0)" fill="#2A9D8F"/>
-      </svg>
-        {' '} Back to Recipes</Link>
-       <div className="header-container">
-        <div className="logo">
-          <img className="recipe-logo" src={receipeLogo} alt="recipeLogo"/>
+        <div style={{ paddingRight: "8px", display: "inline-block" }}>
+          <svg
+            width="8"
+            height="14"
+            viewBox="0 0 8 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="7.99341"
+              y="12.4766"
+              width="1.69288"
+              height="9.62083"
+              rx="0.84644"
+              transform="rotate(135.171 7.99341 12.4766)"
+              fill="#2A9D8F"
+            />
+            <rect
+              x="6.80298"
+              width="1.69288"
+              height="9.62083"
+              rx="0.84644"
+              transform="rotate(45 6.80298 0)"
+              fill="#2A9D8F"
+            />
+          </svg>
         </div>
-        <div className="header">
-          <h1 className="header-title">My Recipes</h1>
-          <p className="header-subtitle">Based on leftovers in your fridge</p>
+        Back to Recipes
+      </Link>
+      <div className="header-box">
+        <div className="header-logo">
+          <img
+            src={receipeLogo}
+            alt="recipe_logo"
+            style={{ width: "84.36px", height: "84.36px" }}
+          />
         </div>
-       </div>
-      
-      <h2 className="recipe-title">{theRecipe.title}</h2>
+        <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
+          <h1 style={{ padding: "5px" }}>My Recipes</h1>
+          <p className="p-font">Based on ingredients Left</p>
+        </div>
+      </div>
+
+      <h2 className="recipe-title" style={{ padding: "20px" }}>
+        {theRecipe.title}
+      </h2>
 
       <div>
         <h3 className="recipe-subtitle">Ingredients</h3>
-        <ul>
+        <ul className="recipe-in">
           <li>{getIngredients(theRecipe)}</li>
         </ul>
       </div>
       <div>
         <h3 className="recipe-subtitle">Instructions</h3>
-        <ul>
-        {theRecipe.analyzedInstructions[0].steps.map((a) => (
-          <li>{a.step}</li>
-        ))}
+        <ul className="recipe-in">
+          {theRecipe.analyzedInstructions[0].steps.map((a) => (
+            <li>{a.step}</li>
+          ))}
         </ul>
       </div>
+      <BottomNavBar name="recipedetails" />
     </div>
   );
 };

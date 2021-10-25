@@ -37,13 +37,17 @@ const List = () => {
     <div>
       <div className="header-box">
         <div className="header-logo">
-          <img src={groceryLogo} alt="grocery_logo" />
+          <img
+            src={groceryLogo}
+            alt="grocery_logo"
+            style={{ width: "84.36px", height: "84.36px" }}
+          />
         </div>
         <div className="header-title">
           <h1>My Grocery List</h1>
         </div>
       </div>
-      <div style={{ padding: "2%" }}>
+      <div style={{ paddingTop: "2%" }}>
         <Link to="/search">
           <button className="btn-large">ADD ITEM</button>
         </Link>
@@ -51,7 +55,7 @@ const List = () => {
           DELETE ALL
         </button>
       </div>
-      <div>
+      <div style={{ top: "0" }}>
         <GroceryItems
           userData={userData}
           getData={getData}

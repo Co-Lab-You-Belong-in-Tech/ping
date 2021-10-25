@@ -4,7 +4,6 @@ import UserContext from "../UserContext";
 import { ReactComponent as DeleteBtn } from "../assets/Group_16.svg";
 import { ReactComponent as Checkedbtn } from "../assets/checkedbtn.svg";
 import { ReactComponent as NotCheckedbtn } from "../assets/notChekcedbtn.svg";
-import x from "../assets/x.png";
 import "../App.css";
 import { store } from "react-notifications-component";
 import AddItem from "./Notifications/addItem";

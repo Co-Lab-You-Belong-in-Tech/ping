@@ -6,15 +6,19 @@ import { Link } from "react-router-dom";
 const ErrorPage = () => {
   return (
     <div class="page-box">
-      <img src={sadFace} alt="sadFace" />
+      <div id="sad-face">
+        <img src={sadFace} alt="sadFace" />
+      </div>
       <h1>Oops!</h1>
       <div className="empty-msg">
-        <h2>404 - PAGE NOT FOUND</h2>
-        <h4>This page doesn't exist</h4>
+        <h3>404 - PAGE NOT FOUND</h3>
+        <p className="error-p">This page doesn't exist</p>
       </div>
 
-      <button className="btn-large">
-        <Link to="/list">BACK TO HOMEPAGE</Link>
+      <button className="error-btn">
+        <Link to="/list" className="btn-link">
+          BACK TO HOMEPAGE
+        </Link>
       </button>
     </div>
   );
