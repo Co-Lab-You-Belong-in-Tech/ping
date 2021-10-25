@@ -95,59 +95,20 @@ app.get('/getRecipes', async (req, res) => {
     var number = req.query.number;
     var result = await getRecipe(ingredients, ranking, number, process.env.API_KEY);
     if (parseInt(result) >= 400) {
-        var result = await getRecipe(ingredients, ranking, number, process.env.API_KEY_SPARE);
+        var result = await getRecipe(ingredients, ranking, number, process.env.API_KEY_SPARE); //use spare API key if first one reaches quota
     } 
-    res.json(JSON.parse(result));
-    /*request({
-            url: 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredients + "&ranking=" + ranking + "&number=" + number + "&apiKey=" + process.env.API_KEY
-        },
-        (error, response, body) => {
-            if (error || response.statusCode !== 200) {
-                var error_res = JSON.parse(body);
-                console.log(error_res.message);
-                res.json(JSON.parse(body));
-                return;
-            }
-            res.json(JSON.parse(body));
-        }
-    )*/
+    res.json(result);
 });
-
-const getRecipe = (ingredients, ranking, number, apiKey) => {
-    return new Promise(resolve => {
-        request({
-            url: 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredients + "&ranking=" + ranking + "&number=" + number + "&apiKey=" + apiKey
-            },
-            (error, response, body) => {
-                if (error || response.statusCode !== 200) {
-                    var error_res = JSON.parse(body);
-                    console.log(error_res.message);
-                    resolve(error_res.code);
-                }
-                var string = JSON.parse(body);
-                resolve(string);
-            }
-        )
-    });
-}
 
 //Description: proxy for Spoonacular recipe information API endpoint
 //parameters: query_id (int)
-app.get('/getRecipeInfo', (req, res) => {
+app.get('/getRecipeInfo', async (req, res) => {
     var query_id = req.query.query_id;
-    request({
-            url: 'https://api.spoonacular.com/recipes/' + query_id + '/information' + "?apiKey=" + process.env.API_KEY
-        },
-        (error, response, body) => {
-            if (error || response.statusCode !== 200) {
-                var error_res = JSON.parse(body);
-                console.log(error_res.message);
-                res.json(JSON.parse(body));
-                return;
-            }
-            res.json(JSON.parse(body));
-        }
-    )
+    var result = await getRecipeInfo(query_id, process.env.API_KEY);
+    if (parseInt(result) >= 400) {
+        var result = await getRecipeInfo(query_id, process.env.API_KEY_SPARE); //use spare API key if first one reaches quota
+    } 
+    res.json(result);
 });
 
 //Description: get a user (determine if the user_id is present in the users table)
@@ -412,6 +373,44 @@ const checkFalse = (input) => {
     var test = (!input || input === null || input.length === 0 || input === "");
     //console.log(test);
     return test;
+}
+
+//Description: get recipes from Spoonacular
+const getRecipe = (ingredients, ranking, number, api_key) => {
+    return new Promise(resolve => {
+        request({
+            url: 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + ingredients + "&ranking=" + ranking + "&number=" + number + "&apiKey=" + api_key
+            },
+            (error, response, body) => {
+                if (error || response.statusCode !== 200) {
+                    var error_res = JSON.parse(body);
+                    console.log(error_res.message);
+                    resolve(error_res.code);
+                }
+                var string = JSON.parse(body);
+                resolve(string);
+            }
+        )
+    });
+}
+
+//Description: get details on a recipe from Spoonacular
+const getRecipeInfo = (query_id, api_key) => {
+    return new Promise(resolve => {
+        request({
+            url: 'https://api.spoonacular.com/recipes/' + query_id + '/information' + "?apiKey=" + api_key
+            },
+            (error, response, body) => {
+                if (error || response.statusCode !== 200) {
+                    var error_res = JSON.parse(body);
+                    console.log(error_res.message);
+                    resolve(error_res.code);
+                }
+                var string = JSON.parse(body);
+                resolve(string);
+            }
+        )
+    });
 }
 
 //Description: get grocery item record
