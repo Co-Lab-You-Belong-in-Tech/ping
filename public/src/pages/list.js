@@ -47,7 +47,7 @@ const List = () => {
           <h1>My Grocery List</h1>
         </div>
       </div>
-      <div style={{ padding: "2%" }}>
+      <div style={{ paddingTop: "2%" }}>
         <Link to="/search">
           <button className="btn-large">ADD ITEM</button>
         </Link>
@@ -55,7 +55,7 @@ const List = () => {
           DELETE ALL
         </button>
       </div>
-      <div>
+      <div style={{ top: "0" }}>
         <GroceryItems
           userData={userData}
           getData={getData}
