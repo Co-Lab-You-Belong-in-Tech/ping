@@ -26,9 +26,7 @@ const RecipesPage = () => {
     getRecipe();
   }, []);
 
-  if (!recipeData) return <div>Loading!</div>;
-
-  if (recipeData.length === 0)
+  if (!recipeData || recipeData.length === 0)
     return (
       <div>
         <div className="header-box">
