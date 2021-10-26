@@ -41,7 +41,7 @@ const RecipeDetails = () => {
         height: "100%",
       }}
     >
-      <a href="/recipes" className="recipe-back">
+      <Link to="/recipes" className="recipe-back">
         <div style={{ paddingRight: "8px", display: "inline-block" }}>
           <svg
             width="8"
@@ -70,7 +70,7 @@ const RecipeDetails = () => {
           </svg>
         </div>
         Back to Recipes
-      </a>
+      </Link>
       <div className="header-box">
         <div className="header-logo">
           <img

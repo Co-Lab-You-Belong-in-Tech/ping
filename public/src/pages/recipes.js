@@ -20,7 +20,7 @@ const RecipesPage = () => {
           params: { ingredients: expiredItem, number: "3" },
         }
       );
-      console.log(data);
+      console.log(expiredItem);
       setRecipeData(data);
     }
     getRecipe();

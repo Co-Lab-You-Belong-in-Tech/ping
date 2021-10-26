@@ -14,9 +14,9 @@ function Inventory() {
       try {
         const data = await OwnAPI.getTheUserInventory(user);
         const a = data.filter((a) => a.usage_tag === null);
-        console.log(a);
+        //console.log(a);
         //console.log(getExpiredArray(data));
-        setExpiredItems(getExpiredArray(data)); /// need to rethink where put this function?
+        setExpiredItems(Helper.getExpiredArray(data)); /// need to rethink where put this function?
 
         // need to sort the data by the expiration date
         let sortedA = a.sort(
@@ -32,22 +32,6 @@ function Inventory() {
     }
     getData();
   }, []);
-
-  // the expire item logic need some refactor.
-  function getExpiredArray(data) {
-    let result = [];
-    if (!data) return ["carrot"];
-    data = data.filter(
-      (a) =>
-        Helper.calTime(a.expiry_date) <= 2 &&
-        a.usage_tag === null &&
-        a.inventory_tag === "not expired"
-    ); // need to rerange the data standard
-    for (var i in data) {
-      result.push(data[i].inventory_item_name.replace(/ .*/, "").toLowerCase());
-    }
-    return result;
-  }
 
   // loop through the data and find the expiration item and put them into array and set the expiration item appwide
 
