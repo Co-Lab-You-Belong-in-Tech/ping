@@ -14,6 +14,7 @@ const RecipeNavBar = () => {
   function handleLogout() {
     setUser(null);
     localStorage.clear(); // set the localstorage null
+    history.push("/");
   }
 
   return (
