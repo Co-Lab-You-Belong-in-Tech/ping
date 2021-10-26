@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import receipeLogo from "../assets/Recipe_Logo.png";
 import axios from "axios";
 import "../recipe.css";
-import BottomNavBar from "../components/nav/BottomNavBar";
+//import BottomNavBar from "../components/nav/BottomNavBar";
+import RecipeNavBar from "../components/nav/RecipeNavBar";
 //import BottomNavBar from "../components/nav/BottomNavBar";
 
 const RecipeDetails = () => {
@@ -102,6 +103,7 @@ const RecipeDetails = () => {
           ))}
         </ul>
       </div>
+      <RecipeNavBar />
     </div>
   );
 };
