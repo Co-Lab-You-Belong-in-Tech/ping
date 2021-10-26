@@ -13,9 +13,10 @@ const List = () => {
   async function getData() {
     try {
       const data = await OwnAPI.getGroceries(user);
-      //console.log(data);
       const a = data.filter((a) => a.display_tag !== "deleted"); // filter the userdata to display no deleted one
-      setUserData(a);
+      //console.log(a);
+      let sortedA = a.sort((b, a) => a.grocery_item_id - b.grocery_item_id); // sort the data by the grocery_item_id
+      setUserData(sortedA);
     } catch (e) {
       console.error(e);
     }

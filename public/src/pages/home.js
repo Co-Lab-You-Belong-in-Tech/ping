@@ -7,9 +7,10 @@ import Logo from "../assets/Logo_2.png";
 import "../login.css";
 //import { store } from "react-notifications-component";
 //import LoginError from "../components/Notifications/loginError";
+import Helper from "../hooks/Helpers";
 
 function HomePage() {
-  const { user, setUser } = useContext(UserContext); // use useContext to grab user id
+  const { user, setUser, setExpiredItems } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
@@ -19,30 +20,21 @@ function HomePage() {
   async function login(loginEmail) {
     try {
       let { data } = await OwnAPI.isUser(loginEmail);
-      console.log(data);
+      //console.log(data);
       setUser(data[0].user_id);
       history.push("/list");
       // local storage to make user login
       localStorage.setItem("currentUser", data[0].user_id);
+      //get the expired Items
+      const b = await OwnAPI.getTheUserInventory(data[0].user_id);
+      const getNotUsedItems = b.filter((a) => a.usage_tag === null);
+      const c = Helper.getExpiredArray(getNotUsedItems);
+      setExpiredItems(c);
     } catch (errors) {
       console.error("log in failed");
       console.log(errors.Error);
 
       setEmailError("Email address does not exist.Please try again.");
-
-      /*store.addNotification({
-        content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
-        type: "success",
-        insert: "top",
-        container: "top-center",
-        // animationIn: ["animate__animated", "animate__fadeIn"],
-        //animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 2000,
-          onScreen: false,
-          showIcon: true,
-        },
-      });*/
 
       setUser("2");
     }

@@ -20,13 +20,13 @@ const RecipesPage = () => {
           params: { ingredients: expiredItem, number: "3" },
         }
       );
-      console.log(data);
+      console.log(expiredItem);
       setRecipeData(data);
     }
     getRecipe();
   }, [expiredItem]);
 
-  if (!recipeData || !expiredItem || recipeData.length === 0)
+  if (!recipeData || recipeData.length === 0)
     return (
       <div>
         <div className="header-box">

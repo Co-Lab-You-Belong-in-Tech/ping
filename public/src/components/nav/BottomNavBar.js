@@ -43,9 +43,6 @@ const BottomNavBar = (props) => {
       case "search":
         history.push("/search");
         break;
-      case "recipedetails":
-        history.push("/recipes/*");
-        break;
       default:
         history.push("/");
         break;
