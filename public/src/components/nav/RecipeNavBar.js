@@ -29,7 +29,7 @@ const RecipeNavBar = () => {
         </button>
       </div>
       <div className="nav-item">
-        <button onClick={() => history.push("/recipe")} className="nav-btn">
+        <button onClick={() => history.push("/recipes")} className="nav-btn">
           <RecipeUn />
         </button>
       </div>
