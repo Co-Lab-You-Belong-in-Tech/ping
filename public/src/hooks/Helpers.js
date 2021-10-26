@@ -17,7 +17,11 @@ class Helper {
         a.inventory_tag === "not expired"
     ); // need to rerange the data standard
     for (var i in data) {
-      result.push(data[i].inventory_item_name.replace(/ .*/, "").toLowerCase());
+      //result.push(data[i].inventory_item_name.replace(/ .*/, "").toLowerCase());
+      result = [
+        ...result,
+        data[i].inventory_item_name.replace(/ .*/, "").toLowerCase(),
+      ];
     }
     return result;
   }

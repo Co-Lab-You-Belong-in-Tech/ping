@@ -36,20 +36,6 @@ function HomePage() {
 
       setEmailError("Email address does not exist.Please try again.");
 
-      /*store.addNotification({
-        content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
-        type: "success",
-        insert: "top",
-        container: "top-center",
-        // animationIn: ["animate__animated", "animate__fadeIn"],
-        //animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 2000,
-          onScreen: false,
-          showIcon: true,
-        },
-      });*/
-
       setUser("2");
     }
   }

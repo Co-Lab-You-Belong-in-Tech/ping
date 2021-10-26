@@ -7,7 +7,7 @@ import BottomNavBar from "../components/nav/BottomNavBar";
 import Helper from "../hooks/Helpers";
 
 function Inventory() {
-  const { user, setExpiredItems, expiredItem } = useContext(UserContext);
+  const { user, setExpiredItems } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   useEffect(() => {
     async function getData() {
