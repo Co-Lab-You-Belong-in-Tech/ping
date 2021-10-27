@@ -122,12 +122,22 @@ function SearchPage() {
         </div>
       </div>
 
-      <div>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          right: "44.6px",
+          top: "122px",
+        }}
+      >
         {suggestions &&
           suggestions.map((suggestion) => (
             <div
               key={suggestion.id}
               onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
+              className="suggestion"
             >
               {suggestion.name}
             </div>
@@ -137,7 +147,7 @@ function SearchPage() {
         className="empty-container"
         style={{ position: "absolute", top: "50%" }}
       >
-        <h2 className="empty-title">Search for items to add</h2>
+        <h3 className="empty-title">Search for items to add</h3>
         <h5 className="empty-subtitle">
           Tap on the search bar to look for ingredients
         </h5>
