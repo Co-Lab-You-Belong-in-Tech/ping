@@ -23,7 +23,7 @@ const Signup = () => {
       history.push("/list");
     } catch (errors) {
       console.error("signup failed,temporay set user 2");
-      setEmailError("Email address does not exist.Please try again.");
+      setEmailError("Oops!Some unexpected error!Please try again.");
       /*store.addNotification({
         content: <LoginError message={`${errors}`} />, // content:MyNotify (custom notification), pass value and function into
         type: "success",

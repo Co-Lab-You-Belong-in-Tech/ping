@@ -1,0 +1,98 @@
+.search-container {
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+
+  background: #f5f5f5;
+  border-radius: 5px;
+  width: 263px;
+  height: 44px;
+  top: 78px;
+  left: 4%;
+  position: absolute;
+  z-index: 99;
+}
+
+.search-input {
+  width: 250px;
+  height: 44px;
+  border-radius: 5px;
+  background: #f5f5f5;
+  border: 0;
+  outline-width: 0;
+  left: 16px;
+}
+
+.btn-add {
+  background-color: #ffede9;
+  border: 1px solid #e76f51;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 71px;
+  height: 43px;
+}
+
+.btn-name {
+  color: #e76f51;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 18px;
+  /*display: flex;*/
+  align-items: center;
+  text-align: center;
+}
+
+div.empty-container {
+  width: 375px;
+  height: 53px;
+  /*background: #E5E5E5;*/
+  margin: 318px auto;
+  top: 50%;
+  position: fixed;
+}
+
+div.search-icon {
+  padding: 12px;
+}
+
+div.search-button {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+h3.empty-title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 38px;
+  align-items: center;
+  text-align: center;
+  color: #424b5a;
+  position: sticky;
+}
+
+h5.empty-subtitle {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  /*display: flex;*/
+  align-items: center;
+  text-align: center;
+  color: #c2d1d9;
+}
+
+.suggestion {
+  background: #f5f5f5;
+  border-top: 0.5px solid #c2d1d9;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  align-items: center;
+  color: #424b5a;
+  height: 40px;
+  width: 70%;
+}

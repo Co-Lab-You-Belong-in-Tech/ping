@@ -6,6 +6,7 @@ import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
 import AddItem from "../components/Notifications/addItem";
 import BottomNavBar from "../components/nav/BottomNavBar";
+import "../search.css";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -73,28 +74,83 @@ function SearchPage() {
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        onChange={(e) => onChangeHandler(e.target.value)}
-        value={text}
-      />
-      {text && veggieID && (
-        <button onClick={() => addGrocery(text, user, veggieID)}>Add</button>
-      )}
-      {suggestions &&
-        suggestions.map((suggestion) => (
-          <div
-            key={suggestion.id}
-            onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        position: "relative",
+      }}
+    >
+      <div className="search-container">
+        <div className="search-icon">
+          <svg
+            width="16"
+            height="17"
+            viewBox="0 0 16 17"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            {suggestion.name}
-          </div>
-        ))}
-      {text && veggieID && <SingleItem name={text} id={veggieID} />}
-      <div>
-        <h2>Search for items to add</h2>
-        <h5>Tap on the search bar to look for ingredients</h5>
+            <circle cx="7" cy="7" r="6" stroke="#A1AEB7" stroke-width="2" />
+            <line
+              x1="11.4142"
+              y1="12"
+              x2="15"
+              y2="15.5858"
+              stroke="#A1AEB7"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div className="search-bar">
+          <input
+            className="search-input"
+            type="text"
+            onChange={(e) => onChangeHandler(e.target.value)}
+            value={text}
+            placeholder="Search to Add Items"
+          />
+        </div>
+        <div className="search-button" style={{ paddingLeft: "16px" }}>
+          <button
+            className="btn-add"
+            onClick={() => addGrocery(text, user, veggieID)}
+          >
+            <p className="btn-name">Add</p>
+          </button>
+        </div>
+      </div>
+
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          right: "44.6px",
+          top: "122px",
+        }}
+      >
+        {suggestions &&
+          suggestions.map((suggestion) => (
+            <div
+              key={suggestion.id}
+              onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
+              className="suggestion"
+            >
+              {suggestion.name}
+            </div>
+          ))}
+      </div>
+      <div
+        className="empty-container"
+        style={{ position: "absolute", top: "50%" }}
+      >
+        <h3 className="empty-title">Search for items to add</h3>
+        <h5 className="empty-subtitle">
+          Tap on the search bar to look for ingredients
+        </h5>
       </div>
       <BottomNavBar name="search" />
     </div>
