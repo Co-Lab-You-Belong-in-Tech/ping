@@ -48,6 +48,8 @@ div.empty-container {
   height: 53px;
   /*background: #E5E5E5;*/
   margin: 318px auto;
+  top: 50%;
+  position: fixed;
 }
 
 div.search-icon {

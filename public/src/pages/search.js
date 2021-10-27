@@ -122,8 +122,8 @@ function SearchPage() {
         </div>
       </div>
 
-      <div style={{ alignItems: "center" }}>
-        {<div>suggestions</div> &&
+      <div>
+        {suggestions &&
           suggestions.map((suggestion) => (
             <div
               key={suggestion.id}
