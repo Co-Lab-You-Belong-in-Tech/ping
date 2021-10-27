@@ -6,6 +6,7 @@ import UserContext from "../UserContext";
 import { store } from "react-notifications-component";
 import AddItem from "../components/Notifications/addItem";
 import BottomNavBar from "../components/nav/BottomNavBar";
+import "../search.css";
 
 function SearchPage() {
   const [veggie, setVeggie] = useState([]);
@@ -74,27 +75,39 @@ function SearchPage() {
 
   return (
     <div>
+      <div className="search-container">
+      <div className="search-icon">
+      <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="7" cy="7" r="6" stroke="#A1AEB7" stroke-width="2"/>
+      <line x1="11.4142" y1="12" x2="15" y2="15.5858" stroke="#A1AEB7" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      </div>
+      <div className="search-bar">
       <input
+        className="search-input"
         type="text"
         onChange={(e) => onChangeHandler(e.target.value)}
         value={text}
       />
-      {text && veggieID && (
-        <button onClick={() => addGrocery(text, user, veggieID)}>Add</button>
-      )}
+      </div>
+      <div className="search-button">
+      {text && veggieID}
+      <button className="btn-add" onClick={() => addGrocery(text, user, veggieID)}><p className="btn-name">Add</p></button>
+      </div>
       {suggestions &&
         suggestions.map((suggestion) => (
-          <div
+          <div className="suggestion"
             key={suggestion.id}
             onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
           >
             {suggestion.name}
           </div>
         ))}
-      {text && veggieID && <SingleItem name={text} id={veggieID} />}
-      <div>
-        <h2>Search for items to add</h2>
-        <h5>Tap on the search bar to look for ingredients</h5>
+      {/*text && veggieID && <SingleItem name={text} id={veggieID} />*/}
+      </div>
+      <div className="empty-container">
+        <h2 className="empty-title">Search for items to add</h2>
+        <h5 className="empty-subtitle">Tap on the search bar to look for ingredients</h5>
       </div>
       <BottomNavBar name="search" />
     </div>
