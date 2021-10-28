@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import receipeLogo from "../assets/Recipe_Logo.png";
 import axios from "axios";
 import "../recipe.css";
-//import BottomNavBar from "../components/nav/BottomNavBar";
 import RecipeNavBar from "../components/nav/RecipeNavBar";
-//import BottomNavBar from "../components/nav/BottomNavBar";
+import Loading from "../components/Loading";
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -33,7 +32,7 @@ const RecipeDetails = () => {
     return array.map((a) => <li>{a}</li>);
   }
 
-  if (!theRecipe) return <div>Loading!</div>;
+  if (!theRecipe) return <Loading />;
   return (
     <div
       style={{
