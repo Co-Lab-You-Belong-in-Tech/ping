@@ -2,7 +2,7 @@ import React from "react";
 
 const RecipeItem = ({ id, image, title }) => {
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       <div className="recipe-container">
         <a className="details" href={`recipes/${id}`} rel="noopener noreferrer">
           <div className="recipe-image">
