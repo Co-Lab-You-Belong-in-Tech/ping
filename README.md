@@ -2,7 +2,6 @@
 
 ![frontend](./readme_img/Karrot.png)
 
-
 ## Summary
 
 A website that makes it easy for millennial home cooks to create a grocery list, keep track of their food inventory, remind them when food is about to go bad, and a fun way to learn more food and cooking tips.
@@ -49,41 +48,47 @@ All routes accessible via https://food-ping.herokuapp.com/.
 - `convertExpiry, addExpiry`: utility functions that receive the shelf life in seconds, converts the value to days and calculates the expiry date based on the input date
 
 ## FrontEnd Logic
+
 ![frontend](./readme_img/1.png)
+
 - Api.js : store all api related functions.
 - Naviagation: it includes bottom navigation and a navigation created for static recipe page.
 - EmptyHolder: It is a default holder when page data doesnt render.
 - Assets： all related photos and logo, icons.
-- Notification:  all customized small size and large size notifications.
-- Pages: list page is for grocery list page, and inventory is for fridge page, recipe is for recipe page. For each of the page it include a area holder, child component as singe item. 
+- Notification: all customized small size and large size notifications.
+- Pages: list page is for grocery list page, and inventory is for fridge page, recipe is for recipe page. For each of the page it include a area holder, child component as singe item.
 - useContext: it store user id, expired item and functions to set them.
 - login and signup: it use the reuseable form to capture the input and complete the loop.
 
 ## Features
+
 ![frontend](./readme_img/login.png)
+
 - Users can use their email to signup and login.
-If the email is incorrect, it will give the user the error message.
-My Grocery List
+  If the email is incorrect, it will give the user the error message.
+
+s
 ![frontend](./readme_img/grocery.png)
+
 - Users can search up and add multiple items to their grocery list by clicking on the “Add Item” button.
-When users check items on their list, they are automatically added to their Fridge.
-If they make a mistake, they can easily uncheck items.
-Users can easily remove all items from their List by clicking on the “Delete All” button.
+  When users check items on their list, they are automatically added to their Fridge.
+  If they make a mistake, they can easily uncheck items.
+  Users can easily remove all items from their List by clicking on the “Delete All” button.
 
 ![frontend](./readme_img/fridge.png)
+
 - Items added to the Fridge are listed by closest expiration date.
-Users can select multiple items at one time and select the “Mark as Used” or “Mark as Tossed” button.
-For both options “Mark as Used” and “Mark as Tossed”, a pop up will ask users to verify they want to mark as used or as tossed, or they can click on “Nevermind”.
+  Users can select multiple items at one time and select the “Mark as Used” or “Mark as Tossed” button.
+  For both options “Mark as Used” and “Mark as Tossed”, a pop up will ask users to verify they want to mark as used or as tossed, or they can click on “Nevermind”.
 
 ![frontend](./readme_img/2.png)
-- If there are items that are about to expire within two days, an orange dot will appear on the top right corner of the Fridge icon.
-When users click on the Fridge icon with a notification, a message pops up that tells the user which ingredients are about to expire. User has two options: click “Got It!” or “Show Recipes”.
 
+- If there are items that are about to expire within two days, an orange dot will appear on the top right corner of the Fridge icon.
+  When users click on the Fridge icon with a notification, a message pops up that tells the user which ingredients are about to expire. User has two options: click “Got It!” or “Show Recipes”.
 
 ![frontend](./readme_img/recipe.png)
+
 - Users will find three recipe suggestions based on the ingredients they have in their Fridge, and they can click on the recipe title to find more details.
-
-
 
 ## Issues
 
