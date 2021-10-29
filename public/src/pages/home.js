@@ -10,7 +10,7 @@ import "../login.css";
 import Helper from "../hooks/Helpers";
 
 function HomePage() {
-  const { user, setUser, setExpiredItems } = useContext(UserContext); // use useContext to grab user id
+  const { setUser, setExpiredItems } = useContext(UserContext); // use useContext to grab user id
   const initialState = { email: "" };
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
