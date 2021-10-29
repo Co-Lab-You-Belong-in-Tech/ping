@@ -489,3 +489,14 @@ a {
   font-size: 12px;
   line-height: 20px;
 }
+
+/**load more**/
+.load-more {
+  background: #eaf5f5;
+  border: 1px solid #2a9d8f;
+  box-sizing: border-box;
+  border-radius: 50%;
+  width: 27px;
+  height: 27px;
+  position: absolute;
+}
