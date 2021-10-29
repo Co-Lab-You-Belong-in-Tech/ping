@@ -67,7 +67,6 @@ All routes accessible via https://food-ping.herokuapp.com/.
 - Users can use their email to signup and login.
   If the email is incorrect, it will give the user the error message.
 
-s
 ![frontend](./readme_img/grocery.png)
 
 - Users can search up and add multiple items to their grocery list by clicking on the “Add Item” button.

@@ -1,7 +1,7 @@
 //import logo from "./logo.svg";
 import "./App.css";
 import React, { useState, useMemo, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+//import { BrowserRouter } from "react-router-dom";
 import UserContext from "./UserContext"; //"create UserContext to store userID throughout the app "
 import Routes from "./components/Routes";
 import ReactNotification from "react-notifications-component";
@@ -29,9 +29,8 @@ function App() {
     <div className="App">
       <UserContext.Provider value={value}>
         <ReactNotification />
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
+
+        <Routes />
       </UserContext.Provider>
     </div>
   );

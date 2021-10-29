@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const LargeExp = ({ expireItems }) => {
   return (
     <div className="largeNtf">
@@ -9,9 +11,9 @@ const LargeExp = ({ expireItems }) => {
       <div style={{ padding: "10px", display: "inline-block" }}>
         <button className="nty-btn">GOT IT!</button>
       </div>
-      <a href="/recipes">
+      <Link to="/recipes">
         <button className="nty-btn-danger">SHOW RECIPES</button>
-      </a>
+      </Link>
     </div>
   );
 };
