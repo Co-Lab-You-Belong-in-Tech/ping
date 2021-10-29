@@ -13,12 +13,13 @@ A website that makes it easy for millennial home cooks to create a grocery list,
 - Database: Postgresql
 - Hosting: Heroku and Netify
 
-## Installation Backend
+## Installation
 
 1. Clone the repository
-2. npm install at root level
-3. cd into /public folder and npm install
-4. Set .env file with DATABASE_URL from Heroku and API_KEY from Spoonacular (for local development)
+2. npm install at root level (backend)
+3. cd into /public folder and npm install (frontend)
+4. Set .env file with DATABASE_URL from Heroku, API_KEY, API_KEY_SPARE from Spoonacular (for local development)
+5. Run npm start in /public folder and node app.js at root level to run front and backend respectively
 
 ## API Routes
 
