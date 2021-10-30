@@ -81,7 +81,7 @@ const RecipesPage = () => {
         </div>
         <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
           <h1 style={{ padding: "5px" }}>My Recipes</h1>
-          <p className="p-font">Based on ingredients Left</p>
+          <p className="p-font">Based on leftovers in your fridge</p>
         </div>
       </div>
       <div
