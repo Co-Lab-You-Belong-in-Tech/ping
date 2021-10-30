@@ -75,13 +75,14 @@ function SearchPage() {
 
   return (
     <div
-      style={{
+      /*style={{
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         position: "relative",
-      }}
+      }}*/
     >
+      <div className="container">
       <div className="search-container">
         <div className="search-icon">
           <svg
@@ -112,7 +113,7 @@ function SearchPage() {
             placeholder="Search to Add Items"
           />
         </div>
-        <div className="search-button" style={{ paddingLeft: "16px" }}>
+        <div className="search-button">
           <button
             className="btn-add"
             onClick={() => addGrocery(text, user, veggieID)}
@@ -121,16 +122,17 @@ function SearchPage() {
           </button>
         </div>
       </div>
+      </div>
 
-      <div
-        style={{
+      <div className="suggestion-container"
+        /*style={{
           position: "relative",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           right: "44.6px",
           top: "122px",
-        }}
+        }}*/
       >
         {suggestions &&
           suggestions.map((suggestion) => (
@@ -139,13 +141,14 @@ function SearchPage() {
               onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}
               className="suggestion"
             >
-              {suggestion.name}
+              <p className="suggestion">{suggestion.name}</p>
             </div>
           ))}
       </div>
+      
       <div
         className="empty-container"
-        style={{ position: "absolute", top: "50%" }}
+        /*style={{ position: "absolute", top: "50%" }}*/
       >
         <h3 className="empty-title">Search for items to add</h3>
         <h5 className="empty-subtitle">
