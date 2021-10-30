@@ -11,7 +11,7 @@ const LIMIT = 5;
 function Inventory() {
   const { user, setExpiredItems } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
-  const [showMore, setShowMore] = useState(true);
+  const [showMore, setShowMore] = useState(false);
   const [list, setList] = useState(null);
   const [index, setIndex] = useState(LIMIT);
 
@@ -33,8 +33,8 @@ function Inventory() {
 
         setUserData(sortedA);
         setList(sortedA.slice(0, LIMIT));
-        if (sortedA.length <= LIMIT) {
-          setShowMore(false);
+        if (sortedA.length > LIMIT) {
+          setShowMore(true);
         }
       } catch (e) {
         console.error(e);

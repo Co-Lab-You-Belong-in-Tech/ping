@@ -12,7 +12,7 @@ const LIMIT = 5; // IT IS THE EVERY TIME LOAD 5 MORE
 const List = () => {
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
-  const [showMore, setShowMore] = useState(true);
+  const [showMore, setShowMore] = useState(false);
   const [list, setList] = useState(null);
   const [index, setIndex] = useState(LIMIT);
 
@@ -25,8 +25,8 @@ const List = () => {
       let sortedA = a.sort((b, a) => a.grocery_item_id - b.grocery_item_id); // sort the data by the grocery_item_id
       setUserData(sortedA);
       setList(sortedA.slice(0, LIMIT));
-      if (sortedA.length <= LIMIT) {
-        setShowMore(false);
+      if (sortedA.length > LIMIT) {
+        setShowMore(true);
       }
     } catch (e) {
       console.error(e);
