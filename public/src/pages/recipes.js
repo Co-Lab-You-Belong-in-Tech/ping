@@ -26,7 +26,7 @@ const RecipesPage = () => {
           params: { ingredients: expiredItem, number: LENGTH },
         }
       );
-      console.log(expiredItem);
+      //console.log(data);
       setRecipeData(data);
       setList(data.slice(0, LIMIT));
     }
