@@ -17,7 +17,7 @@ const RecipeDetails = () => {
       const { data } = await axios.get(
         `https://food-ping.herokuapp.com/getRecipeInfo?query_id=${id}`
       );
-      //console.log(data);
+      console.log(data);
       setTheRecipe(data);
     }
     getRecipe();
@@ -97,9 +97,11 @@ const RecipeDetails = () => {
       <div>
         <h3 className="recipe-subtitle">Instructions</h3>
         <ul className="recipe-in">
-          {theRecipe.analyzedInstructions[0].steps.map((a) => (
-            <li>{a.step}</li>
-          ))}
+          {theRecipe.analyzedInstructions[0]
+            ? theRecipe.analyzedInstructions[0].steps.map((a) => (
+                <li>{a.step}</li>
+              ))
+            : "sorry not available now"}
         </ul>
       </div>
       <RecipeNavBar />
