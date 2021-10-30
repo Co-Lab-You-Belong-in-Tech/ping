@@ -63,7 +63,7 @@ const RecipesPage = () => {
 
         <FridgeHolder
           img={EmptyRecipe}
-          title={"You dont have any receipes yet"}
+          title={"You don't have any receipes yet"}
           message={"Add item to your fridge to see recipe ideas"}
         />
         <BottomNavBar name="recipes" />
