@@ -80,7 +80,7 @@ const RecipeDetails = () => {
         </div>
         <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
           <h1 style={{ padding: "5px" }}>My Recipes</h1>
-          <p className="p-font">Based on ingredients Left</p>
+          <p className="p-font">Based on leftovers in your fridge</p>
         </div>
       </div>
 
@@ -90,13 +90,13 @@ const RecipeDetails = () => {
 
       <div>
         <h3 className="recipe-subtitle">Ingredients</h3>
-        <ul className="recipe-in">
+        <ul>
           <li>{getIngredients(theRecipe)}</li>
         </ul>
       </div>
       <div>
         <h3 className="recipe-subtitle">Instructions</h3>
-        <ul className="recipe-in">
+        <ul>
           {theRecipe.analyzedInstructions[0]
             ? theRecipe.analyzedInstructions[0].steps.map((a) => (
                 <li>{a.step}</li>

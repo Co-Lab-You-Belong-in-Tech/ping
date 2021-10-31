@@ -57,13 +57,13 @@ const RecipesPage = () => {
           </div>
           <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
             <h1 style={{ padding: "5px" }}>My Recipes</h1>
-            <p className="p-font">Based on ingredients Left</p>
+            <p className="p-font">Based on leftovers in your fridge</p>
           </div>
         </div>
 
         <FridgeHolder
           img={EmptyRecipe}
-          title={"You dont have any receipes yet"}
+          title={"You don't have any receipes yet"}
           message={"Add item to your fridge to see recipe ideas"}
         />
         <BottomNavBar name="recipes" />
@@ -81,7 +81,7 @@ const RecipesPage = () => {
         </div>
         <div style={{ flexDirection: "row", paddingLeft: "13%" }}>
           <h1 style={{ padding: "5px" }}>My Recipes</h1>
-          <p className="p-font">Based on ingredients Left</p>
+          <p className="p-font">Based on leftovers in your fridge</p>
         </div>
       </div>
       <div
